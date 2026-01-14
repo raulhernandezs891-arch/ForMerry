@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>continuar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: #fafafa;
+      color: #222;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .card {
+      max-width: 620px;
+      padding: 40px;
+      line-height: 1.7;
+    }
+    .options {
+      margin-top: 40px;
+      display: flex;
+      gap: 24px;
+      font-size: 0.95em;
+    }
+    .option {
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    .option:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="content">
+    <p>Si estás leyendo esto es porque te dio curiosidad.</p>
+
+    <p>
+      A mí me dan ganas de seguir conociéndote desde un lugar real:
+      lo que te importa, lo que cuidas, lo que te mueve.
+    </p>
+
+    <p>
+      No hago cosas memorables para que alguien me quiera.
+      Las hago para que sepa desde dónde estoy.
+    </p>
+
+    <p>
+      Y hoy, desde aquí, me dan ganas de seguir conociéndote con calma.
+    </p>
+
+    <div class="options">
+      <div class="option" onclick="continuar()">continuar</div>
+      <div class="option" onclick="terminar()">o no</div>
+    </div>
+  </div>
+
+  <script>
+    function continuar() {
+      document.getElementById("content").innerHTML = `
+        <p>
+          Entonces, cuando regreses,
+          planeamos algo tranquilo.
+        </p>
+        <p>
+          Sin prisa.<br>
+          Con ganas.
+        </p>
+      `;
+    }
+
+    function terminar() {
+      document.getElementById("content").innerHTML = `
+        <p>
+          Todo bien también.
+        </p>
+        <p>
+          Me gusta que las cosas se den
+          porque sí.
+        </p>
+      `;
+    }
+  </script>
+</body>
+</html>
