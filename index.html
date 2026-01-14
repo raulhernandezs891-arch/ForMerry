@@ -5,31 +5,31 @@
   <title>desde aquí</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
       min-height: 100vh;
-      background: radial-gradient(circle at top, #fdfdfd, #f3f3f3);
+      background: linear-gradient(180deg, #e6e3df, #d6d2cd);
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: 'Inter', sans-serif;
-      color: #222;
+      color: #3b2f2f; /* café oscuro */
     }
 
     .container {
-      max-width: 680px;
-      padding: 48px 32px;
+      max-width: 700px;
+      padding: 56px 36px;
       animation: fadeIn 1.4s ease forwards;
     }
 
     p {
       font-size: 1.05rem;
-      line-height: 1.8;
-      margin-bottom: 22px;
+      line-height: 1.9;
+      margin-bottom: 24px;
       opacity: 0;
       transform: translateY(10px);
       animation: textIn 0.8s ease forwards;
@@ -43,12 +43,13 @@
     .quote {
       font-family: 'Playfair Display', serif;
       font-style: italic;
+      color: #5a4634; /* café medio */
     }
 
     .options {
-      margin-top: 48px;
+      margin-top: 52px;
       display: flex;
-      gap: 32px;
+      gap: 36px;
       font-size: 0.9rem;
       opacity: 0;
       animation: textIn 0.8s ease forwards;
@@ -59,10 +60,18 @@
       cursor: pointer;
       opacity: 0.6;
       transition: opacity 0.25s ease;
+      color: #4a3a2a;
     }
 
     .option:hover {
       opacity: 1;
+    }
+
+    /* Goku easter egg */
+    .goku {
+      margin-top: 40px;
+      opacity: 0.5;
+      max-width: 90px;
     }
 
     @keyframes fadeIn {
@@ -101,6 +110,10 @@
       <div class="option" onclick="continuar()">continuar</div>
       <div class="option" onclick="terminar()">o no</div>
     </div>
+
+    <!-- Imagen de Goku (sutil, opcional) -->
+    <!-- Reemplaza src por una imagen tuya o una URL pública -->
+    <img class="goku" src="https://i.imgur.com/8QZ7ZQF.png" alt="Goku mirando al horizonte">
   </div>
 
   <script>
