@@ -3,19 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>para merry</title>
 
-<title>desde aquí</title>
-
-<!-- Tipografías -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg1:#f3efe9;
-  --bg2:#e6ded5;
+  --bg1:#f6f2ec;
+  --bg2:#e8dfd6;
   --text:#3b2f2b;
   --accent:#9c6b4f;
-  --soft:#7b6f69;
 }
 
 body{
@@ -27,40 +24,32 @@ body{
   overflow-x:hidden;
 }
 
-/* Secciones */
 .section{
   min-height:100vh;
   display:flex;
-  justify-content:center;
   align-items:center;
-  padding:40px 22px;
-  box-sizing:border-box;
+  justify-content:center;
+  padding:44px 22px;
   position:relative;
 }
 
-/* Marca de agua estilo Vegeta */
 .section::after{
-  content:"VEGETA";
+  content:attr(data-mark);
   position:absolute;
-  bottom:20px;
-  right:-10px;
-  font-size:4.5rem;
-  font-weight:500;
+  bottom:18px;
+  right:-14px;
+  font-size:4.2rem;
   letter-spacing:.35rem;
-  color:#000;
   opacity:0.035;
   transform:rotate(-90deg);
-  pointer-events:none;
+  pointer-events:auto;
 }
 
-/* Contenedor */
 .center{
   max-width:520px;
   width:100%;
-  z-index:1;
 }
 
-/* Textos */
 .intro{
   text-align:center;
   font-size:1.55rem;
@@ -70,10 +59,10 @@ body{
 .text{
   font-size:1.15rem;
   line-height:1.9;
-  margin-bottom:30px;
+  margin-bottom:32px;
   opacity:0;
-  transform:translateY(20px);
-  transition:all .8s ease;
+  transform:translateY(18px);
+  transition:.7s;
 }
 
 .text.show{
@@ -86,52 +75,42 @@ body{
   color:var(--accent);
 }
 
-/* Opciones */
 .options{
-  margin-top:50px;
+  margin-top:46px;
   display:flex;
   justify-content:space-between;
   font-family:'Inter',sans-serif;
-  font-size:.9rem;
 }
 
 .option{
+  padding:12px 8px;
   cursor:pointer;
-  opacity:.6;
-  transition:.3s;
-  padding:10px 6px;
+  opacity:.65;
 }
 
 .option:hover{opacity:1}
 
-/* Volver */
 .back{
-  margin-top:45px;
+  margin-top:44px;
   text-align:center;
   font-family:'Inter',sans-serif;
-  font-size:.75rem;
+  font-size:.8rem;
   opacity:.45;
   cursor:pointer;
 }
 
 .back:hover{opacity:.7}
-
-/* Desktop */
-@media (min-width:768px){
-  .center{max-width:700px}
-  .intro{font-size:1.7rem}
-  .text{font-size:1.2rem}
-}
 </style>
 </head>
 
 <body>
 
-<!-- SECCIÓN 1 -->
-<section class="section" id="s1">
+<!-- 1 -->
+<section class="section" id="s1" data-mark="KAKAROT">
   <div class="center">
     <div class="intro">
-      No somos cavernícolas.<br>
+      Merry,<br>
+      no somos cavernícolas.<br>
       También sabemos usar tecnología.
     </div>
 
@@ -142,18 +121,19 @@ body{
   </div>
 </section>
 
-<!-- SECCIÓN 2 -->
-<section class="section" id="s2" style="display:none">
+<!-- 2 -->
+<section class="section" id="s2" data-mark="PRIDE" style="display:none">
   <div class="center">
     <div class="text">
-      Esto no es una gran declaración,<br>
-      ni un intento de impresionar.
+      Esto no es una gran declaración,
+      ni una jugada para impresionar.
     </div>
 
     <div class="text">
-      Es solo una forma tranquila de decir
+      Es solo una forma honesta de decirte,
+      Merry,
       que me gusta lo que está pasando
-      y que me interesa seguir conociéndote.
+      y cómo se siente conocerte.
     </div>
 
     <div class="options">
@@ -163,17 +143,19 @@ body{
   </div>
 </section>
 
-<!-- SECCIÓN 3 -->
-<section class="section" id="s3" style="display:none">
+<!-- 3 -->
+<section class="section" id="s3" data-mark="STAY" style="display:none">
   <div class="center">
     <div class="text">
-      Cuando regreses, si te late,
-      planeamos algo con calma.
+      Cuando regreses,
+      si te nace,
+      planeamos algo sencillo.
     </div>
 
     <div class="text quote">
-      Sin prisa. Sin expectativas raras.<br>
-      Solo ver qué pasa.
+      Sin presión.<br>
+      Sin prisa.<br>
+      A nuestro ritmo.
     </div>
 
     <div class="options">
@@ -184,15 +166,15 @@ body{
 </section>
 
 <!-- FINAL -->
-<section class="section" id="end" style="display:none">
+<section class="section" id="end" data-mark="ZEN" style="display:none">
   <div class="center">
     <div class="text">
-      Gracias por llegar hasta aquí.
+      Gracias por leer hasta aquí, Merry.
     </div>
 
     <div class="text quote">
-      A veces lo simple<br>
-      también puede ser especial.
+      Lo simple también puede ser especial<br>
+      cuando se hace con intención.
     </div>
 
     <div class="back" onclick="goTo('s1')">
@@ -201,20 +183,53 @@ body{
   </div>
 </section>
 
+<!-- FINAL OCULTO -->
+<section class="section" id="secret" data-mark="ULTRA" style="display:none">
+  <div class="center">
+    <div class="text">
+      Ok… esto no era necesario.
+    </div>
+
+    <div class="text">
+      Pero si llegaste hasta aquí,
+      es porque te gusta explorar.
+    </div>
+
+    <div class="text quote">
+      Y eso,
+      Merry,
+      dice mucho de ti.
+    </div>
+
+    <div class="back" onclick="goTo('s1')">
+      volver discretamente
+    </div>
+  </div>
+</section>
+
 <script>
+let taps = 0;
+
+document.addEventListener('click', e=>{
+  if(e.target.closest('.section')){
+    taps++;
+    setTimeout(()=>taps=0,900);
+    if(taps===3){
+      goTo('secret');
+      taps=0;
+    }
+  }
+});
+
 function goTo(id){
-  document.querySelectorAll('.section').forEach(s=>{
-    s.style.display='none';
-  });
-
-  const target = document.getElementById(id);
-  target.style.display='flex';
-
+  document.querySelectorAll('.section').forEach(s=>s.style.display='none');
+  const t=document.getElementById(id);
+  t.style.display='flex';
   setTimeout(()=>{
-    target.querySelectorAll('.text').forEach((t,i)=>{
-      setTimeout(()=>t.classList.add('show'), i*250);
+    t.querySelectorAll('.text').forEach((el,i)=>{
+      setTimeout(()=>el.classList.add('show'),i*220);
     });
-  },100);
+  },80);
 }
 </script>
 
