@@ -1,62 +1,54 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>desde aquí</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
-
 <style>
 :root{
-  --bg:#d8d4cf;
-  --bg-dark:#c8c3bd;
-  --text:#3a2e2a;
-  --accent:#6b4f3f;
+  --bg1:#e7e2dc;
+  --bg2:#d4ccc3;
+  --text:#3a2c28;
+  --accent:#8b5e3c;
+  --soft:#6e625b;
 }
 
 body{
   margin:0;
-  background:linear-gradient(180deg,var(--bg),var(--bg-dark));
   min-height:100vh;
-  font-family:Inter,sans-serif;
+  background:linear-gradient(180deg,var(--bg1),var(--bg2));
+  font-family:'Cormorant Garamond', serif;
   color:var(--text);
-  overflow-x:hidden;
 }
 
+/* Base mobile-first */
 .section{
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:40px;
+  padding:36px 22px;
   box-sizing:border-box;
 }
 
 .center{
-  max-width:720px;
+  max-width:520px; /* clave para celular */
 }
 
 .intro{
   text-align:center;
-  font-family:'Playfair Display',serif;
   font-size:1.4rem;
   opacity:.9;
 }
 
 .hint{
-  margin-top:40px;
-  font-size:.85rem;
-  opacity:.5;
+  margin-top:36px;
+  font-size:.8rem;
+  font-family:Inter,sans-serif;
+  opacity:.45;
 }
 
 .text{
-  font-size:1.05rem;
-  line-height:1.9;
+  font-size:1.15rem;
+  line-height:1.85;
   margin-bottom:28px;
   opacity:0;
   transform:translateY(20px);
-  transition:all .8s ease;
+  transition:all .9s ease;
 }
 
 .text.show{
@@ -65,15 +57,15 @@ body{
 }
 
 .quote{
-  font-family:'Playfair Display',serif;
   font-style:italic;
   color:var(--accent);
 }
 
 .options{
-  margin-top:60px;
+  margin-top:48px;
   display:flex;
-  gap:40px;
+  gap:32px;
+  font-family:Inter,sans-serif;
   font-size:.9rem;
 }
 
@@ -81,101 +73,44 @@ body{
   cursor:pointer;
   opacity:.6;
   transition:.3s;
+  padding:6px 4px; /* zona cómoda para dedo */
 }
 
 .option:hover{opacity:1}
 
+.back{
+  margin-top:48px;
+  font-family:Inter,sans-serif;
+  font-size:.75rem;
+  opacity:.4;
+  cursor:pointer;
+}
+
+.back:hover{opacity:.7}
+
 .goku{
-  margin-top:60px;
-  max-width:110px;
+  margin-top:56px;
+  max-width:90px; /* más pequeño en móvil */
   opacity:.45;
+  display:block;
 }
 
+/* Tablets y desktop */
+@media (min-width:768px){
+  .center{
+    max-width:760px;
+  }
+
+  .intro{
+    font-size:1.6rem;
+  }
+
+  .text{
+    font-size:1.2rem;
+  }
+
+  .goku{
+    max-width:120px;
+  }
+}
 </style>
-</head>
-
-<body>
-
-<!-- SECTION 1 -->
-<section class="section">
-  <div class="center intro">
-    <div>No todo se dice de golpe.</div>
-    <div class="hint">↓</div>
-  </div>
-</section>
-
-<!-- SECTION 2 -->
-<section class="section">
-  <div class="center">
-    <p class="text">Si estás leyendo esto es porque te dio curiosidad.</p>
-
-    <p class="text">
-      A mí me dan ganas de seguir conociéndote desde un lugar real:
-      lo que te importa, lo que cuidas, lo que te mueve.
-    </p>
-
-    <p class="text quote">
-      No hago cosas memorables para que alguien me quiera.
-      Las hago para que sepa desde dónde estoy.
-    </p>
-
-    <p class="text">
-      Y hoy, desde aquí, me dan ganas de seguir conociéndote con calma.
-    </p>
-
-    <div class="options text">
-      <div class="option" onclick="continuar()">continuar</div>
-      <div class="option" onclick="terminar()">o no</div>
-    </div>
-
-    <img class="goku text" src="https://i.imgur.com/8QZ7ZQF.png" alt="Goku mirando al horizonte">
-  </div>
-</section>
-
-<script>
-const texts = document.querySelectorAll('.text');
-
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('show');
-    }
-  });
-},{threshold:0.2});
-
-texts.forEach(t=>observer.observe(t));
-
-function continuar(){
-  document.body.innerHTML = `
-  <section class="section">
-    <div class="center">
-      <p class="quote">
-        Entonces, cuando regreses,
-        planeamos algo tranquilo.
-      </p>
-      <p>
-        Sin prisa.<br>
-        Con ganas.
-      </p>
-    </div>
-  </section>`;
-}
-
-function terminar(){
-  document.body.innerHTML = `
-  <section class="section">
-    <div class="center">
-      <p>
-        Todo bien también.
-      </p>
-      <p>
-        Me gusta que las cosas se den
-        porque sí.
-      </p>
-    </div>
-  </section>`;
-}
-</script>
-
-</body>
-</html>
