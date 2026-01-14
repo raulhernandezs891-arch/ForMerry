@@ -2,63 +2,78 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>desde aquí</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Cormorant+Garamond:ital,wght@0,400;1,500&display=swap" rel="stylesheet">
+<title>desde aquí</title>
+
+<!-- Tipografías -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg1:#e7e2dc;
-  --bg2:#d4ccc3;
-  --text:#3a2c28;
-  --accent:#8b5e3c;
-  --soft:#6e625b;
+  --bg1:#f3efe9;
+  --bg2:#e6ded5;
+  --text:#3b2f2b;
+  --accent:#9c6b4f;
+  --soft:#7b6f69;
 }
 
 body{
   margin:0;
   min-height:100vh;
   background:linear-gradient(180deg,var(--bg1),var(--bg2));
-  font-family:'Cormorant Garamond', serif;
+  font-family:'Playfair Display', serif;
   color:var(--text);
+  overflow-x:hidden;
 }
 
-/* Base mobile-first */
+/* Secciones */
 .section{
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:36px 22px;
+  padding:40px 22px;
   box-sizing:border-box;
+  position:relative;
 }
 
+/* Marca de agua estilo Vegeta */
+.section::after{
+  content:"VEGETA";
+  position:absolute;
+  bottom:20px;
+  right:-10px;
+  font-size:4.5rem;
+  font-weight:500;
+  letter-spacing:.35rem;
+  color:#000;
+  opacity:0.035;
+  transform:rotate(-90deg);
+  pointer-events:none;
+}
+
+/* Contenedor */
 .center{
-  max-width:520px; /* clave para celular */
+  max-width:520px;
+  width:100%;
+  z-index:1;
 }
 
+/* Textos */
 .intro{
   text-align:center;
-  font-size:1.4rem;
-  opacity:.9;
-}
-
-.hint{
-  margin-top:36px;
-  font-size:.8rem;
-  font-family:Inter,sans-serif;
-  opacity:.45;
+  font-size:1.55rem;
+  line-height:1.5;
 }
 
 .text{
   font-size:1.15rem;
-  line-height:1.85;
-  margin-bottom:28px;
+  line-height:1.9;
+  margin-bottom:30px;
   opacity:0;
   transform:translateY(20px);
-  transition:all .9s ease;
+  transition:all .8s ease;
 }
 
 .text.show{
@@ -71,11 +86,12 @@ body{
   color:var(--accent);
 }
 
+/* Opciones */
 .options{
-  margin-top:48px;
+  margin-top:50px;
   display:flex;
-  gap:32px;
-  font-family:Inter,sans-serif;
+  justify-content:space-between;
+  font-family:'Inter',sans-serif;
   font-size:.9rem;
 }
 
@@ -83,150 +99,122 @@ body{
   cursor:pointer;
   opacity:.6;
   transition:.3s;
-  padding:6px 4px; /* zona cómoda para dedo */
+  padding:10px 6px;
 }
 
 .option:hover{opacity:1}
 
+/* Volver */
 .back{
-  margin-top:48px;
-  font-family:Inter,sans-serif;
+  margin-top:45px;
+  text-align:center;
+  font-family:'Inter',sans-serif;
   font-size:.75rem;
-  opacity:.4;
+  opacity:.45;
   cursor:pointer;
 }
 
 .back:hover{opacity:.7}
 
-.goku{
-  margin-top:56px;
-  max-width:90px; /* más pequeño en móvil */
-  opacity:.45;
-  display:block;
-}
-
-/* Tablets y desktop */
+/* Desktop */
 @media (min-width:768px){
-  .center{
-    max-width:760px;
-  }
-
-  .intro{
-    font-size:1.6rem;
-  }
-
-  .text{
-    font-size:1.2rem;
-  }
-
-  .goku{
-    max-width:120px;
-  }
+  .center{max-width:700px}
+  .intro{font-size:1.7rem}
+  .text{font-size:1.2rem}
 }
 </style>
 </head>
 
 <body>
 
-<!-- ESCENA 1 -->
-<section class="section">
-  <div class="center intro">
-    <div>No todo se dice de golpe.</div>
-    <div class="hint">desliza</div>
-  </div>
-</section>
-
-<!-- ESCENA 2 -->
-<section class="section" id="scene-main">
+<!-- SECCIÓN 1 -->
+<section class="section" id="s1">
   <div class="center">
-    <p class="text">Si estás leyendo esto es porque te dio curiosidad.</p>
-
-    <p class="text">
-      A mí me dan ganas de seguir conociéndote desde un lugar real:
-      lo que te importa, lo que cuidas, lo que te mueve.
-    </p>
-
-    <p class="text quote">
-      No hago cosas memorables para que alguien me quiera.
-      Las hago para que sepa desde dónde estoy.
-    </p>
-
-    <p class="text">
-      Y hoy, desde aquí, me dan ganas de seguir conociéndote con calma.
-    </p>
-
-    <div class="options text">
-      <div class="option" onclick="continuar()">continuar</div>
-      <div class="option" onclick="terminar()">o no</div>
+    <div class="intro">
+      No somos cavernícolas.<br>
+      También sabemos usar tecnología.
     </div>
 
-    <img class="goku text" src="https://i.imgur.com/8QZ7ZQF.png" alt="Goku mirando al horizonte">
+    <div class="options">
+      <div class="option" onclick="goTo('s2')">continuar</div>
+      <div class="option" onclick="goTo('end')">o no</div>
+    </div>
   </div>
 </section>
 
-<!-- ESCENA 3 -->
-<section class="section" id="scene-next" style="display:none;">
+<!-- SECCIÓN 2 -->
+<section class="section" id="s2" style="display:none">
   <div class="center">
-    <p class="quote">
-      Entonces, cuando regreses,<br>
-      planeamos algo tranquilo.
-    </p>
+    <div class="text">
+      Esto no es una gran declaración,<br>
+      ni un intento de impresionar.
+    </div>
 
-    <p>
-      Sin prisa.<br>
-      Con ganas.
-    </p>
+    <div class="text">
+      Es solo una forma tranquila de decir
+      que me gusta lo que está pasando
+      y que me interesa seguir conociéndote.
+    </div>
 
-    <div class="back" onclick="volver()">volver</div>
+    <div class="options">
+      <div class="option" onclick="goTo('s3')">seguir</div>
+      <div class="option" onclick="goTo('s1')">volver</div>
+    </div>
   </div>
 </section>
 
-<!-- ESCENA 4 -->
-<section class="section" id="scene-end" style="display:none;">
+<!-- SECCIÓN 3 -->
+<section class="section" id="s3" style="display:none">
   <div class="center">
-    <p>
-      Todo bien también.
-    </p>
+    <div class="text">
+      Cuando regreses, si te late,
+      planeamos algo con calma.
+    </div>
 
-    <p>
-      Me gusta que las cosas se den<br>
-      porque sí.
-    </p>
+    <div class="text quote">
+      Sin prisa. Sin expectativas raras.<br>
+      Solo ver qué pasa.
+    </div>
 
-    <div class="back" onclick="volver()">volver</div>
+    <div class="options">
+      <div class="option" onclick="goTo('end')">así está bien</div>
+      <div class="option" onclick="goTo('s2')">volver</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="section" id="end" style="display:none">
+  <div class="center">
+    <div class="text">
+      Gracias por llegar hasta aquí.
+    </div>
+
+    <div class="text quote">
+      A veces lo simple<br>
+      también puede ser especial.
+    </div>
+
+    <div class="back" onclick="goTo('s1')">
+      volver al inicio
+    </div>
   </div>
 </section>
 
 <script>
-const texts = document.querySelectorAll('.text');
-
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('show');
-    }
+function goTo(id){
+  document.querySelectorAll('.section').forEach(s=>{
+    s.style.display='none';
   });
-},{threshold:0.25});
 
-texts.forEach(t=>observer.observe(t));
+  const target = document.getElementById(id);
+  target.style.display='flex';
 
-function continuar(){
-  document.getElementById('scene-main').style.display='none';
-  document.getElementById('scene-next').style.display='flex';
-  window.scrollTo(0,0);
-}
-
-function terminar(){
-  document.getElementById('scene-main').style.display='none';
-  document.getElementById('scene-end').style.display='flex';
-  window.scrollTo(0,0);
-}
-
-function volver(){
-  document.getElementById('scene-next').style.display='none';
-  document.getElementById('scene-end').style.display='none';
-  document.getElementById('scene-main').style.display='flex';
-  window.scrollTo(0,document.getElementById('scene-main').offsetTop);
+  setTimeout(()=>{
+    target.querySelectorAll('.text').forEach((t,i)=>{
+      setTimeout(()=>t.classList.add('show'), i*250);
+    });
+  },100);
 }
 </script>
 
