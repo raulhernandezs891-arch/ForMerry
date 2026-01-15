@@ -10,12 +10,13 @@
 
 <style>
 :root{
-  --bg1:#f8efe7;
-  --bg2:#e7d6c9;
-  --card:#fffaf6;
-  --text:#3a2a24;
-  --accent:#b06a4f;
-  --accent2:#6f625c;
+  --bg1:#fff3ea;
+  --bg2:#f6d7c3;
+  --card:#fffdfb;
+  --text:#3b2620;
+  --accent:#e07a5f;
+  --accent2:#c8553d;
+  --soft:#b56576;
 }
 
 *{box-sizing:border-box}
@@ -42,9 +43,9 @@ body{
   width:100%;
   max-width:420px;
   background:var(--card);
-  border-radius:22px;
-  padding:32px 26px 28px;
-  box-shadow:0 20px 40px rgba(0,0,0,.08);
+  border-radius:24px;
+  padding:34px 26px 30px;
+  box-shadow:0 22px 45px rgba(0,0,0,.1);
   position:relative;
   animation:fadeUp .6s ease;
 }
@@ -55,24 +56,24 @@ body{
   position:absolute;
   bottom:14px;
   right:18px;
-  font-size:2.8rem;
-  letter-spacing:.3rem;
-  opacity:.04;
-  transform:rotate(-8deg);
+  font-size:2.6rem;
+  letter-spacing:.35rem;
+  opacity:.05;
+  transform:rotate(-6deg);
   pointer-events:none;
 }
 
 /* TEXTOS */
 .intro{
-  font-size:1.45rem;
+  font-size:1.5rem;
   line-height:1.5;
-  margin-bottom:26px;
+  margin-bottom:28px;
 }
 
 .text{
-  font-size:1.05rem;
-  line-height:1.85;
-  margin-bottom:22px;
+  font-size:1.08rem;
+  line-height:1.9;
+  margin-bottom:24px;
   opacity:0;
   transform:translateY(14px);
   transition:.6s;
@@ -85,33 +86,33 @@ body{
 
 .quote{
   font-style:italic;
-  color:var(--accent);
+  color:var(--accent2);
 }
 
-/* NAV */
+/* NAVEGACIÓN */
 .nav{
-  margin-top:28px;
+  margin-top:26px;
   display:flex;
   justify-content:space-between;
   font-family:'Inter',sans-serif;
-  font-size:.85rem;
+  font-size:.9rem;
 }
 
 .nav span{
-  padding:10px 6px;
+  padding:12px 8px;
   cursor:pointer;
-  color:var(--accent2);
-  opacity:.7;
+  color:var(--soft);
+  opacity:.75;
 }
 
 .nav span:hover{opacity:1}
 
-/* BACK */
+/* VOLVER (solo donde importa) */
 .back{
   margin-top:26px;
   text-align:center;
   font-family:'Inter',sans-serif;
-  font-size:.75rem;
+  font-size:.8rem;
   opacity:.45;
   cursor:pointer;
 }
@@ -127,8 +128,8 @@ body{
 /* DESKTOP */
 @media (min-width:768px){
   .card{max-width:560px}
-  .intro{font-size:1.6rem}
-  .text{font-size:1.1rem}
+  .intro{font-size:1.65rem}
+  .text{font-size:1.15rem}
 }
 </style>
 </head>
@@ -168,12 +169,11 @@ body{
 
     <div class="nav">
       <span onclick="goTo('s3')">seguir</span>
-      <span onclick="goTo('s1')">volver</span>
     </div>
   </div>
 </section>
 
-<!-- 3 -->
+<!-- 3 (INVITACIÓN – AQUÍ SÍ HAY VOLVER) -->
 <section class="section" id="s3" style="display:none">
   <div class="card" data-mark="STAY">
     <div class="text">
@@ -189,7 +189,7 @@ body{
     </div>
 
     <div class="nav">
-      <span onclick="goTo('end')">así está bien</span>
+      <span onclick="goTo('end')">me gusta la idea</span>
       <span onclick="goTo('s2')">volver</span>
     </div>
   </div>
@@ -204,11 +204,7 @@ body{
 
     <div class="text quote">
       A veces lo simple<br>
-      también puede ser especial.
-    </div>
-
-    <div class="back" onclick="goTo('s1')">
-      volver al inicio
+      también puede ser bonito.
     </div>
   </div>
 </section>
