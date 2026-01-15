@@ -168,7 +168,7 @@ button{
   </div>
 </section>
 
-<!-- 4 -->
+<!-- 4 RESPUESTA -->
 <section class="section" id="s4" style="display:none">
   <div class="card" id="finalCard">
     <div class="text show" id="responseText"></div>
@@ -179,8 +179,19 @@ button{
       Y eso… me gusta.
     </div>
 
-    <div class="restart" onclick="location.reload()">
-      volver al inicio
+    <div class="restart" onclick="goToEnd()">
+      volver
+    </div>
+  </div>
+</section>
+
+<!-- 5 EPÍLOGO -->
+<section class="section" id="s5" style="display:none">
+  <div class="card">
+    <div class="text show">
+      Eso es todo.<br><br>
+      Que tengas un lindo viaje,<br>
+      Merry.
     </div>
   </div>
 </section>
@@ -221,6 +232,11 @@ function answer(isYes){
   }
 
   s4.style.display = 'flex';
+}
+
+function goToEnd(){
+  document.getElementById('s4').style.display = 'none';
+  document.getElementById('s5').style.display = 'flex';
 }
 
 // secreto: long press
