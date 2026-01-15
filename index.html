@@ -3,19 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>para merry</title>
+<title>ForMerry</title>
 
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg1:#fff3ea;
-  --bg2:#f6d7c3;
+  --bg1:#fff1e6;
+  --bg2:#f2c9ac;
   --card:#fffdfb;
-  --text:#3b2620;
-  --accent:#e07a5f;
-  --soft:#b56576;
+  --text:#3a2420;
+  --accent:#e3645b;
+  --soft:#c97c5d;
 }
 
 *{box-sizing:border-box}
@@ -28,28 +27,25 @@ body{
   color:var(--text);
 }
 
-/* SECCIÓN */
 .section{
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:28px 18px;
+  padding:26px 18px;
 }
 
-/* TARJETA */
 .card{
   width:100%;
   max-width:420px;
   background:var(--card);
   border-radius:26px;
   padding:36px 26px 34px;
-  box-shadow:0 22px 45px rgba(0,0,0,.1);
+  box-shadow:0 24px 48px rgba(0,0,0,.12);
   position:relative;
   animation:fadeUp .6s ease;
 }
 
-/* WATERMARK */
 .card::after{
   content:attr(data-mark);
   position:absolute;
@@ -58,14 +54,13 @@ body{
   font-size:2.6rem;
   letter-spacing:.35rem;
   opacity:.05;
-  transform:rotate(-6deg);
+  transform:rotate(-8deg);
   pointer-events:none;
 }
 
-/* TEXTOS */
 .intro{
   font-size:1.55rem;
-  line-height:1.5;
+  line-height:1.55;
 }
 
 .text{
@@ -87,7 +82,32 @@ body{
   color:var(--accent);
 }
 
-/* BOTÓN FINAL */
+.buttons{
+  display:flex;
+  gap:14px;
+  margin-top:30px;
+}
+
+button{
+  flex:1;
+  border:none;
+  border-radius:16px;
+  padding:14px;
+  font-family:'Inter',sans-serif;
+  font-size:.95rem;
+  cursor:pointer;
+}
+
+.yes{
+  background:var(--accent);
+  color:#fff;
+}
+
+.no{
+  background:#eee;
+  color:#555;
+}
+
 .restart{
   margin-top:36px;
   text-align:center;
@@ -99,17 +119,9 @@ body{
 
 .restart:hover{opacity:.8}
 
-/* ANIM */
 @keyframes fadeUp{
   from{opacity:0; transform:translateY(20px)}
   to{opacity:1; transform:translateY(0)}
-}
-
-/* DESKTOP */
-@media (min-width:768px){
-  .card{max-width:560px}
-  .intro{font-size:1.7rem}
-  .text{font-size:1.15rem}
 }
 </style>
 </head>
@@ -118,7 +130,7 @@ body{
 
 <!-- 1 -->
 <section class="section" id="s1">
-  <div class="card" data-mark="KAKAROT">
+  <div class="card" data-mark="TECH">
     <div class="intro">
       Merry,<br>
       no somos cavernícolas.<br>
@@ -129,48 +141,44 @@ body{
 
 <!-- 2 -->
 <section class="section" id="s2" style="display:none">
-  <div class="card" data-mark="PRIDE">
+  <div class="card" data-mark="CALM">
     <div class="text">
-      Esto no es una gran declaración,
-      ni un intento de impresionar.
+      Esto no es para impresionar,
+      ni para forzar nada.
     </div>
 
     <div class="text">
-      Es solo una forma honesta de decirte
-      que me gusta lo que está pasando
-      y cómo se siente conocerte.
+      Es solo una forma honesta
+      de decir que me gusta
+      cómo se siente conocerte.
     </div>
   </div>
 </section>
 
-<!-- 3 -->
+<!-- 3 PREGUNTA -->
 <section class="section" id="s3" style="display:none">
-  <div class="card" data-mark="STAY">
-    <div class="text">
-      Cuando regreses,
-      si te nace,
-      planeamos algo sencillo.
-    </div>
-
-    <div class="text quote">
-      Sin prisa.<br>
-      Sin presión.<br>
-      A nuestro ritmo.
-    </div>
-  </div>
-</section>
-
-<!-- FINAL -->
-<section class="section" id="s4" style="display:none">
-  <div class="card" data-mark="ZEN">
+  <div class="card" data-mark="CHOICE">
     <div class="text show">
-      Ten un lindo viaje, Merry.
+      Cuando regreses,<br>
+      ¿salimos?
     </div>
 
     <div class="text quote show">
-      Aquí seguimos,<br>
-      cuando regreses.
+      Sin presión.<br>
+      A tu ritmo.
     </div>
+
+    <div class="buttons">
+      <button class="yes" onclick="answer(true)">sí</button>
+      <button class="no" onclick="answer(false)">no</button>
+    </div>
+  </div>
+</section>
+
+<!-- RESPUESTA -->
+<section class="section" id="s4" style="display:none">
+  <div class="card" data-mark="RESPECT">
+    <div class="text show" id="responseText"></div>
 
     <div class="restart" onclick="location.reload()">
       volver al inicio
@@ -182,7 +190,7 @@ body{
 let step = 1;
 
 document.body.addEventListener('click', () => {
-  if(step < 4){
+  if(step < 3){
     document.getElementById(`s${step}`).style.display = 'none';
     step++;
     const next = document.getElementById(`s${step}`);
@@ -192,6 +200,30 @@ document.body.addEventListener('click', () => {
     });
   }
 });
+
+function answer(isYes){
+  document.getElementById('s3').style.display = 'none';
+  const s4 = document.getElementById('s4');
+  const text = document.getElementById('responseText');
+
+  if(isYes){
+    text.innerHTML = `
+      Me va a encantar.<br><br>
+      Cuando regreses,
+      lo planeamos tranquilo.<br><br>
+      Ten un lindo viaje, Merry.
+    `;
+  }else{
+    text.innerHTML = `
+      Está bien.<br><br>
+      Gracias por la honestidad.<br>
+      Eso también se valora.<br><br>
+      Ten un lindo viaje, Merry.
+    `;
+  }
+
+  s4.style.display = 'flex';
+}
 </script>
 
 </body>
