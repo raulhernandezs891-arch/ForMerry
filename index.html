@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Mw erry 🍍</title>
+<title>Para 2 Merry 🍍</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
 
@@ -56,7 +56,7 @@ p{
 }
 
 /* BUTTONS */
-.question{margin-top:30px}
+.question{margin-top:30px; position:relative;}
 .btn{
   display:inline-block;
   margin:12px;
@@ -94,9 +94,9 @@ p{
   to{transform:translateY(-130vh)}
 }
 
-/* EXPLOSION SCREEN */
+/* EXPLOSION */
 #boom{
-  background:radial-gradient(circle at center,#9fdfff,#3fa9f5);
+  background:linear-gradient(#9fdfff,#e0f7ff); /* MISMO FONDO */
   z-index:3;
 }
 
@@ -104,21 +104,14 @@ p{
 .explode-bubble{
   position:fixed;
   border-radius:50%;
-  background:rgba(255,255,255,.85);
+  background:rgba(255,255,255,.9);
   pointer-events:none;
   animation:explode 6s ease-out forwards;
   z-index:4;
 }
-
 @keyframes explode{
-  from{
-    transform:translate(0,0) scale(.3);
-    opacity:1;
-  }
-  to{
-    transform:translate(var(--dx),var(--dy)) scale(1.5);
-    opacity:0;
-  }
+  from{transform:translate(0,0) scale(.3); opacity:1;}
+  to{transform:translate(var(--dx),var(--dy)) scale(1.5); opacity:0;}
 }
 
 /* COUNTDOWN */
@@ -126,19 +119,24 @@ p{
   font-family:'Patrick Hand',cursive;
   font-size:2.4rem;
 }
+
+/* PATRICIO */
+#patrick{
+  font-size:3rem;
+  margin-bottom:10px;
+}
 </style>
 </head>
 
 <body>
 
-<!-- SONIDO -->
 <audio id="boomSound" preload="auto">
   <source src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-bubble-pop-2895.mp3">
 </audio>
 
 <script>
 /* BURBUJAS DE FONDO */
-for(let i=0;i<24;i++){
+for(let i=0;i<28;i++){
   const b=document.createElement('div');
   b.className='bg-bubble';
   const s=Math.random()*45+20;
@@ -173,12 +171,13 @@ for(let i=0;i<24;i++){
   <div class="card">
     <p>No tengo prisa.<br>Ni intención de forzar nada.</p>
     <p>Solo curiosidad bonita.<br>Y ganas de seguir viendo<br>a dónde lleva esto.</p>
+
     <div class="question">
       <p style="font-family:'Patrick Hand';font-size:1.3rem;">
         Cuando regreses…<br>¿salimos?
       </p>
       <span class="btn" onclick="yes()">Sí 🙂</span>
-      <span class="btn no" onclick="startNo()">No 🫶</span>
+      <span class="btn no" id="runNo" onclick="startNo()">No 🫶</span>
     </div>
   </div>
 </section>
@@ -194,10 +193,10 @@ for(let i=0;i<24;i++){
 
 <section class="screen" id="no">
   <div class="card final">
-    <p>¿Sigues aquí? 😅</p>
-    <p>¿No te pasó nada por la explosión?</p>
-    <p>Entonces dime…</p>
-    <p style="font-size:1.3rem;">¿cambiaste de opinión?</p>
+    <div id="patrick">⭐🐙</div>
+    <p>Patricio dice:</p>
+    <p>“¿Sigues aquí?<br>No te pasó nada por la explosión, ¿verdad?”</p>
+    <p style="font-size:1.3rem;">Entonces dime…<br>¿cambiaste de opinión?</p>
     <span class="btn" onclick="yes()">Sí 🙂</span>
     <span class="btn no" onclick="restart()">No 🫶</span>
   </div>
@@ -228,6 +227,17 @@ function yes(){
 
 function restart(){location.reload();}
 
+/* BOTÓN QUE HUYE */
+const runNo=document.getElementById('runNo');
+runNo.addEventListener('mouseenter',moveBtn);
+runNo.addEventListener('touchstart',moveBtn);
+
+function moveBtn(){
+  const x=Math.random()*120-60;
+  const y=Math.random()*120-60;
+  runNo.style.transform=`translate(${x}px,${y}px)`;
+}
+
 function startNo(){
   hideAll();
   document.getElementById('count').classList.add('active');
@@ -248,12 +258,9 @@ function explode(){
   hideAll();
   document.getElementById('boom').classList.add('active');
 
-  // vibración
   if(navigator.vibrate){
     navigator.vibrate([300,100,300,100,500]);
   }
-
-  // sonido
   document.getElementById('boomSound').play();
 
   const w=window.innerWidth;
@@ -262,17 +269,13 @@ function explode(){
   for(let i=0;i<100;i++){
     const b=document.createElement('div');
     b.className='explode-bubble';
-
     const size=Math.random()*60+10;
     b.style.width=size+'px';
     b.style.height=size+'px';
-
     b.style.left=Math.random()*w+'px';
     b.style.top=Math.random()*h+'px';
-
     b.style.setProperty('--dx',(Math.random()-0.5)*1000+'px');
     b.style.setProperty('--dy',(Math.random()-0.5)*1000+'px');
-
     document.body.appendChild(b);
     setTimeout(()=>b.remove(),6000);
   }
