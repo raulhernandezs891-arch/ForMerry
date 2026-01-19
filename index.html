@@ -17,30 +17,23 @@ body {
   overflow-x: hidden;
 }
 
-/* pantallas */
 .screen {
   min-height: 100vh;
-  padding: 24px;
+  padding: 40px 24px;
   display: none;
   box-sizing: border-box;
-  justify-content: center;
-  align-items: center;
 }
 
 .screen.active {
-  display: flex;
+  display: block;
 }
 
-/* tarjeta */
 .card {
   background: #fff6cc;
   border-radius: 28px;
   padding: 26px;
   box-shadow: 0 15px 30px rgba(0,0,0,0.12);
   animation: float 4s ease-in-out infinite;
-  text-align: center;
-  max-width: 360px;
-  width: 100%;
 }
 
 @keyframes float {
@@ -58,7 +51,32 @@ p {
   line-height: 1.7;
 }
 
-/* burbujas */
+.question {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.btn {
+  display: inline-block;
+  margin: 12px;
+  padding: 12px 22px;
+  border-radius: 25px;
+  background: #ffcc4d;
+  font-weight: 600;
+  box-shadow: 0 6px 12px rgba(0,0,0,.15);
+}
+
+.btn.no {
+  background: #ffdede;
+}
+
+.final {
+  text-align: center;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.4rem;
+}
+
+/* burbujas explosión */
 .bubble {
   position: absolute;
   border-radius: 50%;
@@ -72,40 +90,11 @@ p {
   to { transform: translateY(-160vh); }
 }
 
-.question { margin-top: 26px; }
-
-.btn {
-  display: inline-block;
-  margin: 12px;
-  padding: 12px 22px;
-  border-radius: 25px;
-  background: #ffcc4d;
-  font-weight: 600;
-  box-shadow: 0 6px 12px rgba(0,0,0,.15);
-}
-
-.btn.no { background: #ffdede; }
-
-.final {
-  font-family: 'Patrick Hand', cursive;
-  font-size: 1.4rem;
-}
-
 /* explosión */
 .countdown {
   font-family: 'Patrick Hand', cursive;
-  font-size: 3.2rem;
-}
-
-.shake {
-  animation: shake .35s infinite;
-}
-
-@keyframes shake {
-  0%{transform:translate(0)}
-  25%{transform:translate(-5px,5px)}
-  50%{transform:translate(5px,-5px)}
-  75%{transform:translate(-5px,-5px)}
+  font-size: 3rem;
+  text-align: center;
 }
 </style>
 </head>
@@ -144,6 +133,10 @@ p {
       Lo genuino.<br>
       Las cosas que se dan solas.
     </p>
+    <p>
+      Y si esto existe,<br>
+      es solo para decirte eso.
+    </p>
     <p style="opacity:.7">Sigue tocando 🫧</p>
   </div>
 </section>
@@ -151,29 +144,38 @@ p {
 <!-- PANTALLA 3 -->
 <section class="screen" id="s3">
   <div class="card">
-    <p>No tengo prisa.<br>Ni intención de forzar nada.</p>
-    <p>Solo curiosidad bonita.</p>
+    <p>
+      No tengo prisa.<br>
+      Ni intención de forzar nada.
+    </p>
+    <p>
+      Solo curiosidad bonita.<br>
+      Y ganas de seguir viendo<br>
+      a dónde lleva esto.
+    </p>
 
     <div class="question">
       <p style="font-family:'Patrick Hand', cursive;font-size:1.3rem;">
-        Cuando regreses…<br>¿salimos?
+        Cuando regreses…<br>
+        ¿salimos?
       </p>
+
       <a class="btn" onclick="yes()">Sí 🙂</a>
-      <a class="btn no" onclick="startBoom()">No 🫶</a>
+      <a class="btn no" onclick="startExplosion()">No 🫶</a>
     </div>
   </div>
 </section>
 
-<!-- BOOM -->
+<!-- EXPLOSIÓN -->
 <section class="screen" id="boom">
-  <div class="card shake" id="boomCard">
-    <p id="boomText">Este mensaje se autodestruirá en…</p>
+  <div class="card">
+    <p>Este mensaje se autodestruirá en…</p>
     <div class="countdown" id="count">3</div>
   </div>
 </section>
 
-<!-- DESPUÉS -->
-<section class="screen" id="after">
+<!-- REINTENTO -->
+<section class="screen" id="retry">
   <div class="card final">
     <p>¿Sigues aquí?</p>
     <p>¿No te pasó nada con la explosión?</p>
@@ -187,8 +189,14 @@ p {
 <!-- SÍ -->
 <section class="screen" id="yes">
   <div class="card final">
-    <p>Entonces está bien.<br>Con calma.</p>
-    <p>Ya lo planeamos cuando regreses 🌊</p>
+    <p>
+      Entonces está bien.<br>
+      Con calma.<br>
+      A tu ritmo.
+    </p>
+    <p>
+      Ya lo planeamos cuando regreses 🌊
+    </p>
     <p style="font-size:1.8rem;">🍍⭐</p>
   </div>
 </section>
@@ -196,8 +204,13 @@ p {
 <!-- NO FINAL -->
 <section class="screen" id="noFinal">
   <div class="card final">
-    <p>Y también está bien.</p>
-    <p>Esto ya valió la pena.</p>
+    <p>
+      Y también está bien.<br>
+      Gracias por la honestidad.
+    </p>
+    <p>
+      Esto ya valió la pena.
+    </p>
     <p style="font-size:1.8rem;">🫧</p>
   </div>
 </section>
@@ -213,14 +226,12 @@ function yes(){
   document.getElementById('yes').classList.add('active');
 }
 
-function startBoom(){
+function startExplosion(){
   hideAll();
   document.getElementById('boom').classList.add('active');
 
   let c = 3;
   const count = document.getElementById('count');
-  const text = document.getElementById('boomText');
-  const card = document.getElementById('boomCard');
 
   const timer = setInterval(()=>{
     c--;
@@ -229,14 +240,13 @@ function startBoom(){
     if(c === 0){
       clearInterval(timer);
 
-      // ocultar tarjeta completa
-      card.style.display = 'none';
+      document.getElementById('boom').innerHTML = '';
 
-      // generar MUCHAS burbujas
+      // 75 burbujas
       for(let i=0;i<75;i++){
         const b = document.createElement('div');
         b.className = 'bubble';
-        const size = Math.random()*45+15;
+        const size = Math.random()*40+15;
         b.style.width = size+'px';
         b.style.height = size+'px';
         b.style.left = Math.random()*100+'%';
@@ -245,10 +255,9 @@ function startBoom(){
         setTimeout(()=>b.remove(),6000);
       }
 
-      // esperar 6 segundos
       setTimeout(()=>{
         hideAll();
-        document.getElementById('after').classList.add('active');
+        document.getElementById('retry').classList.add('active');
       },6000);
     }
   },1100);
