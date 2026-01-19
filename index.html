@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ForMerry 🍍</title>
+<title>ForMerry</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
 
@@ -12,9 +12,8 @@
   body {
     margin: 0;
     font-family: 'Baloo 2', cursive;
-    background: linear-gradient(#9fdfff, #e0f7ff);
+    background: linear-gradient(#a7ddff, #eaf7ff);
     color: #2c2c2c;
-    overflow-x: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +26,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
   }
 
   .screen {
@@ -43,22 +41,16 @@
   }
 
   .card {
-    background: #fff6cc;
-    border-radius: 18px 6px 18px 6px;
-    padding: 26px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
-    animation: float 4s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+    background: #fff8d9;
+    border-radius: 26px;
+    padding: 28px 24px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.12);
   }
 
   h1 {
     font-family: 'Patrick Hand', cursive;
     font-size: 1.9rem;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
   }
 
   p {
@@ -68,46 +60,34 @@
   }
 
   .hint {
-    opacity: .7;
     font-size: .9rem;
+    opacity: .7;
   }
 
   .quote {
     font-size: .95rem;
-    opacity: .7;
-    margin-top: -8px;
-  }
-
-  .bubble {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.35);
-    animation: bubble 9s infinite linear;
-  }
-
-  @keyframes bubble {
-    from { transform: translateY(0); }
-    to { transform: translateY(-130vh); }
+    opacity: .65;
+    margin-top: -6px;
   }
 
   .question {
-    margin-top: 26px;
+    margin-top: 28px;
   }
 
   .btn {
     display: inline-block;
     margin: 10px;
     padding: 12px 26px;
-    border-radius: 26px;
-    background: #ffcc4d;
+    border-radius: 24px;
+    background: #ffd35c;
     color: #2c2c2c;
     font-weight: 600;
     text-decoration: none;
-    box-shadow: 0 6px 12px rgba(0,0,0,.15);
+    box-shadow: 0 5px 10px rgba(0,0,0,.15);
   }
 
   .btn.no {
-    background: #ffdede;
+    background: #ffe1e1;
   }
 
   .final {
@@ -121,18 +101,13 @@
 
 <div class="container">
 
-  <!-- burbujas -->
-  <div class="bubble" style="width:40px;height:40px;left:15%;bottom:-60px;"></div>
-  <div class="bubble" style="width:25px;height:25px;left:70%;bottom:-80px;"></div>
-  <div class="bubble" style="width:55px;height:55px;left:45%;bottom:-100px;"></div>
-
-  <!-- pantalla 1 -->
+  <!-- PANTALLA 1 -->
   <section class="screen active" id="s1" onclick="next(1)">
     <div class="card">
-      <h1>Hola Merry 🍍</h1>
+      <h1>Hola Merry</h1>
       <p>
         Esto empieza como algo sencillo.<br>
-        Como las ideas pequeñas<br>
+        Como esas ideas pequeñas<br>
         que se sienten bien desde el inicio.
       </p>
       <p>
@@ -140,13 +115,13 @@
         Tenemos tecnología.
       </p>
       <p class="quote">
-        — Patricio Estrella, probablemente ⭐
+        — Patricio Estrella ⭐
       </p>
-      <p class="hint">Toca la pantalla ✨</p>
+      <p class="hint">Toca la pantalla</p>
     </div>
   </section>
 
-  <!-- pantalla 2 -->
+  <!-- PANTALLA 2 -->
   <section class="screen" id="s2" onclick="next(2)">
     <div class="card">
       <p>
@@ -157,18 +132,18 @@
       <p>
         Lo simple.<br>
         Lo genuino.<br>
-        Lo que se da solo.
+        Lo que se siente natural.
       </p>
       <p>
         A veces las mejores ideas<br>
-        nacen en lugares raros…<br>
-        como Fondo de Bikini 🧽
+        nacen en lugares inesperados.<br>
+        Como en Fondo de Bikini.
       </p>
-      <p class="hint">Sigue tocando 🫧</p>
+      <p class="hint">Sigue tocando</p>
     </div>
   </section>
 
-  <!-- pantalla 3 -->
+  <!-- PANTALLA 3 -->
   <section class="screen" id="s3">
     <div class="card">
       <p>
@@ -177,7 +152,7 @@
       </p>
       <p>
         Solo curiosidad bonita<br>
-        y ganas de seguir viendo<br>
+        y ganas reales de ver<br>
         a dónde lleva esto.
       </p>
 
@@ -187,28 +162,27 @@
           ¿salimos?
         </p>
 
-        <a class="btn" onclick="yes()">Sí 🙂</a>
-        <a class="btn no" onclick="no()">No 🫶</a>
+        <a class="btn" onclick="yes()">Sí</a>
+        <a class="btn no" onclick="no()">No</a>
       </div>
     </div>
   </section>
 
-  <!-- sí -->
+  <!-- SÍ -->
   <section class="screen" id="yes">
     <div class="card final">
       <p>
         Entonces está bien.<br>
         Con calma.<br>
-        Como los mejores días en Fondo de Bikini.
+        A tu ritmo.
       </p>
       <p>
-        Ya lo planeamos cuando regreses 🌊
+        Ya lo planeamos cuando regreses.
       </p>
-      <p>🧽⭐🍍</p>
     </div>
   </section>
 
-  <!-- no -->
+  <!-- NO -->
   <section class="screen" id="no">
     <div class="card final">
       <p>
@@ -218,7 +192,6 @@
       <p>
         Esto ya valió la pena.
       </p>
-      <p>🫧</p>
     </div>
   </section>
 
@@ -239,15 +212,6 @@ function no(){
   document.getElementById('s3').classList.remove('active');
   document.getElementById('no').classList.add('active');
 }
-
-/* Easter egg Patricio ⭐ */
-let taps = 0;
-document.body.addEventListener('click', () => {
-  taps++;
-  if (taps === 10) {
-    alert("A veces no hay que pensar demasiado.\n— Patricio ⭐");
-  }
-});
 </script>
 
 </body>
