@@ -44,7 +44,7 @@
 
   .card {
     background: #fff6cc;
-    border-radius: 28px;
+    border-radius: 18px 6px 18px 6px;
     padding: 26px;
     box-shadow: 0 15px 30px rgba(0,0,0,0.12);
     animation: float 4s ease-in-out infinite;
@@ -70,6 +70,12 @@
   .hint {
     opacity: .7;
     font-size: .9rem;
+  }
+
+  .quote {
+    font-size: .95rem;
+    opacity: .7;
+    margin-top: -8px;
   }
 
   .bubble {
@@ -131,8 +137,10 @@
       </p>
       <p>
         No somos cavernícolas.<br>
-        Tenemos tecnología.<br>
-        Y a veces ganas de usarla bonito.
+        Tenemos tecnología.
+      </p>
+      <p class="quote">
+        — Patricio Estrella, probablemente ⭐
       </p>
       <p class="hint">Toca la pantalla ✨</p>
     </div>
@@ -152,8 +160,9 @@
         Lo que se da solo.
       </p>
       <p>
-        Y esto existe<br>
-        solo para decirte eso.
+        A veces las mejores ideas<br>
+        nacen en lugares raros…<br>
+        como Fondo de Bikini 🧽
       </p>
       <p class="hint">Sigue tocando 🫧</p>
     </div>
@@ -190,12 +199,12 @@
       <p>
         Entonces está bien.<br>
         Con calma.<br>
-        A tu ritmo.
+        Como los mejores días en Fondo de Bikini.
       </p>
       <p>
         Ya lo planeamos cuando regreses 🌊
       </p>
-      <p>🍍⭐</p>
+      <p>🧽⭐🍍</p>
     </div>
   </section>
 
@@ -230,6 +239,15 @@ function no(){
   document.getElementById('s3').classList.remove('active');
   document.getElementById('no').classList.add('active');
 }
+
+/* Easter egg Patricio ⭐ */
+let taps = 0;
+document.body.addEventListener('click', () => {
+  taps++;
+  if (taps === 10) {
+    alert("A veces no hay que pensar demasiado.\n— Patricio ⭐");
+  }
+});
 </script>
 
 </body>
