@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para 2 Merry 🍍</title>
+<title>Para Merry 🍍</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
 
@@ -96,7 +96,7 @@ p{
 
 /* EXPLOSION */
 #boom{
-  background:linear-gradient(#9fdfff,#e0f7ff); /* MISMO FONDO */
+  background:linear-gradient(#9fdfff,#e0f7ff);
   z-index:3;
 }
 
@@ -110,20 +110,20 @@ p{
   z-index:4;
 }
 @keyframes explode{
-  from{transform:translate(0,0) scale(.3); opacity:1;}
-  to{transform:translate(var(--dx),var(--dy)) scale(1.5); opacity:0;}
+  from{
+    transform:translate(-50%,-50%) scale(.3);
+    opacity:1;
+  }
+  to{
+    transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.5);
+    opacity:0;
+  }
 }
 
 /* COUNTDOWN */
 #countdown{
   font-family:'Patrick Hand',cursive;
   font-size:2.4rem;
-}
-
-/* PATRICIO */
-#patrick{
-  font-size:3rem;
-  margin-bottom:10px;
 }
 </style>
 </head>
@@ -177,7 +177,7 @@ for(let i=0;i<28;i++){
         Cuando regreses…<br>¿salimos?
       </p>
       <span class="btn" onclick="yes()">Sí 🙂</span>
-      <span class="btn no" id="runNo" onclick="startNo()">No 🫶</span>
+      <span class="btn no" onclick="startNo()">No 🫶</span>
     </div>
   </div>
 </section>
@@ -193,9 +193,8 @@ for(let i=0;i<28;i++){
 
 <section class="screen" id="no">
   <div class="card final">
-    <div id="patrick">⭐🐙</div>
-    <p>Patricio dice:</p>
-    <p>“¿Sigues aquí?<br>No te pasó nada por la explosión, ¿verdad?”</p>
+    <p>¿Sigues aquí?</p>
+    <p>No te pasó nada por la explosión, ¿verdad?</p>
     <p style="font-size:1.3rem;">Entonces dime…<br>¿cambiaste de opinión?</p>
     <span class="btn" onclick="yes()">Sí 🙂</span>
     <span class="btn no" onclick="restart()">No 🫶</span>
@@ -227,17 +226,6 @@ function yes(){
 
 function restart(){location.reload();}
 
-/* BOTÓN QUE HUYE */
-const runNo=document.getElementById('runNo');
-runNo.addEventListener('mouseenter',moveBtn);
-runNo.addEventListener('touchstart',moveBtn);
-
-function moveBtn(){
-  const x=Math.random()*120-60;
-  const y=Math.random()*120-60;
-  runNo.style.transform=`translate(${x}px,${y}px)`;
-}
-
 function startNo(){
   hideAll();
   document.getElementById('count').classList.add('active');
@@ -263,8 +251,8 @@ function explode(){
   }
   document.getElementById('boomSound').play();
 
-  const w=window.innerWidth;
-  const h=window.innerHeight;
+  const cx=window.innerWidth/2;
+  const cy=window.innerHeight/2;
 
   for(let i=0;i<100;i++){
     const b=document.createElement('div');
@@ -272,10 +260,10 @@ function explode(){
     const size=Math.random()*60+10;
     b.style.width=size+'px';
     b.style.height=size+'px';
-    b.style.left=Math.random()*w+'px';
-    b.style.top=Math.random()*h+'px';
-    b.style.setProperty('--dx',(Math.random()-0.5)*1000+'px');
-    b.style.setProperty('--dy',(Math.random()-0.5)*1000+'px');
+    b.style.left=cx+'px';
+    b.style.top=cy+'px';
+    b.style.setProperty('--dx',(Math.random()-0.5)*1200+'px');
+    b.style.setProperty('--dy',(Math.random()-0.5)*1200+'px');
     document.body.appendChild(b);
     setTimeout(()=>b.remove(),6000);
   }
