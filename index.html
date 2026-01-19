@@ -17,22 +17,28 @@ body {
   overflow-x: hidden;
 }
 
+/* ---------- SCREENS ---------- */
 .screen {
   min-height: 100vh;
   padding: 40px 24px;
   display: none;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .screen.active {
-  display: block;
+  display: flex;
 }
 
+/* ---------- CARD ---------- */
 .card {
   background: #fff6cc;
   border-radius: 28px;
   padding: 26px;
   box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+  text-align: center;
   animation: float 4s ease-in-out infinite;
 }
 
@@ -44,17 +50,17 @@ body {
 h1 {
   font-family: 'Patrick Hand', cursive;
   font-size: 1.8rem;
+  margin-bottom: 14px;
 }
 
 p {
   font-size: 1.05rem;
   line-height: 1.7;
+  margin-bottom: 16px;
 }
 
-.question {
-  margin-top: 30px;
-  text-align: center;
-}
+/* ---------- BUTTONS ---------- */
+.question { margin-top: 30px; }
 
 .btn {
   display: inline-block;
@@ -62,44 +68,86 @@ p {
   padding: 12px 22px;
   border-radius: 25px;
   background: #ffcc4d;
+  color: #2c2c2c;
   font-weight: 600;
+  text-decoration: none;
   box-shadow: 0 6px 12px rgba(0,0,0,.15);
 }
 
-.btn.no {
-  background: #ffdede;
-}
+.btn.no { background: #ffdede; }
 
+/* ---------- FINAL ---------- */
 .final {
-  text-align: center;
   font-family: 'Patrick Hand', cursive;
   font-size: 1.4rem;
 }
 
-/* burbujas explosión */
-.bubble {
-  position: absolute;
+/* ---------- BACKGROUND BUBBLES ---------- */
+.bg-bubble {
+  position: fixed;
+  bottom: -80px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.45);
-  animation: bubble 7s linear infinite;
+  background: rgba(255,255,255,0.35);
+  animation: rise linear infinite;
   pointer-events: none;
+  z-index: 0;
 }
 
-@keyframes bubble {
+@keyframes rise {
   from { transform: translateY(0); }
-  to { transform: translateY(-160vh); }
+  to { transform: translateY(-130vh); }
 }
 
-/* explosión */
-.countdown {
-  font-family: 'Patrick Hand', cursive;
-  font-size: 3rem;
-  text-align: center;
+/* ---------- EXPLOSION BUBBLES ---------- */
+.bubble {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  pointer-events: none;
+  animation: explode 6s ease-out forwards;
+  z-index: 9999;
+}
+
+@keyframes explode {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 1;
+  }
+  100% {
+    transform:
+      translate(
+        calc(-50% + var(--x)),
+        calc(-50% + var(--y))
+      )
+      scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* ---------- HIDE EVERYTHING DURING EXPLOSION ---------- */
+.hidden {
+  visibility: hidden;
 }
 </style>
 </head>
 
 <body>
+
+<!-- BURBUJAS DE FONDO -->
+<script>
+for(let i=0;i<18;i++){
+  const b=document.createElement('div');
+  b.className='bg-bubble';
+  const size=Math.random()*40+20;
+  b.style.width=size+'px';
+  b.style.height=size+'px';
+  b.style.left=Math.random()*100+'%';
+  b.style.animationDuration=(Math.random()*10+12)+'s';
+  document.body.appendChild(b);
+}
+</script>
 
 <!-- PANTALLA 1 -->
 <section class="screen active" id="s1" onclick="next(1)">
@@ -161,57 +209,34 @@ p {
       </p>
 
       <a class="btn" onclick="yes()">Sí 🙂</a>
-      <a class="btn no" onclick="startExplosion()">No 🫶</a>
+      <a class="btn no" onclick="noExplosion()">No 🫶</a>
     </div>
-  </div>
-</section>
-
-<!-- EXPLOSIÓN -->
-<section class="screen" id="boom">
-  <div class="card">
-    <p>Este mensaje se autodestruirá en…</p>
-    <div class="countdown" id="count">3</div>
-  </div>
-</section>
-
-<!-- REINTENTO -->
-<section class="screen" id="retry">
-  <div class="card final">
-    <p>¿Sigues aquí?</p>
-    <p>¿No te pasó nada con la explosión?</p>
-    <p>Entonces dime…</p>
-    <p style="font-size:1.3rem;">¿salimos cuando regreses?</p>
-    <a class="btn" onclick="yes()">Sí 🙂</a>
-    <a class="btn no" onclick="finalNo()">No 🫶</a>
   </div>
 </section>
 
 <!-- SÍ -->
 <section class="screen" id="yes">
   <div class="card final">
-    <p>
-      Entonces está bien.<br>
-      Con calma.<br>
-      A tu ritmo.
-    </p>
-    <p>
-      Ya lo planeamos cuando regreses 🌊
-    </p>
+    <p>Entonces está bien.<br>Con calma.<br>A tu ritmo.</p>
+    <p>Ya lo planeamos cuando regreses 🌊</p>
     <p style="font-size:1.8rem;">🍍⭐</p>
   </div>
 </section>
 
-<!-- NO FINAL -->
-<section class="screen" id="noFinal">
+<!-- NO -->
+<section class="screen" id="no">
   <div class="card final">
+    <p>¿Sigues aquí? 😅</p>
     <p>
-      Y también está bien.<br>
-      Gracias por la honestidad.
+      Parece que sobreviviste a la explosión.<br>
+      Entonces dime…
     </p>
-    <p>
-      Esto ya valió la pena.
+    <p style="font-size:1.3rem;">
+      ¿cambiaste de opinión?
     </p>
-    <p style="font-size:1.8rem;">🫧</p>
+
+    <a class="btn" onclick="yes()">Sí 🙂</a>
+    <a class="btn no" onclick="restart()">No 🫶</a>
   </div>
 </section>
 
@@ -222,54 +247,36 @@ function next(n){
 }
 
 function yes(){
-  hideAll();
+  document.getElementById('s3').classList.remove('active');
   document.getElementById('yes').classList.add('active');
 }
 
-function startExplosion(){
-  hideAll();
-  document.getElementById('boom').classList.add('active');
-
-  let c = 3;
-  const count = document.getElementById('count');
-
-  const timer = setInterval(()=>{
-    c--;
-    count.textContent = c;
-
-    if(c === 0){
-      clearInterval(timer);
-
-      document.getElementById('boom').innerHTML = '';
-
-      // 75 burbujas
-      for(let i=0;i<75;i++){
-        const b = document.createElement('div');
-        b.className = 'bubble';
-        const size = Math.random()*40+15;
-        b.style.width = size+'px';
-        b.style.height = size+'px';
-        b.style.left = Math.random()*100+'%';
-        b.style.bottom = '-80px';
-        document.body.appendChild(b);
-        setTimeout(()=>b.remove(),6000);
-      }
-
-      setTimeout(()=>{
-        hideAll();
-        document.getElementById('retry').classList.add('active');
-      },6000);
-    }
-  },1100);
+function restart(){
+  location.reload();
 }
 
-function finalNo(){
-  hideAll();
-  document.getElementById('noFinal').classList.add('active');
-}
+/* ---------- EXPLOSION ---------- */
+function noExplosion(){
+  document.getElementById('s3').classList.add('hidden');
 
-function hideAll(){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  // EXPLOSION
+  for(let i=0;i<90;i++){
+    const b=document.createElement('div');
+    b.className='bubble';
+    const size=Math.random()*40+12;
+    b.style.width=size+'px';
+    b.style.height=size+'px';
+    b.style.setProperty('--x',(Math.random()-0.5)*900+'px');
+    b.style.setProperty('--y',(Math.random()-0.5)*900+'px');
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),6000);
+  }
+
+  setTimeout(()=>{
+    document.getElementById('s3').classList.remove('hidden');
+    document.getElementById('s3').classList.remove('active');
+    document.getElementById('no').classList.add('active');
+  },6000);
 }
 </script>
 
