@@ -3,70 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ForMerry</title>
+
+<title>ForMerry 🍍</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
 
 <style>
 body {
-  margin:0;
-  font-family:'Baloo 2', cursive;
-  background:linear-gradient(#a7ddff,#eaf7ff);
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  margin: 0;
+  font-family: 'Baloo 2', cursive;
+  background: linear-gradient(#9fdfff, #e0f7ff);
+  color: #2c2c2c;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
-  width:100%;
-  max-width:420px;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  width: 100%;
+  max-width: 420px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .screen {
-  display:none;
-  width:100%;
-  padding:24px;
-  text-align:center;
+  width: 100%;
+  padding: 24px;
+  display: none;
+  box-sizing: border-box;
+  text-align: center;
 }
 
-.screen.active { display:block; }
+.screen.active { display: block; }
 
 .card {
-  background:#fff8d9;
-  border-radius:26px;
-  padding:26px;
-  box-shadow:0 14px 28px rgba(0,0,0,.12);
+  background: #fff6cc;
+  border-radius: 28px;
+  padding: 26px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 h1 {
-  font-family:'Patrick Hand', cursive;
-  font-size:1.9rem;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.9rem;
 }
 
 p {
-  font-size:1.05rem;
-  line-height:1.7;
+  font-size: 1.05rem;
+  line-height: 1.7;
 }
+
+.hint {
+  opacity: .7;
+  font-size: .9rem;
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  animation: bubble 9s infinite linear;
+}
+
+@keyframes bubble {
+  from { transform: translateY(0); }
+  to { transform: translateY(-130vh); }
+}
+
+.question { margin-top: 26px; }
 
 .btn {
-  display:inline-block;
-  margin:10px;
-  padding:12px 26px;
-  border-radius:24px;
-  background:#ffd35c;
-  font-weight:600;
+  display: inline-block;
+  margin: 10px;
+  padding: 12px 26px;
+  border-radius: 26px;
+  background: #ffcc4d;
+  font-weight: 600;
+  box-shadow: 0 6px 12px rgba(0,0,0,.15);
 }
 
-.btn.no { background:#ffe1e1; }
+.btn.no { background: #ffdede; }
+
+.final {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.35rem;
+}
 
 .countdown {
-  font-size:3rem;
-  font-family:'Patrick Hand', cursive;
-  margin:20px 0;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 3rem;
+  margin-top: 16px;
 }
 
 .explode {
@@ -81,49 +117,58 @@ p {
 }
 
 .flash {
-  animation: flash .4s;
+  animation: flash .5s;
 }
 
 @keyframes flash {
   from {background:white;}
-  to {background:linear-gradient(#a7ddff,#eaf7ff);}
+  to {background: linear-gradient(#9fdfff, #e0f7ff);}
 }
 </style>
 </head>
 
 <body>
+
 <div class="container">
 
-<!-- PANTALLA 1 -->
+<!-- burbujas -->
+<div class="bubble" style="width:40px;height:40px;left:15%;bottom:-60px;"></div>
+<div class="bubble" style="width:25px;height:25px;left:70%;bottom:-80px;"></div>
+<div class="bubble" style="width:55px;height:55px;left:45%;bottom:-100px;"></div>
+
+<!-- pantalla 1 -->
 <section class="screen active" id="s1" onclick="next(1)">
   <div class="card">
-    <h1>Hola Merry</h1>
+    <h1>Hola Merry 🍍</h1>
     <p>Esto empieza como algo sencillo.<br>Ideas pequeñas que se sienten bien.</p>
     <p>No somos cavernícolas.<br>Tenemos tecnología.</p>
-    <p style="opacity:.6">— Patricio ⭐</p>
-    <p style="opacity:.6">Toca la pantalla</p>
+    <p class="hint">Toca la pantalla ✨</p>
   </div>
 </section>
 
-<!-- PANTALLA 2 -->
+<!-- pantalla 2 -->
 <section class="screen" id="s2" onclick="next(2)">
   <div class="card">
-    <p>Me gusta conocerte sin prisa.<br>Lo simple. Lo genuino.</p>
-    <p>A veces las mejores ideas nacen<br>en lugares inesperados.<br>Como Fondo de Bikini.</p>
+    <p>Me gusta conocerte<br>sin prisa.</p>
+    <p>Lo simple.<br>Lo genuino.</p>
+    <p class="hint">Sigue tocando 🫧</p>
   </div>
 </section>
 
-<!-- PANTALLA 3 -->
+<!-- pantalla 3 -->
 <section class="screen" id="s3">
   <div class="card">
     <p>No tengo prisa.<br>Ni intención de forzar nada.</p>
-    <p>Cuando regreses…<br><strong>¿salimos?</strong></p>
-    <a class="btn" onclick="yes()">Sí</a>
-    <a class="btn no" onclick="startDestruct()">No</a>
+    <p>Solo curiosidad bonita.</p>
+    <div class="question">
+      <p style="font-size:1.3rem;">Cuando regreses…<br>¿salimos?</p>
+      <a class="btn" onclick="yes()">Sí 🙂</a>
+      <a class="btn no" onclick="startDestruct()">No 🫶</a>
+    </div>
   </div>
 </section>
 
-<!-- AUTODESTRUCCIÓN -->
+<!-- autodestrucción -->
 <section class="screen" id="boom">
   <div class="card explode">
     <p>Este mensaje se autodestruirá en…</p>
@@ -131,29 +176,33 @@ p {
   </div>
 </section>
 
-<!-- POST EXPLOSIÓN -->
+<!-- sigues aquí -->
 <section class="screen" id="after">
-  <div class="card">
+  <div class="card final">
     <p>¿Sigues aquí?</p>
     <p>¿No te pasó nada por la explosión?</p>
     <p>Entonces dime…</p>
-    <p><strong>¿cambiaste de opinión?</strong></p>
-    <a class="btn" onclick="yes()">Sí</a>
-    <a class="btn no" onclick="finalNo()">No</a>
+    <p>¿salimos cuando regreses?</p>
+    <a class="btn" onclick="yes()">Sí 🙂</a>
+    <a class="btn no" onclick="finalNo()">No 🫶</a>
   </div>
 </section>
 
-<!-- SÍ -->
+<!-- sí -->
 <section class="screen" id="yes">
-  <div class="card">
-    <p>Entonces está bien.<br>Con calma.<br>A tu ritmo.</p>
+  <div class="card final">
+    <p>Entonces está bien.<br>Con calma.</p>
+    <p>Ya lo planeamos cuando regreses 🌊</p>
+    <p>🍍⭐</p>
   </div>
 </section>
 
-<!-- NO FINAL -->
+<!-- no final -->
 <section class="screen" id="noFinal">
-  <div class="card">
-    <p>Ok 🙂<br>Gracias por quedarte hasta el final.</p>
+  <div class="card final">
+    <p>Y también está bien 🙂</p>
+    <p>Gracias por quedarte hasta aquí.</p>
+    <p>🫧</p>
   </div>
 </section>
 
@@ -161,12 +210,8 @@ p {
 
 <script>
 function next(n){
-  hideAll();
+  document.getElementById('s'+n).classList.remove('active');
   document.getElementById('s'+(n+1)).classList.add('active');
-}
-
-function hideAll(){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
 }
 
 function yes(){
@@ -174,15 +219,19 @@ function yes(){
   document.getElementById('yes').classList.add('active');
 }
 
+function hideAll(){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+}
+
 function startDestruct(){
   hideAll();
   document.getElementById('boom').classList.add('active');
-  let c=3;
-  const el=document.getElementById('count');
-  const timer=setInterval(()=>{
+  let c = 3;
+  const el = document.getElementById('count');
+  const timer = setInterval(()=>{
     c--;
-    el.textContent=c;
-    if(c===0){
+    el.textContent = c;
+    if(c === 0){
       clearInterval(timer);
       document.body.classList.add('flash');
       setTimeout(()=>{
