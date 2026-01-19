@@ -70,6 +70,7 @@ p{
   cursor:pointer;
   position:relative;
   z-index:5;
+  transition:transform .3s;
 }
 .btn.no{background:#ffdede}
 
@@ -130,6 +131,7 @@ p{
 
 <body>
 
+<!-- SONIDO -->
 <audio id="boomSound" preload="auto">
   <source src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-bubble-pop-2895.mp3">
 </audio>
@@ -177,7 +179,7 @@ for(let i=0;i<28;i++){
         Cuando regreses…<br>¿salimos?
       </p>
       <span class="btn" onclick="yes()">Sí 🙂</span>
-      <span class="btn no" onclick="startNo()">No 🫶</span>
+      <span class="btn no" id="runNo" onclick="startNo()">No 🫶</span>
     </div>
   </div>
 </section>
@@ -226,6 +228,17 @@ function yes(){
 
 function restart(){location.reload();}
 
+/* BOTÓN QUE HUYE */
+const runNo=document.getElementById('runNo');
+runNo.addEventListener('mouseenter',moveBtn);
+runNo.addEventListener('touchstart',moveBtn);
+
+function moveBtn(){
+  const x=(Math.random()*160)-80;
+  const y=(Math.random()*160)-80;
+  runNo.style.transform=`translate(${x}px,${y}px)`;
+}
+
 function startNo(){
   hideAll();
   document.getElementById('count').classList.add('active');
@@ -246,9 +259,13 @@ function explode(){
   hideAll();
   document.getElementById('boom').classList.add('active');
 
+  /* VIBRACIÓN */
   if(navigator.vibrate){
-    navigator.vibrate([300,100,300,100,500]);
+    navigator.vibrate([300,150,300,150,500]);
   }
+
+  /* SONIDO */
+  document.getElementById('boomSound').currentTime=0;
   document.getElementById('boomSound').play();
 
   const cx=window.innerWidth/2;
