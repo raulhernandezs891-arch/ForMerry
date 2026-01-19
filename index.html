@@ -10,10 +10,10 @@
 <style>
 :root{
   --bg1:#fff1e6;
-  --bg2:#f2c9ac;
+  --bg2:#f4c6a6;
   --card:#fffdfb;
   --text:#3a2420;
-  --accent:#e3645b;
+  --accent:#e06b5f;
 }
 
 *{box-sizing:border-box}
@@ -68,6 +68,15 @@ body{
   color:var(--accent);
 }
 
+.img-soft{
+  width:100%;
+  max-width:320px;
+  margin:30px auto 0;
+  display:block;
+  border-radius:18px;
+  box-shadow:0 14px 28px rgba(0,0,0,.18);
+}
+
 .buttons{
   display:flex;
   gap:14px;
@@ -112,6 +121,29 @@ button{
   display:none;
 }
 
+textarea{
+  width:100%;
+  border-radius:14px;
+  padding:14px;
+  border:1px solid #ddd;
+  font-family:'Inter',sans-serif;
+  font-size:.9rem;
+  margin-top:22px;
+  resize:none;
+}
+
+.send{
+  margin-top:16px;
+  width:100%;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:14px;
+  padding:12px;
+  font-family:'Inter',sans-serif;
+  cursor:pointer;
+}
+
 @keyframes fadeUp{
   from{opacity:0; transform:translateY(20px)}
   to{opacity:1; transform:translateY(0)}
@@ -135,6 +167,7 @@ button{
 <!-- 2 -->
 <section class="section" id="s2" style="display:none">
   <div class="card">
+
     <div class="text">
       Esto no es para impresionar,
       ni para forzar nada.
@@ -145,6 +178,14 @@ button{
       de decir que me gusta
       cómo se siente conocerte.
     </div>
+
+    <!-- IMAGEN DE EJEMPLO 1 -->
+    <img
+      class="img-soft"
+      src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDQwMCAyNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiNmNGM2YTYiLz48dGV4dCB4PSIyMDAiIHk9IjEzNSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzNhMjQyMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+ZW5lcmdpw6E8L3RleHQ+PC9zdmc+"
+      alt="imagen simbolica"
+    />
+
   </div>
 </section>
 
@@ -171,7 +212,15 @@ button{
 <!-- 4 RESPUESTA -->
 <section class="section" id="s4" style="display:none">
   <div class="card" id="finalCard">
+
     <div class="text show" id="responseText"></div>
+
+    <!-- IMAGEN DE EJEMPLO 2 -->
+    <img
+      class="img-soft"
+      src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDQwMCAyNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiNmZmYxZTYiLz48dGV4dCB4PSIyMDAiIHk9IjEzNSIgZm9udC1zaXplPSIyMiIgZmlsbD0iI2UwNmI1ZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Y2FsbWE8L3RleHQ+PC9zdmc+"
+      alt="imagen final"
+    />
 
     <div class="secret" id="secretText">
       Si llegaste hasta aquí,<br>
@@ -179,9 +228,7 @@ button{
       Y eso… me gusta.
     </div>
 
-    <div class="restart" onclick="goToEnd()">
-      volver
-    </div>
+    <div class="restart" onclick="goToEnd()">volver</div>
   </div>
 </section>
 
