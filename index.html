@@ -21,11 +21,12 @@ body {
 .screen {
   min-height: 100vh;
   padding: 40px 24px;
-  display: none;
   box-sizing: border-box;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
 .screen.active {
@@ -126,7 +127,7 @@ p {
   }
 }
 
-/* ---------- HIDE EVERYTHING DURING EXPLOSION ---------- */
+/* ---------- HIDE CONTENT ---------- */
 .hidden {
   visibility: hidden;
 }
@@ -255,11 +256,9 @@ function restart(){
   location.reload();
 }
 
-/* ---------- EXPLOSION ---------- */
 function noExplosion(){
   document.getElementById('s3').classList.add('hidden');
 
-  // EXPLOSION
   for(let i=0;i<90;i++){
     const b=document.createElement('div');
     b.className='bubble';
