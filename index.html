@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Para Merry 🍍</title>
+<title>ForMerry 🍍</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
 
@@ -15,13 +15,27 @@
     background: linear-gradient(#9fdfff, #e0f7ff);
     color: #2c2c2c;
     overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 420px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
   }
 
   .screen {
-    min-height: 100vh;
-    padding: 40px 24px;
+    width: 100%;
+    padding: 24px;
     display: none;
     box-sizing: border-box;
+    text-align: center;
   }
 
   .screen.active {
@@ -43,8 +57,8 @@
 
   h1 {
     font-family: 'Patrick Hand', cursive;
-    font-size: 1.8rem;
-    margin-bottom: 14px;
+    font-size: 1.9rem;
+    margin-bottom: 16px;
   }
 
   p {
@@ -53,28 +67,32 @@
     margin-bottom: 16px;
   }
 
+  .hint {
+    opacity: .7;
+    font-size: .9rem;
+  }
+
   .bubble {
     position: absolute;
     border-radius: 50%;
     background: rgba(255,255,255,0.35);
-    animation: bubble 8s infinite;
+    animation: bubble 9s infinite linear;
   }
 
   @keyframes bubble {
     from { transform: translateY(0); }
-    to { transform: translateY(-120vh); }
+    to { transform: translateY(-130vh); }
   }
 
   .question {
-    margin-top: 30px;
-    text-align: center;
+    margin-top: 26px;
   }
 
   .btn {
     display: inline-block;
-    margin: 12px;
-    padding: 12px 22px;
-    border-radius: 25px;
+    margin: 10px;
+    padding: 12px 26px;
+    border-radius: 26px;
     background: #ffcc4d;
     color: #2c2c2c;
     font-weight: 600;
@@ -87,114 +105,115 @@
   }
 
   .final {
-    text-align: center;
     font-family: 'Patrick Hand', cursive;
-    font-size: 1.4rem;
+    font-size: 1.35rem;
   }
-
 </style>
 </head>
 
 <body>
 
-<!-- BURBUJAS -->
-<div class="bubble" style="width:40px;height:40px;left:10%;bottom:-60px;"></div>
-<div class="bubble" style="width:25px;height:25px;left:70%;bottom:-80px;"></div>
-<div class="bubble" style="width:60px;height:60px;left:40%;bottom:-100px;"></div>
+<div class="container">
 
-<!-- PANTALLA 1 -->
-<section class="screen active" id="s1" onclick="next(1)">
-  <div class="card">
-    <h1>Hola Merry 🍍</h1>
-    <p>
-      Esto empieza como algo sencillo.<br>
-      Como esas ideas que parecen pequeñas,<br>
-      pero se sienten bien desde el inicio.
-    </p>
-    <p>
-      No somos cavernícolas.<br>
-      Tenemos tecnología.<br>
-      Y a veces, ganas de usarla bonito.
-    </p>
-    <p style="opacity:.7">Toca la pantalla ✨</p>
-  </div>
-</section>
+  <!-- burbujas -->
+  <div class="bubble" style="width:40px;height:40px;left:15%;bottom:-60px;"></div>
+  <div class="bubble" style="width:25px;height:25px;left:70%;bottom:-80px;"></div>
+  <div class="bubble" style="width:55px;height:55px;left:45%;bottom:-100px;"></div>
 
-<!-- PANTALLA 2 -->
-<section class="screen" id="s2" onclick="next(2)">
-  <div class="card">
-    <p>
-      Me gusta cómo se siente<br>
-      conocerte sin prisa,<br>
-      sin guiones,<br>
-      sin expectativas raras.
-    </p>
-    <p>
-      Lo simple.<br>
-      Lo genuino.<br>
-      Las cosas que se dan solas.
-    </p>
-    <p>
-      Y si esto existe,<br>
-      es solo para decirte eso.
-    </p>
-    <p style="opacity:.7">Sigue tocando 🫧</p>
-  </div>
-</section>
+  <!-- pantalla 1 -->
+  <section class="screen active" id="s1" onclick="next(1)">
+    <div class="card">
+      <h1>Hola Merry 🍍</h1>
+      <p>
+        Esto empieza como algo sencillo.<br>
+        Como las ideas pequeñas<br>
+        que se sienten bien desde el inicio.
+      </p>
+      <p>
+        No somos cavernícolas.<br>
+        Tenemos tecnología.<br>
+        Y a veces ganas de usarla bonito.
+      </p>
+      <p class="hint">Toca la pantalla ✨</p>
+    </div>
+  </section>
 
-<!-- PANTALLA 3 -->
-<section class="screen" id="s3">
-  <div class="card">
-    <p>
-      No tengo prisa.<br>
-      Ni intención de forzar nada.
-    </p>
-    <p>
-      Solo curiosidad bonita.<br>
-      Y ganas de seguir viendo<br>
-      a dónde lleva esto.
-    </p>
+  <!-- pantalla 2 -->
+  <section class="screen" id="s2" onclick="next(2)">
+    <div class="card">
+      <p>
+        Me gusta conocerte<br>
+        sin prisa,<br>
+        sin expectativas raras.
+      </p>
+      <p>
+        Lo simple.<br>
+        Lo genuino.<br>
+        Lo que se da solo.
+      </p>
+      <p>
+        Y esto existe<br>
+        solo para decirte eso.
+      </p>
+      <p class="hint">Sigue tocando 🫧</p>
+    </div>
+  </section>
 
-    <div class="question">
-      <p style="font-family:'Patrick Hand', cursive;font-size:1.3rem;">
-        Cuando regreses…<br>
-        ¿salimos?
+  <!-- pantalla 3 -->
+  <section class="screen" id="s3">
+    <div class="card">
+      <p>
+        No tengo prisa.<br>
+        Ni intención de forzar nada.
+      </p>
+      <p>
+        Solo curiosidad bonita<br>
+        y ganas de seguir viendo<br>
+        a dónde lleva esto.
       </p>
 
-      <a class="btn" onclick="yes()">Sí 🙂</a>
-      <a class="btn no" onclick="no()">No 🫶</a>
+      <div class="question">
+        <p style="font-size:1.3rem;">
+          Cuando regreses…<br>
+          ¿salimos?
+        </p>
+
+        <a class="btn" onclick="yes()">Sí 🙂</a>
+        <a class="btn no" onclick="no()">No 🫶</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- PANTALLA SÍ -->
-<section class="screen" id="yes">
-  <div class="card final">
-    <p>
-      Entonces está bien.<br>
-      Con calma.<br>
-      A tu ritmo.
-    </p>
-    <p>
-      Ya lo planeamos cuando regreses 🌊
-    </p>
-    <p style="font-size:1.8rem;">🍍⭐</p>
-  </div>
-</section>
+  <!-- sí -->
+  <section class="screen" id="yes">
+    <div class="card final">
+      <p>
+        Entonces está bien.<br>
+        Con calma.<br>
+        A tu ritmo.
+      </p>
+      <p>
+        Ya lo planeamos cuando regreses 🌊
+      </p>
+      <p>🍍⭐</p>
+    </div>
+  </section>
 
-<!-- PANTALLA NO -->
-<section class="screen" id="no">
-  <div class="card final">
-    <p>
-      Y también está bien.<br>
-      Gracias por la honestidad.
-    </p>
-    <p>
-      Esto ya valió la pena.
-    </p>
-    <p style="font-size:1.8rem;">🫧</p>
-  </div>
-</section>
+  <!-- no -->
+  <section class="screen" id="no">
+    <div class="card final">
+      <p>
+        Y también está bien.<br>
+        Gracias por la honestidad.
+      </p>
+      <p>
+        Esto ya valió la pena.
+      </p>
+      <p>🫧</p>
+    </div>
+  </section>
+
+</div>
 
 <script>
 function next(n){
