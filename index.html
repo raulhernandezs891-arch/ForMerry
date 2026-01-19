@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Para Merry 🍍</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
@@ -14,13 +13,13 @@ body{
   font-family:'Baloo 2',cursive;
   background:linear-gradient(#9fdfff,#e0f7ff);
   color:#2c2c2c;
-  overflow-x:hidden;
+  overflow:hidden;
 }
 
 /* SCREENS */
 .screen{
   min-height:100vh;
-  padding:40px 24px;
+  padding:40px 20px;
   box-sizing:border-box;
   display:none;
   align-items:center;
@@ -38,6 +37,7 @@ body{
   box-shadow:0 15px 30px rgba(0,0,0,.12);
   text-align:center;
   animation:float 4s ease-in-out infinite;
+  max-width:420px;
 }
 @keyframes float{
   0%,100%{transform:translateY(0)}
@@ -67,6 +67,9 @@ p{
   font-weight:600;
   text-decoration:none;
   box-shadow:0 6px 12px rgba(0,0,0,.15);
+  cursor:pointer;
+  z-index:5;
+  position:relative;
 }
 .btn.no{background:#ffdede}
 
@@ -91,22 +94,24 @@ p{
   to{transform:translateY(-130vh)}
 }
 
-/* EXPLOSION */
-.bubble{
+/* EXPLOSION BUBBLES */
+.explode-bubble{
   position:fixed;
-  left:50%;
-  top:50%;
   border-radius:50%;
-  background:rgba(255,255,255,.6);
+  background:rgba(255,255,255,.7);
   pointer-events:none;
   animation:explode 6s ease-out forwards;
-  z-index:9999;
+  z-index:4;
 }
+
 @keyframes explode{
-  0%{transform:translate(-50%,-50%) scale(.3);opacity:1}
-  100%{
-    transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1.3);
-    opacity:0
+  from{
+    transform:translate(0,0) scale(.4);
+    opacity:1;
+  }
+  to{
+    transform:translate(var(--dx),var(--dy)) scale(1.4);
+    opacity:0;
   }
 }
 
@@ -114,31 +119,27 @@ p{
 #countdown{
   font-family:'Patrick Hand',cursive;
   font-size:2.2rem;
-  text-align:center;
 }
-
-/* HIDE */
-.hidden{visibility:hidden}
 </style>
 </head>
 
 <body>
 
-<!-- BURBUJAS DE FONDO -->
 <script>
-for(let i=0;i<20;i++){
+/* BURBUJAS DE FONDO */
+for(let i=0;i<22;i++){
   const b=document.createElement('div');
   b.className='bg-bubble';
-  const s=Math.random()*40+20;
+  const s=Math.random()*45+20;
   b.style.width=s+'px';
   b.style.height=s+'px';
   b.style.left=Math.random()*100+'%';
-  b.style.animationDuration=(Math.random()*10+12)+'s';
+  b.style.animationDuration=(Math.random()*12+10)+'s';
   document.body.appendChild(b);
 }
 </script>
 
-<!-- PANTALLAS ORIGINALES (INTACTAS) -->
+<!-- PANTALLAS ORIGINALES -->
 <section class="screen active" id="s1" onclick="next(1)">
   <div class="card">
     <h1>Hola Merry 🍍</h1>
@@ -166,13 +167,12 @@ for(let i=0;i<20;i++){
       <p style="font-family:'Patrick Hand';font-size:1.3rem;">
         Cuando regreses…<br>¿salimos?
       </p>
-      <a class="btn" onclick="yes()">Sí 🙂</a>
-      <a class="btn no" onclick="startNo()">No 🫶</a>
+      <span class="btn" onclick="yes()">Sí 🙂</span>
+      <span class="btn no" onclick="startNo()">No 🫶</span>
     </div>
   </div>
 </section>
 
-<!-- COUNTDOWN -->
 <section class="screen" id="count">
   <div class="card final">
     <p>Este mensaje se autodestruirá en…</p>
@@ -180,20 +180,17 @@ for(let i=0;i<20;i++){
   </div>
 </section>
 
-<!-- POST EXPLOSION -->
 <section class="screen" id="no">
   <div class="card final">
     <p>¿Sigues aquí? 😅</p>
     <p>¿No te pasó nada por la explosión?</p>
     <p>Entonces dime…</p>
     <p style="font-size:1.3rem;">¿cambiaste de opinión?</p>
-
-    <a class="btn" onclick="yes()">Sí 🙂</a>
-    <a class="btn no" onclick="restart()">No 🫶</a>
+    <span class="btn" onclick="yes()">Sí 🙂</span>
+    <span class="btn no" onclick="restart()">No 🫶</span>
   </div>
 </section>
 
-<!-- SÍ -->
 <section class="screen" id="yes">
   <div class="card final">
     <p>Entonces está bien.<br>Con calma.<br>A tu ritmo.</p>
@@ -209,14 +206,18 @@ function next(n){
 }
 
 function yes(){
-  document.getElementById('s3').classList.remove('active');
+  hideAll();
   document.getElementById('yes').classList.add('active');
 }
 
 function restart(){location.reload();}
 
+function hideAll(){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+}
+
 function startNo(){
-  document.getElementById('s3').classList.remove('active');
+  hideAll();
   document.getElementById('count').classList.add('active');
 
   let c=3;
@@ -232,16 +233,25 @@ function startNo(){
 }
 
 function explode(){
-  document.getElementById('count').classList.remove('active');
+  hideAll();
 
-  for(let i=0;i<90;i++){
+  const w=window.innerWidth;
+  const h=window.innerHeight;
+
+  for(let i=0;i<100;i++){
     const b=document.createElement('div');
-    b.className='bubble';
-    const s=Math.random()*40+12;
-    b.style.width=s+'px';
-    b.style.height=s+'px';
-    b.style.setProperty('--x',(Math.random()-0.5)*900+'px');
-    b.style.setProperty('--y',(Math.random()-0.5)*900+'px');
+    b.className='explode-bubble';
+
+    const size=Math.random()*50+10;
+    b.style.width=size+'px';
+    b.style.height=size+'px';
+
+    b.style.left=Math.random()*w+'px';
+    b.style.top=Math.random()*h+'px';
+
+    b.style.setProperty('--dx',(Math.random()-0.5)*800+'px');
+    b.style.setProperty('--dy',(Math.random()-0.5)*800+'px');
+
     document.body.appendChild(b);
     setTimeout(()=>b.remove(),6000);
   }
