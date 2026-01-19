@@ -103,6 +103,28 @@ button{
   color:#555;
 }
 
+.note-box{
+  margin-top:24px;
+  opacity:0;
+  transform:translateY(16px);
+  transition:opacity .6s ease, transform .6s ease;
+}
+
+.note-box.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+textarea{
+  width:100%;
+  border-radius:14px;
+  padding:14px;
+  border:1px solid #ddd;
+  font-family:'Inter',sans-serif;
+  font-size:.9rem;
+  resize:none;
+}
+
 .restart{
   margin-top:36px;
   text-align:center;
@@ -121,29 +143,6 @@ button{
   display:none;
 }
 
-textarea{
-  width:100%;
-  border-radius:14px;
-  padding:14px;
-  border:1px solid #ddd;
-  font-family:'Inter',sans-serif;
-  font-size:.9rem;
-  margin-top:22px;
-  resize:none;
-}
-
-.send{
-  margin-top:16px;
-  width:100%;
-  background:var(--accent);
-  color:#fff;
-  border:none;
-  border-radius:14px;
-  padding:12px;
-  font-family:'Inter',sans-serif;
-  cursor:pointer;
-}
-
 @keyframes fadeUp{
   from{opacity:0; transform:translateY(20px)}
   to{opacity:1; transform:translateY(0)}
@@ -153,53 +152,81 @@ textarea{
 
 <body>
 
-<!-- 1 -->
+<!-- 1 APERTURA -->
 <section class="section" id="s1">
   <div class="card">
     <div class="intro">
-      Merry,<br>
-      no somos cavernícolas.<br>
-      también sabemos usar tecnología.
+      <strong>Merry,</strong><br>
+      no es costumbre mía hacer esto.<br>
+      pero contigo, se sintió correcto<br>
+      hacerlo con calma.
     </div>
   </div>
 </section>
 
-<!-- 2 -->
+<!-- 2 DESARROLLO -->
 <section class="section" id="s2" style="display:none">
   <div class="card">
 
     <div class="text">
-      Esto no es para impresionar,
-      ni para forzar nada.
+      Esto no es para impresionar<br>
+      ni para adelantar nada.
     </div>
 
     <div class="text">
-      Es solo una forma honesta
-      de decir que me gusta
-      cómo se siente conocerte.
+      Es solo una forma distinta<br>
+      de decir que me gusta<br>
+      cómo se siente ir conociéndote.
     </div>
 
-    <!-- IMAGEN DE EJEMPLO 1 -->
-    <img
-      class="img-soft"
-      src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDQwMCAyNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiNmNGM2YTYiLz48dGV4dCB4PSIyMDAiIHk9IjEzNSIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzNhMjQyMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+ZW5lcmdpw6E8L3RleHQ+PC9zdmc+"
-      alt="imagen simbolica"
-    />
+    <div class="text">
+      Sin prisa.<br>
+      Sin expectativas raras.
+    </div>
 
+    <div class="text">
+      Solo dejando que las cosas<br>
+      se acomoden como tengan<br>
+      que hacerlo.
+    </div>
+
+    <!-- IMAGEN DE EJEMPLO -->
+    <img class="img-soft"
+      src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDQwMCAyNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiNmNGM2YTYiLz48dGV4dCB4PSIyMDAiIHk9IjEzNSIgZm9udC1zaXplPSIyMiIgZmlsbD0iIzNhMjQyMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Y2FsbWE8L3RleHQ+PC9zdmc+"
+    />
   </div>
 </section>
 
-<!-- 3 -->
+<!-- 3 TRANSICIÓN + PREGUNTA -->
 <section class="section" id="s3" style="display:none">
   <div class="card">
+
     <div class="text show">
+      No tengo prisa<br>
+      ni necesidad de ponerle<br>
+      nombre a nada.
+    </div>
+
+    <div class="text show">
+      Me importa más<br>
+      que lo que pase<br>
+      se sienta ligero<br>
+      y honesto para los dos.
+    </div>
+
+    <div class="text show">
+      Y desde ahí,<br>
+      con esa misma calma…
+    </div>
+
+    <div class="text quote show">
       Cuando regreses,<br>
       ¿salimos?
     </div>
 
     <div class="text quote show">
-      Sin presión.<br>
-      A tu ritmo.
+      <em>Sin presión.<br>
+      A tu ritmo.</em>
     </div>
 
     <div class="buttons">
@@ -215,16 +242,14 @@ textarea{
 
     <div class="text show" id="responseText"></div>
 
-    <!-- IMAGEN DE EJEMPLO 2 -->
-    <img
-      class="img-soft"
-      src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDQwMCAyNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiNmZmYxZTYiLz48dGV4dCB4PSIyMDAiIHk9IjEzNSIgZm9udC1zaXplPSIyMiIgZmlsbD0iI2UwNmI1ZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Y2FsbWE8L3RleHQ+PC9zdmc+"
-      alt="imagen final"
-    />
+    <div class="note-box" id="noteBox">
+      <textarea rows="4" placeholder="escribir algo aquí…"></textarea>
+    </div>
 
     <div class="secret" id="secretText">
       Si llegaste hasta aquí,<br>
-      es porque sabes leer entre líneas.<br><br>
+      es porque sabes leer<br>
+      entre líneas.<br><br>
       Y eso… me gusta.
     </div>
 
@@ -262,20 +287,28 @@ function answer(isYes){
   document.getElementById('s3').style.display = 'none';
   const s4 = document.getElementById('s4');
   const text = document.getElementById('responseText');
+  const note = document.getElementById('noteBox');
 
   if(isYes){
     text.innerHTML = `
       Me va a encantar.<br><br>
-      Cuando regreses,
-      lo planeamos tranquilo.<br><br>
-      Ten un lindo viaje, Merry.
+      Cuando regreses,<br>
+      lo planeamos con calma.<br><br>
+      Y si te nace dejarme<br>
+      una nota ahora,<br>
+      aquí hay un espacio.<br><br>
+      <em>No es necesario.<br>
+      Solo si te dan ganas.</em>
     `;
+    setTimeout(()=>note.classList.add('show'),600);
   }else{
     text.innerHTML = `
       Está bien.<br><br>
       Gracias por la honestidad.<br><br>
-      Ten un lindo viaje, Merry.
+      Que tengas un lindo viaje,<br>
+      Merry.
     `;
+    note.classList.remove('show');
   }
 
   s4.style.display = 'flex';
@@ -286,7 +319,7 @@ function goToEnd(){
   document.getElementById('s5').style.display = 'flex';
 }
 
-// secreto: long press
+// secreto: press largo
 let pressTimer;
 const card = document.getElementById('finalCard');
 const secret = document.getElementById('secretText');
