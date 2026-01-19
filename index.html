@@ -3,336 +3,214 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>para merry</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<title>Para Merry 🍍</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --bg1:#fff1e6;
-  --bg2:#f4c6a6;
-  --card:#fffdfb;
-  --text:#3a2420;
-  --accent:#e06b5f;
-}
+  body {
+    margin: 0;
+    font-family: 'Baloo 2', cursive;
+    background: linear-gradient(#9fdfff, #e0f7ff);
+    color: #2c2c2c;
+    overflow-x: hidden;
+  }
 
-*{box-sizing:border-box}
+  .screen {
+    min-height: 100vh;
+    padding: 40px 24px;
+    display: none;
+    box-sizing: border-box;
+  }
 
-body{
-  margin:0;
-  min-height:100vh;
-  background:linear-gradient(180deg,var(--bg1),var(--bg2));
-  font-family:'Fraunces', serif;
-  color:var(--text);
-}
+  .screen.active {
+    display: block;
+  }
 
-.section{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:26px 18px;
-}
+  .card {
+    background: #fff6cc;
+    border-radius: 28px;
+    padding: 26px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    animation: float 4s ease-in-out infinite;
+  }
 
-.card{
-  width:100%;
-  max-width:420px;
-  background:var(--card);
-  border-radius:26px;
-  padding:36px 26px 34px;
-  box-shadow:0 24px 48px rgba(0,0,0,.12);
-  animation:fadeUp .6s ease;
-}
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
 
-.intro{
-  font-size:1.55rem;
-  line-height:1.55;
-}
+  h1 {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.8rem;
+    margin-bottom: 14px;
+  }
 
-.text{
-  font-size:1.1rem;
-  line-height:1.9;
-  margin-top:26px;
-  opacity:0;
-  transform:translateY(14px);
-  transition:.6s;
-}
+  p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
 
-.text.show{
-  opacity:1;
-  transform:translateY(0);
-}
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.35);
+    animation: bubble 8s infinite;
+  }
 
-.quote{
-  font-style:italic;
-  color:var(--accent);
-}
+  @keyframes bubble {
+    from { transform: translateY(0); }
+    to { transform: translateY(-120vh); }
+  }
 
-.img-soft{
-  width:100%;
-  max-width:320px;
-  margin:30px auto 0;
-  display:block;
-  border-radius:18px;
-  box-shadow:0 14px 28px rgba(0,0,0,.18);
-}
+  .question {
+    margin-top: 30px;
+    text-align: center;
+  }
 
-.buttons{
-  display:flex;
-  gap:14px;
-  margin-top:30px;
-}
+  .btn {
+    display: inline-block;
+    margin: 12px;
+    padding: 12px 22px;
+    border-radius: 25px;
+    background: #ffcc4d;
+    color: #2c2c2c;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 6px 12px rgba(0,0,0,.15);
+  }
 
-button{
-  flex:1;
-  border:none;
-  border-radius:16px;
-  padding:14px;
-  font-family:'Inter',sans-serif;
-  font-size:.95rem;
-  cursor:pointer;
-}
+  .btn.no {
+    background: #ffdede;
+  }
 
-.yes{
-  background:var(--accent);
-  color:#fff;
-}
+  .final {
+    text-align: center;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.4rem;
+  }
 
-.no{
-  background:#eee;
-  color:#555;
-}
-
-.note-box{
-  margin-top:24px;
-  opacity:0;
-  transform:translateY(16px);
-  transition:opacity .6s ease, transform .6s ease;
-}
-
-.note-box.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
-textarea{
-  width:100%;
-  border-radius:14px;
-  padding:14px;
-  border:1px solid #ddd;
-  font-family:'Inter',sans-serif;
-  font-size:.9rem;
-  resize:none;
-}
-
-.restart{
-  margin-top:36px;
-  text-align:center;
-  font-family:'Inter',sans-serif;
-  font-size:.85rem;
-  opacity:.5;
-  cursor:pointer;
-}
-
-.secret{
-  margin-top:26px;
-  font-size:.95rem;
-  line-height:1.6;
-  text-align:center;
-  color:var(--accent);
-  display:none;
-}
-
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(20px)}
-  to{opacity:1; transform:translateY(0)}
-}
 </style>
 </head>
 
 <body>
 
-<!-- 1 APERTURA -->
-<section class="section" id="s1">
+<!-- BURBUJAS -->
+<div class="bubble" style="width:40px;height:40px;left:10%;bottom:-60px;"></div>
+<div class="bubble" style="width:25px;height:25px;left:70%;bottom:-80px;"></div>
+<div class="bubble" style="width:60px;height:60px;left:40%;bottom:-100px;"></div>
+
+<!-- PANTALLA 1 -->
+<section class="screen active" id="s1" onclick="next(1)">
   <div class="card">
-    <div class="intro">
-      <strong>Merry,</strong><br>
-      no es costumbre mía hacer esto.<br>
-      pero contigo, se sintió correcto<br>
-      hacerlo con calma.
+    <h1>Hola Merry 🍍</h1>
+    <p>
+      Esto empieza como algo sencillo.<br>
+      Como esas ideas que parecen pequeñas,<br>
+      pero se sienten bien desde el inicio.
+    </p>
+    <p>
+      No somos cavernícolas.<br>
+      Tenemos tecnología.<br>
+      Y a veces, ganas de usarla bonito.
+    </p>
+    <p style="opacity:.7">Toca la pantalla ✨</p>
+  </div>
+</section>
+
+<!-- PANTALLA 2 -->
+<section class="screen" id="s2" onclick="next(2)">
+  <div class="card">
+    <p>
+      Me gusta cómo se siente<br>
+      conocerte sin prisa,<br>
+      sin guiones,<br>
+      sin expectativas raras.
+    </p>
+    <p>
+      Lo simple.<br>
+      Lo genuino.<br>
+      Las cosas que se dan solas.
+    </p>
+    <p>
+      Y si esto existe,<br>
+      es solo para decirte eso.
+    </p>
+    <p style="opacity:.7">Sigue tocando 🫧</p>
+  </div>
+</section>
+
+<!-- PANTALLA 3 -->
+<section class="screen" id="s3">
+  <div class="card">
+    <p>
+      No tengo prisa.<br>
+      Ni intención de forzar nada.
+    </p>
+    <p>
+      Solo curiosidad bonita.<br>
+      Y ganas de seguir viendo<br>
+      a dónde lleva esto.
+    </p>
+
+    <div class="question">
+      <p style="font-family:'Patrick Hand', cursive;font-size:1.3rem;">
+        Cuando regreses…<br>
+        ¿salimos?
+      </p>
+
+      <a class="btn" onclick="yes()">Sí 🙂</a>
+      <a class="btn no" onclick="no()">No 🫶</a>
     </div>
   </div>
 </section>
 
-<!-- 2 DESARROLLO -->
-<section class="section" id="s2" style="display:none">
-  <div class="card">
-
-    <div class="text">
-      Esto no es para impresionar<br>
-      ni para adelantar nada.
-    </div>
-
-    <div class="text">
-      Es solo una forma distinta<br>
-      de decir que me gusta<br>
-      cómo se siente ir conociéndote.
-    </div>
-
-    <div class="text">
-      Sin prisa.<br>
-      Sin expectativas raras.
-    </div>
-
-    <div class="text">
-      Solo dejando que las cosas<br>
-      se acomoden como tengan<br>
-      que hacerlo.
-    </div>
-
-    <!-- IMAGEN DE EJEMPLO -->
-    <img class="img-soft"
-      src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDQwMCAyNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiNmNGM2YTYiLz48dGV4dCB4PSIyMDAiIHk9IjEzNSIgZm9udC1zaXplPSIyMiIgZmlsbD0iIzNhMjQyMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Y2FsbWE8L3RleHQ+PC9zdmc+"
-    />
+<!-- PANTALLA SÍ -->
+<section class="screen" id="yes">
+  <div class="card final">
+    <p>
+      Entonces está bien.<br>
+      Con calma.<br>
+      A tu ritmo.
+    </p>
+    <p>
+      Ya lo planeamos cuando regreses 🌊
+    </p>
+    <p style="font-size:1.8rem;">🍍⭐</p>
   </div>
 </section>
 
-<!-- 3 TRANSICIÓN + PREGUNTA -->
-<section class="section" id="s3" style="display:none">
-  <div class="card">
-
-    <div class="text show">
-      No tengo prisa<br>
-      ni necesidad de ponerle<br>
-      nombre a nada.
-    </div>
-
-    <div class="text show">
-      Me importa más<br>
-      que lo que pase<br>
-      se sienta ligero<br>
-      y honesto para los dos.
-    </div>
-
-    <div class="text show">
-      Y desde ahí,<br>
-      con esa misma calma…
-    </div>
-
-    <div class="text quote show">
-      Cuando regreses,<br>
-      ¿salimos?
-    </div>
-
-    <div class="text quote show">
-      <em>Sin presión.<br>
-      A tu ritmo.</em>
-    </div>
-
-    <div class="buttons">
-      <button class="yes" onclick="answer(true)">sí</button>
-      <button class="no" onclick="answer(false)">no</button>
-    </div>
-  </div>
-</section>
-
-<!-- 4 RESPUESTA -->
-<section class="section" id="s4" style="display:none">
-  <div class="card" id="finalCard">
-
-    <div class="text show" id="responseText"></div>
-
-    <div class="note-box" id="noteBox">
-      <textarea rows="4" placeholder="escribir algo aquí…"></textarea>
-    </div>
-
-    <div class="secret" id="secretText">
-      Si llegaste hasta aquí,<br>
-      es porque sabes leer<br>
-      entre líneas.<br><br>
-      Y eso… me gusta.
-    </div>
-
-    <div class="restart" onclick="goToEnd()">volver</div>
-  </div>
-</section>
-
-<!-- 5 EPÍLOGO -->
-<section class="section" id="s5" style="display:none">
-  <div class="card">
-    <div class="text show">
-      Eso es todo.<br><br>
-      Que tengas un lindo viaje,<br>
-      Merry.
-    </div>
+<!-- PANTALLA NO -->
+<section class="screen" id="no">
+  <div class="card final">
+    <p>
+      Y también está bien.<br>
+      Gracias por la honestidad.
+    </p>
+    <p>
+      Esto ya valió la pena.
+    </p>
+    <p style="font-size:1.8rem;">🫧</p>
   </div>
 </section>
 
 <script>
-let step = 1;
-
-document.body.addEventListener('click', () => {
-  if(step < 3){
-    document.getElementById(`s${step}`).style.display = 'none';
-    step++;
-    const next = document.getElementById(`s${step}`);
-    next.style.display = 'flex';
-    next.querySelectorAll('.text').forEach((el,i)=>{
-      setTimeout(()=>el.classList.add('show'), i*200);
-    });
-  }
-});
-
-function answer(isYes){
-  document.getElementById('s3').style.display = 'none';
-  const s4 = document.getElementById('s4');
-  const text = document.getElementById('responseText');
-  const note = document.getElementById('noteBox');
-
-  if(isYes){
-    text.innerHTML = `
-      Me va a encantar.<br><br>
-      Cuando regreses,<br>
-      lo planeamos con calma.<br><br>
-      Y si te nace dejarme<br>
-      una nota ahora,<br>
-      aquí hay un espacio.<br><br>
-      <em>No es necesario.<br>
-      Solo si te dan ganas.</em>
-    `;
-    setTimeout(()=>note.classList.add('show'),600);
-  }else{
-    text.innerHTML = `
-      Está bien.<br><br>
-      Gracias por la honestidad.<br><br>
-      Que tengas un lindo viaje,<br>
-      Merry.
-    `;
-    note.classList.remove('show');
-  }
-
-  s4.style.display = 'flex';
+function next(n){
+  document.getElementById('s'+n).classList.remove('active');
+  document.getElementById('s'+(n+1)).classList.add('active');
 }
 
-function goToEnd(){
-  document.getElementById('s4').style.display = 'none';
-  document.getElementById('s5').style.display = 'flex';
+function yes(){
+  document.getElementById('s3').classList.remove('active');
+  document.getElementById('yes').classList.add('active');
 }
 
-// secreto: press largo
-let pressTimer;
-const card = document.getElementById('finalCard');
-const secret = document.getElementById('secretText');
-
-card.addEventListener('touchstart', () => {
-  pressTimer = setTimeout(() => {
-    secret.style.display = 'block';
-  }, 2000);
-});
-
-card.addEventListener('touchend', () => {
-  clearTimeout(pressTimer);
-});
+function no(){
+  document.getElementById('s3').classList.remove('active');
+  document.getElementById('no').classList.add('active');
+}
 </script>
 
 </body>
