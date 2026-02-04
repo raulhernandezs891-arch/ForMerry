@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Para Merry 🍍</title>
+<title>Para 2 Merry 🍍</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 
@@ -16,8 +16,7 @@
 }
 
 body {
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
   font-family: 'Baloo 2', cursive;
   background-color: #00d2ff;
   background-image: 
@@ -26,29 +25,20 @@ body {
     linear-gradient(#4facfe, #00f2fe);
   background-size: 200px 200px, 300px 300px, 100% 100%;
   color: #1a4a5e;
-  overflow: hidden; /* Evita scroll raro en móvil */
-  width: 100vw;
-  height: 100vh;
+  overflow: hidden;
+  width: 100vw; height: 100vh;
 }
 
-/* PANTALLAS */
 .screen {
-  min-height: 100vh;
-  width: 100vw;
-  padding: 20px;
-  box-sizing: border-box;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  left: 0;
+  min-height: 100vh; width: 100vw;
+  padding: 20px; box-sizing: border-box;
+  display: none; align-items: center; justify-content: center;
+  position: absolute; top: 0; left: 0;
 }
 .screen.active { display: flex; animation: fadeIn 0.4s ease; }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* TARJETA */
 .card {
   background: rgba(255, 255, 255, 0.95);
   border: 6px solid var(--yellow-bob);
@@ -56,64 +46,36 @@ body {
   padding: 25px;
   box-shadow: 0 10px 0px rgba(0,0,0,0.1);
   text-align: center;
-  width: 100%;
-  max-width: 320px; /* Ajuste para pantallas pequeñas */
+  width: 100%; max-width: 320px;
   animation: float 3s ease-in-out infinite;
+  z-index: 5;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
 h1 { font-family: 'Patrick Hand', cursive; font-size: 1.8rem; color: #d4a017; margin: 0 0 10px; }
 p { font-size: 1rem; font-weight: 600; margin: 10px 0; }
 
-/* BOTONES */
-.btn-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
+.btn-container { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 20px; }
 .btn {
-  width: 80%;
-  padding: 12px;
-  border-radius: 50px;
-  background: var(--yellow-bob);
-  border: 4px solid #d4a017;
-  color: #5d4a1e;
-  font-weight: 700;
-  text-transform: uppercase;
-  cursor: pointer;
-  box-shadow: 0 4px 0px #d4a017;
-  transition: transform 0.1s;
+  width: 80%; padding: 12px; border-radius: 50px;
+  background: var(--yellow-bob); border: 4px solid #d4a017;
+  color: #5d4a1e; font-weight: 700; text-transform: uppercase;
+  cursor: pointer; box-shadow: 0 4px 0px #d4a017;
   -webkit-tap-highlight-color: transparent;
 }
 
-.btn.no {
-  background: var(--pink-patrick);
-  border-color: #d15fa5;
-  color: #fff;
-  box-shadow: 0 4px 0px #d15fa5;
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.btn.no { background: var(--pink-patrick); border-color: #d15fa5; color: #fff; box-shadow: 0 4px 0px #d15fa5; }
+
+/* BURBUJAS DE EXPLOSIÓN */
+.explode-bubble {
+  position: fixed; border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  border: 2px solid var(--blue-ocean);
+  pointer-events: none; z-index: 100;
 }
 
-/* BURBUJAS */
-.bg-bubble {
-  position: fixed;
-  bottom: -100px;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  animation: rise linear infinite;
-  pointer-events: none;
-}
-
-@keyframes rise { to { transform: translateY(-120vh); } }
-
-#countdown { font-size: 3rem; color: #ff4757; font-family: 'Patrick Hand'; }
+#countdown { font-size: 3.5rem; color: #ff4757; font-family: 'Patrick Hand'; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -156,81 +118,69 @@ p { font-size: 1rem; font-weight: 600; margin: 10px 0; }
   </div>
 </section>
 
-<section class="screen" id="boom" style="background:white;"></section>
+<section class="screen" id="boom" style="background:rgba(255,255,255,0.8); z-index:99;"></section>
 
 <section class="screen" id="no">
   <div class="card">
     <h1>¡CASCARUDO!</h1>
-    <p>¿Te despeinó la explosión?</p>
-    <p>¿Cambiaste de opinión?</p>
+    <p>Esa explosión fue masiva... 🫧<br>¿Estás bien, Merry?</p>
+    <p>Entonces... ¿cambiaste de opinión? ¿Salimos?</p>
     <div class="btn" onclick="yes()">Ok, ¡Sí! 🙂</div>
-    <div class="btn no" onclick="restart()">Sigo diciendo no 🦀</div>
+    <div class="btn no" onclick="finalNo()">Sigo diciendo que no 🦀</div>
+  </div>
+</section>
+
+<section class="screen" id="finalNo">
+  <div class="card">
+    <h1>¿¡OTRA VEZ!? 😱</h1>
+    <p>Eres más terca que Calamardo un lunes por la mañana...</p>
+    <p>Pero no importa, ¡yo tengo más burbujas que tú! <br>Vuelve a intentarlo cuando estés lista.</p>
+    <div class="btn" onclick="restart()">Intentar de nuevo 🍍</div>
   </div>
 </section>
 
 <section class="screen" id="yes">
   <div class="card" style="border-color: var(--pink-patrick);">
     <h1>¡FANTÁSTICO! ⚓</h1>
-    <p>A tu ritmo y con calma.</p>
-    <p>Hablamos cuando regreses. 🌊</p>
-    <p style="font-size: 2rem;">🍍⭐</p>
+    <p>¡Por mis pantalones cuadrados!</p>
+    <p>Hablamos cuando regreses a la superficie. 🌊</p>
+    <p style="font-size: 2.5rem;">🍍⭐🐿️</p>
   </div>
 </section>
 
 <script>
-// Burbujas
-for(let i=0; i<15; i++){
-  const b = document.createElement('div');
-  b.className = 'bg-bubble';
-  const size = Math.random() * 40 + 10;
-  b.style.width = size + 'px';
-  b.style.height = size + 'px';
-  b.style.left = Math.random() * 100 + '%';
-  b.style.animationDuration = (Math.random() * 5 + 4) + 's';
-  b.style.animationDelay = (Math.random() * 3) + 's';
-  document.body.appendChild(b);
-}
-
 let intentosNo = 0;
 const limiteIntentos = 7;
 const btnNo = document.getElementById('runNo');
 
-// LÓGICA PARA MÓVIL Y PC
 const manejarIntento = (e) => {
   if (intentosNo < limiteIntentos) {
-    e.preventDefault(); // Evita que el click se dispare antes de los 7
-    const x = (Math.random() * 140) - 70;
-    const y = (Math.random() * 140) - 70;
+    e.preventDefault();
+    const x = (Math.random() * 160) - 80;
+    const y = (Math.random() * 160) - 80;
     btnNo.style.transform = `translate(${x}px, ${y}px)`;
     intentosNo++;
-
     if(intentosNo === 4) btnNo.textContent = "¡Casi! 🫧";
     if(intentosNo === 7) {
       btnNo.style.transform = `translate(0,0)`;
       btnNo.textContent = "Está bien... 🦀";
       btnNo.style.background = "#bdc3c7";
-      btnNo.style.borderColor = "#7f8c8d";
     }
   } else {
-    // Si ya llegó a 7, permitimos el paso
     startNo();
   }
 };
 
 btnNo.addEventListener('touchstart', manejarIntento);
-btnNo.addEventListener('click', (e) => {
-  if(intentosNo < limiteIntentos) manejarIntento(e);
-});
+btnNo.addEventListener('click', (e) => { if(intentosNo < limiteIntentos) manejarIntento(e); });
 
 function next(n){
   document.getElementById('s'+n).classList.remove('active');
   document.getElementById('s'+(n+1)).classList.add('active');
 }
 
-function yes(){
-  hideAll();
-  document.getElementById('yes').classList.add('active');
-}
+function yes(){ hideAll(); document.getElementById('yes').classList.add('active'); }
+function finalNo(){ hideAll(); document.getElementById('finalNo').classList.add('active'); }
 
 function startNo(){
   hideAll();
@@ -245,19 +195,45 @@ function startNo(){
 
 function explode(){
   hideAll();
-  document.getElementById('boom').classList.add('active');
-  try { document.getElementById('boomSound').play(); } catch(e){}
+  const boomScreen = document.getElementById('boom');
+  boomScreen.classList.add('active');
+  
+  // Explosión Dramática: Muchas más burbujas
+  for(let i=0; i<100; i++){
+    setTimeout(() => {
+      const b = document.createElement('div');
+      b.className = 'explode-bubble';
+      const size = Math.random() * 60 + 20;
+      b.style.width = size + 'px';
+      b.style.height = size + 'px';
+      b.style.left = '50%';
+      b.style.top = '50%';
+      
+      document.body.appendChild(b);
+      document.getElementById('boomSound').cloneNode().play();
 
+      const angle = Math.random() * Math.PI * 2;
+      const dist = Math.random() * 1000 + 100;
+      const tx = Math.cos(angle) * dist;
+      const ty = Math.sin(angle) * dist;
+
+      b.animate([
+        { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
+        { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(2)`, opacity: 0 }
+      ], { duration: 2500, fill: 'forwards' });
+
+      setTimeout(() => b.remove(), 2500);
+    }, i * 20); // Salen en ráfaga
+  }
+
+  // Duración extendida antes de pasar a la siguiente pantalla
   setTimeout(() => {
     hideAll();
     document.getElementById('no').classList.add('active');
-  }, 1000);
+  }, 4000); 
 }
 
-function hideAll(){
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-}
-
+function hideAll(){ document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); }
 function restart(){ location.reload(); }
 </script>
 </body>
