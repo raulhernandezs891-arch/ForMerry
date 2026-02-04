@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Para 2 Merry 🍍</title>
+<title>Para Merry 🍍</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -53,17 +53,16 @@ body {
 
 @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
+  10% { transform: translate(-3px, -2px) rotate(-1deg); }
+  20% { transform: translate(-5px, 0px) rotate(1deg); }
+  30% { transform: translate(5px, 2px) rotate(0deg); }
   50% { transform: translate(-1px, 2px) rotate(-1deg); }
   100% { transform: translate(1px, 1px) rotate(0deg); }
 }
-.shake-it { animation: shake 0.3s infinite; }
+.shake-it { animation: shake 0.2s infinite; }
 
-h1 { font-family: 'Patrick Hand', cursive; font-size: 2rem; color: #d4a017; margin: 0 0 10px; }
-p { font-size: 1.1rem; font-weight: 600; margin: 10px 0; }
+h1 { font-family: 'Patrick Hand', cursive; font-size: 1.8rem; color: #d4a017; margin: 0 0 10px; }
+p { font-size: 1.05rem; font-weight: 600; margin: 10px 0; }
 
 .btn-container { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 20px; }
 .btn {
@@ -76,6 +75,8 @@ p { font-size: 1.1rem; font-weight: 600; margin: 10px 0; }
 
 .btn.no { background: var(--pink-patrick); border-color: #d15fa5; color: #fff; box-shadow: 0 4px 0px #d15fa5; }
 
+.btn.hint { background: #5ffda2; border-color: #2e8b57; color: #1e4d34; box-shadow: 0 4px 0px #2e8b57; margin-top: 15px; }
+
 .explode-bubble {
   position: fixed; border-radius: 50%;
   background: white; border: 2px solid var(--blue-ocean);
@@ -83,6 +84,16 @@ p { font-size: 1.1rem; font-weight: 600; margin: 10px 0; }
 }
 
 #countdown { font-size: 4rem; color: #ff4757; font-family: 'Patrick Hand'; }
+
+.clue-box {
+  background: #e0f7ff;
+  border: 2px dashed var(--blue-ocean);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 15px;
+  display: none;
+  font-size: 0.9rem;
+}
 </style>
 </head>
 <body id="mainBody">
@@ -95,31 +106,38 @@ p { font-size: 1.1rem; font-weight: 600; margin: 10px 0; }
   <div class="card">
     <h1>¡Eso es, Merry! 🍍</h1>
     <p>¿Ves? Te dije que teníamos tecnología...</p>
-    <p>Patricio tenía razón, las cartas a mano son lindas, pero esto apenas comienza.</p>
-    <p style="font-size: 0.8rem; color: #008dc4; margin-top:15px;">Toca para seguir leyendo ✨</p>
+    <p>Patricio tenía razón: las cartas son lindas, pero esto es nivel "Crustáceo Cascarudo".</p>
+    <p style="font-size: 0.8rem; color: #008dc4; margin-top:15px;">Toca para seguir 🫧</p>
   </div>
 </section>
 
 <section class="screen" id="s2" onclick="next(2)">
   <div class="card">
-    <p>Lo que dejé inconcluso en el papel es esto:</p>
-    <p>A veces no encuentro las palabras exactas frente a ti porque me distraigo con tu sonrisa...</p>
-    <p>Pero aquí, entre burbujas, es más fácil decirte lo mucho que me gustas.</p>
+    <p>En la carta me quedé a medias porque hay cosas que el papel no aguanta...</p>
+    <p>Me gusta mucho cómo eres, Merry. Tu energía es como un día soleado en la superficie.</p>
+    <p>¡Y hoy es un día especial! ✨</p>
   </div>
 </section>
 
 <section class="screen" id="s3" onclick="next(3)">
   <div class="card">
-    <p>Me encanta cómo se siente pasar tiempo contigo. Sin guiones, sin prisa, como un domingo en Fondo de Bikini.</p>
-    <p>Y como hoy es el Día del Amor y la Amistad...</p>
-    <p>Quería que el mensaje fuera tan especial como tú. ✨🐚</p>
+    <p>No somos Gary y Bob, pero creo que hacemos un equipo igual de genial.</p>
+    <p>Quería aprovechar el Día del Amor y la Amistad para decirte que eres mi persona favorita para "cazar medusas" (o sea, perder el tiempo bonito).</p>
   </div>
 </section>
 
-<section class="screen" id="s4">
+<section class="screen" id="s4" onclick="next(4)">
+  <div class="card">
+    <p>Así que, aprovechando que ya dominas la tecnología...</p>
+    <p>Tengo una pregunta muy importante para ti. ¿Estás lista?</p>
+    <p style="font-size: 1.5rem;">👇</p>
+  </div>
+</section>
+
+<section class="screen" id="s5">
   <div class="card">
     <h1>¿Aceptas una sorpresa? ❤️</h1>
-    <p>Ya sabes que voy a tu ritmo, pero me haría muy feliz que celebráramos esto juntos cuando regreses.</p>
+    <p>Me encantaría que celebráramos esto juntos cuando regreses de tu viaje.</p>
     <div class="btn-container">
       <div class="btn" onclick="yes()">¡CLARO QUE SÍ! 🙂</div>
       <div class="btn no" id="runNo">N-no... 🫶</div>
@@ -139,8 +157,8 @@ p { font-size: 1.1rem; font-weight: 600; margin: 10px 0; }
 <section class="screen" id="no">
   <div class="card">
     <h1>¡POR TODOS LOS MOLUSCOS!</h1>
-    <p>Esa explosión casi nos manda a la superficie... 🫧</p>
-    <p>Merry, después de todo este drama... ¿cambiaste de opinión?</p>
+    <p>Esa explosión casi nos manda a Rock Bottom... 🫧</p>
+    <p>Merry, ¿cambiaste de opinión después de semejante estruendo?</p>
     <div class="btn" onclick="yes()">Está bien, ¡Sí! 🙂</div>
     <div class="btn no" onclick="finalNo()">Sigo diciendo que no 🦀</div>
   </div>
@@ -149,8 +167,8 @@ p { font-size: 1.1rem; font-weight: 600; margin: 10px 0; }
 <section class="screen" id="finalNo">
   <div class="card">
     <h1>¿¡OTRA VEZ!? 😱</h1>
-    <p>Eres más terca que Calamardo intentando tocar el clarinete...</p>
-    <p>Pero el que persevera alcanza una Cangreburger. ¡Aquí te espero para cuando digas que sí! ❤️</p>
+    <p>Eres más terca que Calamardo queriendo silencio...</p>
+    <p>Pero no importa, ¡yo tengo paciencia de Bob Esponja! Reinicia y dime que sí. ❤️</p>
     <div class="btn" onclick="restart()">Reiniciar sistema 🍍</div>
   </div>
 </section>
@@ -158,10 +176,17 @@ p { font-size: 1.1rem; font-weight: 600; margin: 10px 0; }
 <section class="screen" id="yes">
   <div class="card" style="border-color: var(--pink-patrick); border-width: 8px;">
     <h1>¡ME HACES EL DÍA! ⚓❤️</h1>
-    <p>¡Por mis pantalones cuadrados!</p>
-    <p>Hablamos cuando regreses a la superficie para planearlo todo. 🌊</p>
-    <p>¡Feliz Día del Amor y la Amistad, Merry!</p>
-    <p style="font-size: 2.5rem;">🍍⭐🐿️</p>
+    <p>¡Por mis pantalones cuadrados! No puedo esperar a que vuelvas.</p>
+    <p>Como aceptaste, aquí tienes una pequeña pista de lo que te espera...</p>
+    
+    <div class="btn hint" onclick="showClue()">VER PISTA SECRETA 🤫</div>
+    
+    <div id="clueText" class="clue-box">
+      <strong>Pista:</strong> "No es una Cangreburger, pero tiene que ver con algo dulce, un lugar con vista bonita y muchas risas garantizadas... 🍦✨"
+    </div>
+
+    <p style="margin-top:20px; font-size: 0.9rem;">¡Feliz Día, Merry!</p>
+    <p style="font-size: 2rem;">🍍⭐🐿️</p>
   </div>
 </section>
 
@@ -178,7 +203,7 @@ const manejarIntento = (e) => {
     const y = (Math.random() * 160) - 80;
     btnNo.style.transform = `translate(${x}px, ${y}px)`;
     intentosNo++;
-    if(intentosNo === 4) btnNo.textContent = "¡Casi me atrapas! 🫧";
+    if(intentosNo === 4) btnNo.textContent = "¡Casi! 🫧";
     if(intentosNo === 7) {
       btnNo.style.transform = `translate(0,0)`;
       btnNo.textContent = "Me rindo... 🦀";
@@ -199,6 +224,7 @@ function next(n){
 
 function yes(){ hideAll(); document.getElementById('yes').classList.add('active'); }
 function finalNo(){ hideAll(); document.getElementById('finalNo').classList.add('active'); }
+function showClue(){ document.getElementById('clueText').style.display = 'block'; }
 
 function startNo(){
   hideAll();
@@ -217,33 +243,32 @@ function explode(){
   boomScreen.classList.add('active');
   mainBody.classList.add('shake-it');
   
-  for(let i=0; i<180; i++){
+  for(let i=0; i<200; i++){
     setTimeout(() => {
       const b = document.createElement('div');
       b.className = 'explode-bubble';
-      const size = Math.random() * 80 + 20;
-      b.style.width = size + 'px';
-      b.style.height = size + 'px';
+      const size = Math.random() * 90 + 20;
+      b.style.width = size + 'px'; b.style.height = size + 'px';
       b.style.left = (Math.random() * 100) + '%';
       b.style.top = (Math.random() * 100) + '%';
       document.body.appendChild(b);
       
-      if(i % 3 === 0) document.getElementById('boomSound').cloneNode().play();
+      if(i % 4 === 0) document.getElementById('boomSound').cloneNode().play();
 
       b.animate([
-        { transform: 'scale(0)', opacity: 1 },
-        { transform: 'scale(4)', opacity: 0 }
-      ], { duration: 2500, fill: 'forwards' });
+        { transform: 'scale(0) translateY(0)', opacity: 1 },
+        { transform: `scale(4) translateY(-${Math.random()*500}px)`, opacity: 0 }
+      ], { duration: 3000, fill: 'forwards' });
 
-      setTimeout(() => b.remove(), 2500);
-    }, i * 12);
+      setTimeout(() => b.remove(), 3000);
+    }, i * 10);
   }
 
   setTimeout(() => {
     mainBody.classList.remove('shake-it');
     hideAll();
     document.getElementById('no').classList.add('active');
-  }, 5000); 
+  }, 5500); 
 }
 
 function hideAll(){ document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); }
