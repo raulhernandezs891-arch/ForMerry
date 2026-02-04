@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para 5 Merry 🍍</title>
+<title>Para 2 Merry 🍍</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 
@@ -11,14 +11,13 @@
 :root {
   --yellow-bob: #effd5f;
   --pink-patrick: #ff91d7;
-  --blue-ocean: #008dc4;
+  --blue-ocean: #00d2ff;
   --flower-color: rgba(255, 255, 255, 0.3);
 }
 
 body {
   margin: 0;
   font-family: 'Baloo 2', cursive;
-  /* Fondo con patrón de flores de Fondo de Bikini */
   background-color: #00d2ff;
   background-image: 
     radial-gradient(circle at 20% 30%, var(--flower-color) 20px, transparent 20px),
@@ -29,7 +28,7 @@ body {
   overflow: hidden;
 }
 
-/* SCREENS */
+/* PANTALLAS */
 .screen {
   min-height: 100vh;
   padding: 40px 20px;
@@ -44,11 +43,11 @@ body {
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* CARD ESTILO BURBUJA */
+/* TARJETA ESTILO BURBUJA */
 .card {
   background: rgba(255, 255, 255, 0.9);
   border: 8px solid var(--yellow-bob);
-  border-radius: 40px 15px 40px 15px; /* Forma irregular tipo caricatura */
+  border-radius: 40px 15px 40px 15px;
   padding: 30px;
   box-shadow: 0 15px 0px rgba(0,0,0,0.1);
   text-align: center;
@@ -76,11 +75,11 @@ p {
   line-height: 1.5;
 }
 
-/* BOTONES ESTILO CANGREBURGER */
+/* BOTONES */
 .btn {
   display: inline-block;
   margin: 10px;
-  padding: 15px 30px;
+  padding: 15px 25px;
   border-radius: 50px;
   background: var(--yellow-bob);
   border: 4px solid #d4a017;
@@ -88,8 +87,9 @@ p {
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
-  transition: 0.2s;
+  transition: transform 0.2s, background 0.3s;
   box-shadow: 0 5px 0px #d4a017;
+  user-select: none;
 }
 
 .btn:active {
@@ -102,9 +102,10 @@ p {
   border-color: #d15fa5;
   color: #fff;
   box-shadow: 0 5px 0px #d15fa5;
+  position: relative;
 }
 
-/* BURBUJAS */
+/* BURBUJAS DE FONDO */
 .bg-bubble {
   position: fixed;
   bottom: -100px;
@@ -113,15 +114,17 @@ p {
   border-radius: 50%;
   animation: rise linear infinite;
   z-index: 1;
+  pointer-events: none;
 }
 
 @keyframes rise {
   to { transform: translateY(-120vh) translateX(50px); opacity: 0; }
 }
 
-/* EXPLOSION Y EFECTOS */
-#boom { background: white; z-index: 10; transition: opacity 0.5s; }
+#boom { background: white; z-index: 10; display: none; }
+#boom.active { display: block; }
 
+#countdown { font-size: 4rem; color: #ff4757; }
 </style>
 </head>
 <body>
@@ -130,27 +133,12 @@ p {
   <source src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-bubble-pop-2895.mp3">
 </audio>
 
-<script>
-/* GENERADOR DE BURBUJAS MÁS REALISTAS */
-for(let i=0; i<30; i++){
-  const b = document.createElement('div');
-  b.className = 'bg-bubble';
-  const size = Math.random() * 60 + 20;
-  b.style.width = size + 'px';
-  b.style.height = size + 'px';
-  b.style.left = Math.random() * 100 + '%';
-  b.style.animationDuration = (Math.random() * 8 + 5) + 's';
-  b.style.animationDelay = (Math.random() * 5) + 's';
-  document.body.appendChild(b);
-}
-</script>
-
 <section class="screen active" id="s1" onclick="next(1)">
   <div class="card">
     <h1>¡Hola Merry! 🍍</h1>
     <p>¿Estás lista, chica?<br><small>(¡Sí, Capitán!)</small></p>
     <p>Esto empieza como algo sencillo...<br>Como una Cangreburger hecha con amor.</p>
-    <p style="font-size: 0.8rem; color: var(--blue-ocean)">Toca para continuar 🫧</p>
+    <p style="font-size: 0.8rem; color: #008dc4">Toca para continuar 🫧</p>
   </div>
 </section>
 
@@ -167,7 +155,7 @@ for(let i=0; i<30; i++){
     <p>No tengo prisa por llegar a la meta.<br>Prefiero ir flotando como una medusa.</p>
     <div class="question">
       <p style="font-family:'Patrick Hand'; font-size:1.5rem;">
-        Cuando regreses de tu viaje...<br>¿salimos por unas malteadas?
+        Cuando regreses…<br>¿salimos por ahí?
       </p>
       <div class="btn" onclick="yes()">¡ESTOY LISTO! 🙂</div>
       <div class="btn no" id="runNo" onclick="startNo()">N-no... 🫶</div>
@@ -178,7 +166,7 @@ for(let i=0; i<30; i++){
 <section class="screen" id="count">
   <div class="card">
     <p>¡QUESO CANGREJO! <br> Este mensaje explotará en...</p>
-    <h2 id="countdown" style="font-size: 4rem; margin: 0;">3</h2>
+    <div id="countdown">3</div>
   </div>
 </section>
 
@@ -204,6 +192,20 @@ for(let i=0; i<30; i++){
 </section>
 
 <script>
+/* GENERADOR DE BURBUJAS */
+for(let i=0; i<25; i++){
+  const b = document.createElement('div');
+  b.className = 'bg-bubble';
+  const size = Math.random() * 50 + 15;
+  b.style.width = size + 'px';
+  b.style.height = size + 'px';
+  b.style.left = Math.random() * 100 + '%';
+  b.style.animationDuration = (Math.random() * 8 + 6) + 's';
+  b.style.animationDelay = (Math.random() * 5) + 's';
+  document.body.appendChild(b);
+}
+
+/* LÓGICA DE NAVEGACIÓN */
 function hideAll(){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
 }
@@ -220,56 +222,76 @@ function yes(){
 
 function restart(){ location.reload(); }
 
+/* LÓGICA DEL BOTÓN QUE HUYE (7 VECES) */
+let intentosNo = 0;
+const limiteIntentos = 7;
 const runNo = document.getElementById('runNo');
-runNo.addEventListener('mouseover', moveBtn);
-runNo.addEventListener('touchstart', (e) => { e.preventDefault(); moveBtn(); });
 
-function moveBtn(){
-  const x = (Math.random() * 200) - 100;
-  const y = (Math.random() * 200) - 100;
-  runNo.style.transform = `translate(${x}px, ${y}px)`;
+runNo.addEventListener('mouseover', moverBoton);
+runNo.addEventListener('touchstart', (e) => { e.preventDefault(); moverBoton(); });
+
+function moverBoton(){
+  if(intentosNo < limiteIntentos){
+    const x = (Math.random() * 180) - 90;
+    const y = (Math.random() * 180) - 90;
+    runNo.style.transform = `translate(${x}px, ${y}px)`;
+    intentosNo++;
+    
+    if(intentosNo === 4) runNo.textContent = "¡Casi! 🫧";
+    if(intentosNo === 7) {
+      runNo.style.transform = `translate(0px, 0px)`;
+      runNo.textContent = "Está bien... 🦀";
+      runNo.style.background = "#bdc3c7";
+      runNo.style.boxShadow = "0 5px 0px #7f8c8d";
+      runNo.style.borderColor = "#7f8c8d";
+    }
+  }
 }
 
 function startNo(){
-  hideAll();
-  document.getElementById('count').classList.add('active');
-  let c = 3;
-  const el = document.getElementById('countdown');
-  const timer = setInterval(() => {
-    c--;
-    el.textContent = c;
-    if(c === 0){
-      clearInterval(timer);
-      explode();
-    }
-  }, 1000);
+  if(intentosNo >= limiteIntentos){
+    hideAll();
+    document.getElementById('count').classList.add('active');
+    let c = 3;
+    const el = document.getElementById('countdown');
+    const timer = setInterval(() => {
+      c--;
+      el.textContent = c;
+      if(c === 0){
+        clearInterval(timer);
+        explode();
+      }
+    }, 1000);
+  }
 }
 
+/* EXPLOSIÓN DE BURBUJAS */
 function explode(){
   hideAll();
-  document.getElementById('boom').classList.add('active');
+  const boom = document.getElementById('boom');
+  boom.classList.add('active');
   document.getElementById('boomSound').play();
 
-  // Crear burbujas de explosión
-  for(let i=0; i<50; i++){
+  for(let i=0; i<60; i++){
     const b = document.createElement('div');
     b.className = 'bg-bubble';
     b.style.left = '50%';
     b.style.top = '50%';
-    b.style.width = '40px';
-    b.style.height = '40px';
+    b.style.width = '30px';
+    b.style.height = '30px';
     b.style.background = 'white';
     b.animate([
       { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
-      { transform: `translate(${(Math.random()-0.5)*1000}px, ${(Math.random()-0.5)*1000}px) scale(0)`, opacity: 0 }
-    ], { duration: 1500, fill: 'forwards' });
+      { transform: `translate(${(Math.random()-0.5)*1200}px, ${(Math.random()-0.5)*1200}px) scale(0)`, opacity: 0 }
+    ], { duration: 2000, fill: 'forwards' });
     document.body.appendChild(b);
   }
 
   setTimeout(() => {
     hideAll();
+    boom.classList.remove('active');
     document.getElementById('no').classList.add('active');
-  }, 1500);
+  }, 2000);
 }
 </script>
 
