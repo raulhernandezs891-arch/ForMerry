@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para 2 Merry 🍍</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Para Merry 🍍</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 
@@ -17,6 +17,7 @@
 
 body {
   margin: 0;
+  padding: 0;
   font-family: 'Baloo 2', cursive;
   background-color: #00d2ff;
   background-image: 
@@ -25,61 +26,61 @@ body {
     linear-gradient(#4facfe, #00f2fe);
   background-size: 200px 200px, 300px 300px, 100% 100%;
   color: #1a4a5e;
-  overflow: hidden;
+  overflow: hidden; /* Evita scroll raro en móvil */
+  width: 100vw;
+  height: 100vh;
 }
 
 /* PANTALLAS */
 .screen {
   min-height: 100vh;
-  padding: 40px 20px;
+  width: 100vw;
+  padding: 20px;
   box-sizing: border-box;
   display: none;
   align-items: center;
   justify-content: center;
-  position: relative;
-  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
-.screen.active { display: flex; animation: fadeIn 0.5s ease; }
+.screen.active { display: flex; animation: fadeIn 0.4s ease; }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* TARJETA ESTILO BURBUJA */
+/* TARJETA */
 .card {
-  background: rgba(255, 255, 255, 0.9);
-  border: 8px solid var(--yellow-bob);
-  border-radius: 40px 15px 40px 15px;
-  padding: 30px;
-  box-shadow: 0 15px 0px rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.95);
+  border: 6px solid var(--yellow-bob);
+  border-radius: 30px 15px;
+  padding: 25px;
+  box-shadow: 0 10px 0px rgba(0,0,0,0.1);
   text-align: center;
-  max-width: 420px;
-  position: relative;
+  width: 100%;
+  max-width: 320px; /* Ajuste para pantallas pequeñas */
   animation: float 3s ease-in-out infinite;
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0) rotate(-1deg); }
-  50% { transform: translateY(-15px) rotate(1deg); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
-h1 {
-  font-family: 'Patrick Hand', cursive;
-  font-size: 2.2rem;
-  color: #d4a017;
-  text-shadow: 2px 2px 0px #fff;
-  margin-bottom: 10px;
-}
-
-p {
-  font-size: 1.1rem;
-  font-weight: 600;
-  line-height: 1.5;
-}
+h1 { font-family: 'Patrick Hand', cursive; font-size: 1.8rem; color: #d4a017; margin: 0 0 10px; }
+p { font-size: 1rem; font-weight: 600; margin: 10px 0; }
 
 /* BOTONES */
+.btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
 .btn {
-  display: inline-block;
-  margin: 10px;
-  padding: 15px 25px;
+  width: 80%;
+  padding: 12px;
   border-radius: 50px;
   background: var(--yellow-bob);
   border: 4px solid #d4a017;
@@ -87,44 +88,32 @@ p {
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
-  transition: transform 0.2s, background 0.3s;
-  box-shadow: 0 5px 0px #d4a017;
-  user-select: none;
-}
-
-.btn:active {
-  transform: translateY(4px);
-  box-shadow: 0 1px 0px #d4a017;
+  box-shadow: 0 4px 0px #d4a017;
+  transition: transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn.no {
   background: var(--pink-patrick);
   border-color: #d15fa5;
   color: #fff;
-  box-shadow: 0 5px 0px #d15fa5;
-  position: relative;
+  box-shadow: 0 4px 0px #d15fa5;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* BURBUJAS DE FONDO */
+/* BURBUJAS */
 .bg-bubble {
   position: fixed;
   bottom: -100px;
   background: rgba(255, 255, 255, 0.4);
-  border: 2px solid rgba(255, 255, 255, 0.6);
   border-radius: 50%;
   animation: rise linear infinite;
-  z-index: 1;
   pointer-events: none;
 }
 
-@keyframes rise {
-  to { transform: translateY(-120vh) translateX(50px); opacity: 0; }
-}
+@keyframes rise { to { transform: translateY(-120vh); } }
 
-#boom { background: white; z-index: 10; display: none; }
-#boom.active { display: block; }
-
-#countdown { font-size: 4rem; color: #ff4757; }
+#countdown { font-size: 3rem; color: #ff4757; font-family: 'Patrick Hand'; }
 </style>
 </head>
 <body>
@@ -137,46 +126,43 @@ p {
   <div class="card">
     <h1>¡Hola Merry! 🍍</h1>
     <p>¿Estás lista, chica?<br><small>(¡Sí, Capitán!)</small></p>
-    <p>Esto empieza como algo sencillo...<br>Como una Cangreburger hecha con amor.</p>
-    <p style="font-size: 0.8rem; color: #008dc4">Toca para continuar 🫧</p>
+    <p>Esto empieza sencillo... como una Cangreburger con amor.</p>
+    <p style="font-size: 0.8rem; color: #008dc4; margin-top:15px;">Toca la pantalla 🫧</p>
   </div>
 </section>
 
 <section class="screen" id="s2" onclick="next(2)">
   <div class="card">
-    <p>Me gusta cómo se siente<br>conocerte sin prisa,<br>como un domingo en Fondo de Bikini.</p>
-    <p>Sin guiones, ni planes de Plankton.<br>Solo lo genuino.</p>
-    <p style="font-size: 1.5rem;">✨🐚✨</p>
+    <p>Me gusta conocerte sin prisa...<br>Como un domingo en Fondo de Bikini.</p>
+    <p>Sin guiones ni planes de Plankton.<br>Solo lo genuino.</p>
+    <p>✨🐚✨</p>
   </div>
 </section>
 
 <section class="screen" id="s3">
   <div class="card">
-    <p>No tengo prisa por llegar a la meta.<br>Prefiero ir flotando como una medusa.</p>
-    <div class="question">
-      <p style="font-family:'Patrick Hand'; font-size:1.5rem;">
-        Cuando regreses…<br>¿salimos por ahí?
-      </p>
+    <p>¿Salimos cuando regreses? 🥤</p>
+    <div class="btn-container">
       <div class="btn" onclick="yes()">¡ESTOY LISTO! 🙂</div>
-      <div class="btn no" id="runNo" onclick="startNo()">N-no... 🫶</div>
+      <div class="btn no" id="runNo">N-no... 🫶</div>
     </div>
   </div>
 </section>
 
 <section class="screen" id="count">
   <div class="card">
-    <p>¡QUESO CANGREJO! <br> Este mensaje explotará en...</p>
+    <p>¡QUESO CANGREJO!<br>Explotará en...</p>
     <div id="countdown">3</div>
   </div>
 </section>
 
-<section class="screen" id="boom"></section>
+<section class="screen" id="boom" style="background:white;"></section>
 
 <section class="screen" id="no">
   <div class="card">
-    <p>¡Por mis pantalones cuadrados!</p>
-    <p>La explosión fue fuerte... ¿Te despeinaste?</p>
-    <p>¿Segura que no quieres cambiar de opinión?</p>
+    <h1>¡CASCARUDO!</h1>
+    <p>¿Te despeinó la explosión?</p>
+    <p>¿Cambiaste de opinión?</p>
     <div class="btn" onclick="yes()">Ok, ¡Sí! 🙂</div>
     <div class="btn no" onclick="restart()">Sigo diciendo no 🦀</div>
   </div>
@@ -184,31 +170,57 @@ p {
 
 <section class="screen" id="yes">
   <div class="card" style="border-color: var(--pink-patrick);">
-    <h1>¡MARAVILLOSO! ⚓</h1>
-    <p>Entonces así quedamos.<br>A tu ritmo y con calma.</p>
-    <p>Ya lo planeamos cuando regreses a la superficie.</p>
-    <p style="font-size: 2.5rem;">🍍⭐🐿️</p>
+    <h1>¡FANTÁSTICO! ⚓</h1>
+    <p>A tu ritmo y con calma.</p>
+    <p>Hablamos cuando regreses. 🌊</p>
+    <p style="font-size: 2rem;">🍍⭐</p>
   </div>
 </section>
 
 <script>
-/* GENERADOR DE BURBUJAS */
-for(let i=0; i<25; i++){
+// Burbujas
+for(let i=0; i<15; i++){
   const b = document.createElement('div');
   b.className = 'bg-bubble';
-  const size = Math.random() * 50 + 15;
+  const size = Math.random() * 40 + 10;
   b.style.width = size + 'px';
   b.style.height = size + 'px';
   b.style.left = Math.random() * 100 + '%';
-  b.style.animationDuration = (Math.random() * 8 + 6) + 's';
-  b.style.animationDelay = (Math.random() * 5) + 's';
+  b.style.animationDuration = (Math.random() * 5 + 4) + 's';
+  b.style.animationDelay = (Math.random() * 3) + 's';
   document.body.appendChild(b);
 }
 
-/* LÓGICA DE NAVEGACIÓN */
-function hideAll(){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-}
+let intentosNo = 0;
+const limiteIntentos = 7;
+const btnNo = document.getElementById('runNo');
+
+// LÓGICA PARA MÓVIL Y PC
+const manejarIntento = (e) => {
+  if (intentosNo < limiteIntentos) {
+    e.preventDefault(); // Evita que el click se dispare antes de los 7
+    const x = (Math.random() * 140) - 70;
+    const y = (Math.random() * 140) - 70;
+    btnNo.style.transform = `translate(${x}px, ${y}px)`;
+    intentosNo++;
+
+    if(intentosNo === 4) btnNo.textContent = "¡Casi! 🫧";
+    if(intentosNo === 7) {
+      btnNo.style.transform = `translate(0,0)`;
+      btnNo.textContent = "Está bien... 🦀";
+      btnNo.style.background = "#bdc3c7";
+      btnNo.style.borderColor = "#7f8c8d";
+    }
+  } else {
+    // Si ya llegó a 7, permitimos el paso
+    startNo();
+  }
+};
+
+btnNo.addEventListener('touchstart', manejarIntento);
+btnNo.addEventListener('click', (e) => {
+  if(intentosNo < limiteIntentos) manejarIntento(e);
+});
 
 function next(n){
   document.getElementById('s'+n).classList.remove('active');
@@ -220,80 +232,33 @@ function yes(){
   document.getElementById('yes').classList.add('active');
 }
 
-function restart(){ location.reload(); }
-
-/* LÓGICA DEL BOTÓN QUE HUYE (7 VECES) */
-let intentosNo = 0;
-const limiteIntentos = 7;
-const runNo = document.getElementById('runNo');
-
-runNo.addEventListener('mouseover', moverBoton);
-runNo.addEventListener('touchstart', (e) => { e.preventDefault(); moverBoton(); });
-
-function moverBoton(){
-  if(intentosNo < limiteIntentos){
-    const x = (Math.random() * 180) - 90;
-    const y = (Math.random() * 180) - 90;
-    runNo.style.transform = `translate(${x}px, ${y}px)`;
-    intentosNo++;
-    
-    if(intentosNo === 4) runNo.textContent = "¡Casi! 🫧";
-    if(intentosNo === 7) {
-      runNo.style.transform = `translate(0px, 0px)`;
-      runNo.textContent = "Está bien... 🦀";
-      runNo.style.background = "#bdc3c7";
-      runNo.style.boxShadow = "0 5px 0px #7f8c8d";
-      runNo.style.borderColor = "#7f8c8d";
-    }
-  }
-}
-
 function startNo(){
-  if(intentosNo >= limiteIntentos){
-    hideAll();
-    document.getElementById('count').classList.add('active');
-    let c = 3;
-    const el = document.getElementById('countdown');
-    const timer = setInterval(() => {
-      c--;
-      el.textContent = c;
-      if(c === 0){
-        clearInterval(timer);
-        explode();
-      }
-    }, 1000);
-  }
+  hideAll();
+  document.getElementById('count').classList.add('active');
+  let c = 3;
+  const timer = setInterval(() => {
+    c--;
+    document.getElementById('countdown').textContent = c;
+    if(c === 0){ clearInterval(timer); explode(); }
+  }, 1000);
 }
 
-/* EXPLOSIÓN DE BURBUJAS */
 function explode(){
   hideAll();
-  const boom = document.getElementById('boom');
-  boom.classList.add('active');
-  document.getElementById('boomSound').play();
-
-  for(let i=0; i<60; i++){
-    const b = document.createElement('div');
-    b.className = 'bg-bubble';
-    b.style.left = '50%';
-    b.style.top = '50%';
-    b.style.width = '30px';
-    b.style.height = '30px';
-    b.style.background = 'white';
-    b.animate([
-      { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
-      { transform: `translate(${(Math.random()-0.5)*1200}px, ${(Math.random()-0.5)*1200}px) scale(0)`, opacity: 0 }
-    ], { duration: 2000, fill: 'forwards' });
-    document.body.appendChild(b);
-  }
+  document.getElementById('boom').classList.add('active');
+  try { document.getElementById('boomSound').play(); } catch(e){}
 
   setTimeout(() => {
     hideAll();
-    boom.classList.remove('active');
     document.getElementById('no').classList.add('active');
-  }, 2000);
+  }, 1000);
 }
-</script>
 
+function hideAll(){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+}
+
+function restart(){ location.reload(); }
+</script>
 </body>
 </html>
