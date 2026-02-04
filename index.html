@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Para 2 Merry 🍍</title>
+<title>Para Merry 🍍</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 
@@ -51,10 +51,22 @@ body {
   z-index: 5;
 }
 
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-h1 { font-family: 'Patrick Hand', cursive; font-size: 1.8rem; color: #d4a017; margin: 0 0 10px; }
-p { font-size: 1rem; font-weight: 600; margin: 10px 0; }
+/* EFECTO SACUDIDA PARA LA EXPLOSIÓN */
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  100% { transform: translate(1px, 1px) rotate(0deg); }
+}
+.shake-it { animation: shake 0.5s infinite; }
+
+h1 { font-family: 'Patrick Hand', cursive; font-size: 2rem; color: #d4a017; margin: 0 0 10px; }
+p { font-size: 1.1rem; font-weight: 600; margin: 10px 0; }
 
 .btn-container { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 20px; }
 .btn {
@@ -65,20 +77,18 @@ p { font-size: 1rem; font-weight: 600; margin: 10px 0; }
   -webkit-tap-highlight-color: transparent;
 }
 
-.btn.no { background: var(--pink-patrick); border-color: #d15fa5; color: #fff; box-shadow: 0 4px 0px #d15fa5; }
+.btn.no { background: var(--pink-patrick); border-color: #d15fa5; color: #fff; box-shadow: 0 4px 0px #d15fa5; transition: 0.2s; }
 
-/* BURBUJAS DE EXPLOSIÓN */
 .explode-bubble {
   position: fixed; border-radius: 50%;
-  background: rgba(255,255,255,0.9);
-  border: 2px solid var(--blue-ocean);
+  background: white; border: 2px solid var(--blue-ocean);
   pointer-events: none; z-index: 100;
 }
 
-#countdown { font-size: 3.5rem; color: #ff4757; font-family: 'Patrick Hand'; font-weight: bold; }
+#countdown { font-size: 4rem; color: #ff4757; font-family: 'Patrick Hand'; }
 </style>
 </head>
-<body>
+<body id="mainBody">
 
 <audio id="boomSound" preload="auto">
   <source src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-bubble-pop-2895.mp3">
@@ -87,25 +97,27 @@ p { font-size: 1rem; font-weight: 600; margin: 10px 0; }
 <section class="screen active" id="s1" onclick="next(1)">
   <div class="card">
     <h1>¡Hola Merry! 🍍</h1>
-    <p>¿Estás lista, chica?<br><small>(¡Sí, Capitán!)</small></p>
-    <p>Esto empieza sencillo... como una Cangreburger con amor.</p>
+    <p>¿Estás lista?<br><small>(¡SÍ, CAPITÁN!)</small></p>
+    <p>Hoy no es un día cualquiera en el arrecife...</p>
     <p style="font-size: 0.8rem; color: #008dc4; margin-top:15px;">Toca la pantalla 🫧</p>
   </div>
 </section>
 
 <section class="screen" id="s2" onclick="next(2)">
   <div class="card">
-    <p>Me gusta conocerte sin prisa...<br>Como un domingo en Fondo de Bikini.</p>
-    <p>Sin guiones ni planes de Plankton.<br>Solo lo genuino.</p>
-    <p>✨🐚✨</p>
+    <p>Dicen que los mejores tesoros no están enterrados bajo la arena...</p>
+    <p>A veces, el tesoro es simplemente compartir el tiempo con alguien especial como tú.</p>
+    <p>Me gusta mucho cómo eres, Merry. ✨🐚</p>
   </div>
 </section>
 
 <section class="screen" id="s3">
   <div class="card">
-    <p>¿Salimos cuando regreses? 🥤</p>
+    <h1>Día del Amor y la Amistad ❤️</h1>
+    <p>Ya sabes que no me gusta forzar nada, pero me encantaría que celebráramos esto juntos.</p>
+    <p>¿Aceptarías una sorpresa cuando regreses?</p>
     <div class="btn-container">
-      <div class="btn" onclick="yes()">¡ESTOY LISTO! 🙂</div>
+      <div class="btn" onclick="yes()">¡CLARO QUE SÍ! 🙂</div>
       <div class="btn no" id="runNo">N-no... 🫶</div>
     </div>
   </div>
@@ -113,19 +125,19 @@ p { font-size: 1rem; font-weight: 600; margin: 10px 0; }
 
 <section class="screen" id="count">
   <div class="card">
-    <p>¡QUESO CANGREJO!<br>Explotará en...</p>
+    <p>¡QUESO CANGREJO!<br>¡ENTRASTE EN MODO AUTODESTRUCCIÓN!</p>
     <div id="countdown">3</div>
   </div>
 </section>
 
-<section class="screen" id="boom" style="background:rgba(255,255,255,0.8); z-index:99;"></section>
+<section class="screen" id="boom" style="background:rgba(255,255,255,0.9); z-index:99;"></section>
 
 <section class="screen" id="no">
   <div class="card">
-    <h1>¡CASCARUDO!</h1>
-    <p>Esa explosión fue masiva... 🫧<br>¿Estás bien, Merry?</p>
-    <p>Entonces... ¿cambiaste de opinión? ¿Salimos?</p>
-    <div class="btn" onclick="yes()">Ok, ¡Sí! 🙂</div>
+    <h1>¡POR TODOS LOS MOLUSCOS!</h1>
+    <p>Esa explosión casi nos manda a la superficie... 🫧</p>
+    <p>¿Segura que después de todo este drama no quieres cambiar de opinión?</p>
+    <div class="btn" onclick="yes()">Está bien, ¡Sí! 🙂</div>
     <div class="btn no" onclick="finalNo()">Sigo diciendo que no 🦀</div>
   </div>
 </section>
@@ -133,17 +145,18 @@ p { font-size: 1rem; font-weight: 600; margin: 10px 0; }
 <section class="screen" id="finalNo">
   <div class="card">
     <h1>¿¡OTRA VEZ!? 😱</h1>
-    <p>Eres más terca que Calamardo un lunes por la mañana...</p>
-    <p>Pero no importa, ¡yo tengo más burbujas que tú! <br>Vuelve a intentarlo cuando estés lista.</p>
-    <div class="btn" onclick="restart()">Intentar de nuevo 🍍</div>
+    <p>Ni Gary es tan testarudo cuando le toca baño...</p>
+    <p>Pero bueno, el que persevera alcanza una Cangreburger. ¡Aquí te espero para cuando digas que sí! ❤️</p>
+    <div class="btn" onclick="restart()">Reiniciar sistema 🍍</div>
   </div>
 </section>
 
 <section class="screen" id="yes">
-  <div class="card" style="border-color: var(--pink-patrick);">
-    <h1>¡FANTÁSTICO! ⚓</h1>
-    <p>¡Por mis pantalones cuadrados!</p>
-    <p>Hablamos cuando regreses a la superficie. 🌊</p>
+  <div class="card" style="border-color: var(--pink-patrick); border-width: 8px;">
+    <h1>¡ME HACES EL DÍA! ⚓❤️</h1>
+    <p>Entonces ya es oficial...</p>
+    <p>Prepárate, porque cuando vuelvas, nos espera algo increíble. Me gusta mucho saber que cuento contigo.</p>
+    <p>¡Feliz Día del Amor y la Amistad, Merry! ✨</p>
     <p style="font-size: 2.5rem;">🍍⭐🐿️</p>
   </div>
 </section>
@@ -152,18 +165,19 @@ p { font-size: 1rem; font-weight: 600; margin: 10px 0; }
 let intentosNo = 0;
 const limiteIntentos = 7;
 const btnNo = document.getElementById('runNo');
+const mainBody = document.getElementById('mainBody');
 
 const manejarIntento = (e) => {
   if (intentosNo < limiteIntentos) {
     e.preventDefault();
-    const x = (Math.random() * 160) - 80;
-    const y = (Math.random() * 160) - 80;
+    const x = (Math.random() * 180) - 90;
+    const y = (Math.random() * 180) - 90;
     btnNo.style.transform = `translate(${x}px, ${y}px)`;
     intentosNo++;
-    if(intentosNo === 4) btnNo.textContent = "¡Casi! 🫧";
+    if(intentosNo === 4) btnNo.textContent = "¡Casi me atrapas! 🫧";
     if(intentosNo === 7) {
       btnNo.style.transform = `translate(0,0)`;
-      btnNo.textContent = "Está bien... 🦀";
+      btnNo.textContent = "Me rindo... 🦀";
       btnNo.style.background = "#bdc3c7";
     }
   } else {
@@ -197,40 +211,39 @@ function explode(){
   hideAll();
   const boomScreen = document.getElementById('boom');
   boomScreen.classList.add('active');
+  mainBody.classList.add('shake-it'); // Sacudida dramática de pantalla
   
-  // Explosión Dramática: Muchas más burbujas
-  for(let i=0; i<100; i++){
+  // SUPER EXPLOSIÓN: 150 burbujas en ráfaga total
+  for(let i=0; i<150; i++){
     setTimeout(() => {
       const b = document.createElement('div');
       b.className = 'explode-bubble';
-      const size = Math.random() * 60 + 20;
+      const size = Math.random() * 80 + 20;
       b.style.width = size + 'px';
       b.style.height = size + 'px';
-      b.style.left = '50%';
-      b.style.top = '50%';
+      b.style.left = (Math.random() * 100) + '%';
+      b.style.top = (Math.random() * 100) + '%';
       
       document.body.appendChild(b);
-      document.getElementById('boomSound').cloneNode().play();
-
-      const angle = Math.random() * Math.PI * 2;
-      const dist = Math.random() * 1000 + 100;
-      const tx = Math.cos(angle) * dist;
-      const ty = Math.sin(angle) * dist;
+      
+      // Sonido aleatorio para cada burbuja
+      if(i % 3 === 0) document.getElementById('boomSound').cloneNode().play();
 
       b.animate([
-        { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
-        { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(2)`, opacity: 0 }
-      ], { duration: 2500, fill: 'forwards' });
+        { transform: 'scale(0)', opacity: 1 },
+        { transform: 'scale(3)', opacity: 0 }
+      ], { duration: 2000, fill: 'forwards' });
 
-      setTimeout(() => b.remove(), 2500);
-    }, i * 20); // Salen en ráfaga
+      setTimeout(() => b.remove(), 2000);
+    }, i * 15);
   }
 
-  // Duración extendida antes de pasar a la siguiente pantalla
+  // Duración extra dramática (5 segundos)
   setTimeout(() => {
+    mainBody.classList.remove('shake-it');
     hideAll();
     document.getElementById('no').classList.add('active');
-  }, 4000); 
+  }, 5000); 
 }
 
 function hideAll(){ document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); }
