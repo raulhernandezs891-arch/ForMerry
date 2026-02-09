@@ -32,7 +32,7 @@ body {
   bottom: -100px;
   pointer-events: none;
   z-index: 1;
-  animation: rise 10s infinite ease-in;
+  animation: rise 8s infinite ease-in;
 }
 
 @keyframes rise {
@@ -47,16 +47,16 @@ body {
   display: none; align-items: center; justify-content: center;
   position: absolute; top: 0; left: 0; z-index: 10;
 }
-.screen.active { display: flex; animation: fadeIn 0.4s ease; }
+.screen.active { display: flex; animation: fadeIn 0.5s ease; }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
 .card {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   border: 6px solid var(--yellow-bob);
   border-radius: 30px 15px;
   padding: 25px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
   text-align: center;
   width: 100%; max-width: 320px;
   animation: float 3s ease-in-out infinite;
@@ -72,25 +72,48 @@ body {
   color: #5d4a1e; font-weight: 700; text-transform: uppercase;
   cursor: pointer; box-shadow: 0 4px 0px #d4a017;
   transition: all 0.2s;
+  z-index: 20;
 }
-.btn:active { transform: scale(0.95); }
+.btn:active { transform: scale(0.9); }
 
-.btn.special { background: #ff69b4; border-color: #c2185b; color: white; animation: pulse 1.5s infinite; }
-.btn.gold { background: var(--gold); border-color: #b8860b; color: #5d4a1e; font-size: 1.1rem; }
+.btn.special { 
+    background: #ff69b4; 
+    border-color: #c2185b; 
+    color: white; 
+    animation: heartPulse 1.2s infinite; 
+    box-shadow: 0 4px 0px #c2185b;
+}
 
-@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+@keyframes heartPulse { 
+    0% { transform: scale(1); } 
+    50% { transform: scale(1.1); box-shadow: 0 0 20px #ff69b4; } 
+    100% { transform: scale(1); } 
+}
+
+.btn.gold { background: var(--gold); border-color: #b8860b; color: #5d4a1e; font-size: 1.1rem; box-shadow: 0 4px 0px #b8860b; }
 
 .heart-pop {
   position: fixed; font-size: 25px; pointer-events: none; z-index: 100;
-  animation: heartFly 3s forwards;
+  animation: heartFly 3s forwards ease-out;
 }
 
 @keyframes heartFly {
-  0% { transform: translateY(0) scale(1); opacity: 1; }
-  100% { transform: translateY(-100vh) scale(2) rotate(45deg); opacity: 0; }
+  0% { transform: translateY(0) scale(0); opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(50px) scale(2) rotate(45deg); opacity: 0; }
 }
 
-#countdown { font-size: 5rem; color: #ff4757; font-family: 'Patrick Hand'; text-shadow: 2px 2px white; }
+#countdown { font-size: 5rem; color: #ff4757; font-family: 'Patrick Hand'; text-shadow: 3px 3px white; }
+
+.clue-box {
+  background: #e0f7ff;
+  border: 2px dashed var(--blue-ocean);
+  border-radius: 15px;
+  padding: 10px;
+  margin-top: 15px;
+  display: none;
+  font-size: 0.9rem;
+  animation: fadeIn 0.5s forwards;
+}
 </style>
 </head>
 <body id="mainBody">
@@ -104,38 +127,46 @@ body {
 <section class="screen active" id="s1" onclick="next(1)">
   <div class="card">
     <h1>¡Merry! 🍍</h1>
-    <p>¿Ves estas burbujas? Son tecnología de punta, directamente de la piña.</p>
-    <p>Tengo algo que decirte que no cabía en la carta...</p>
-    <p style="font-size: 0.8rem; color: #008dc4; margin-top:15px;">Toca la pantalla 🫧</p>
+    <p>¿Ves estas burbujas? Son tecnología de punta de Fondo de Bikini.</p>
+    <p>Si estás viendo esto, es porque la carta funcionó...</p>
+    <p style="font-size: 0.8rem; color: #008dc4; margin-top:15px;">Toca la pantalla para seguir 🫧</p>
   </div>
 </section>
 
 <section class="screen" id="s2" onclick="next(2)">
   <div class="card">
-    <p>A veces parece que vivo en una burbuja cuando estoy contigo.</p>
-    <p>No me importa si es un lunes o un domingo, cualquier momento es perfecto si estás tú.</p>
+    <p>No somos cavernícolas, pero a veces me quedo sin palabras cuando estoy frente a ti.</p>
+    <p>Por eso usé este truquito de Patricio para decirte algo importante.</p>
   </div>
 </section>
 
 <section class="screen" id="s3" onclick="next(3)">
   <div class="card">
-    <p>Me gusta cómo eres, Merry. Eres la persona más increíble de todo el océano.</p>
-    <p>Y aunque esto parezca un juego de Patricio, lo que siento es muy real.</p>
+    <p>Hoy parece un día normal para el resto del mundo, pero para mí es diferente.</p>
+    <p>Me gusta tu energía, tu risa y la forma en que haces que todo sea más divertido.</p>
   </div>
 </section>
 
 <section class="screen" id="s4" onclick="next(4)">
   <div class="card">
-    <h1>¿Estás lista? 🐚</h1>
-    <p>He esperado el momento justo, y aunque hoy es un día normal, para mí será inolvidable.</p>
+    <p>Eres como ese tesoro que Bob Esponja buscaría por todo el océano...</p>
+    <p>Y yo he tenido la suerte de encontrarte.</p>
+  </div>
+</section>
+
+<section class="screen" id="s5" onclick="next(5)">
+  <div class="card">
+    <h1>Merry... ✨</h1>
+    <p>He estado dándole vueltas a esto, y ya no puedo guardármelo más.</p>
+    <p>¿Estás lista para lo que sigue?</p>
     <p style="font-size: 1.5rem;">👇</p>
   </div>
 </section>
 
-<section class="screen" id="s5">
+<section class="screen" id="s6">
   <div class="card">
     <h1>¿Quieres ser mi novia? ❤️</h1>
-    <p>Dime que sí y conquistemos el Crustáceo Cascarudo juntos.</p>
+    <p>Prometo que no nos faltarán aventuras, mimos y momentos geniales.</p>
     <div class="btn-container">
       <div class="btn special" onclick="yes()">¡SÍ, ACEPTO! 😍</div>
       <div class="btn no" id="runNo">Mmm... No 💔</div>
@@ -146,49 +177,57 @@ body {
 <section class="screen" id="count">
   <div class="card">
     <h1 style="color: #ff4757;">¡ERROR FATAL!</h1>
-    <p>¡CORAZÓN EN AUTODESTRUCCIÓN!</p>
+    <p>¡ESTO VA A EXPLOTAR DE TRISTEZA!</p>
     <div id="countdown">3</div>
   </div>
 </section>
 
 <section class="screen" id="no">
   <div class="card">
-    <h1>¿CÓMO QUE NO? 😱</h1>
-    <p>¡Casi exploto de los nervios! Merry, ¿de verdad no quieres ser mi novia?</p>
-    <div class="btn special" onclick="yes()">¡Es broma, SÍ! 🥰</div>
+    <h1>¡CASI EXPLOTO! 😱</h1>
+    <p>Merry, mis pantalones cuadrados casi se rompen de los nervios...</p>
+    <p>¿Segura que no quieres reconsiderarlo?</p>
+    <div class="btn special" onclick="yes()">Está bien, ¡SÍ! 🥰</div>
     <div class="btn no" onclick="finalNo()">No es broma... 🦀</div>
   </div>
 </section>
 
 <section class="screen" id="finalNo">
   <div class="card">
-    <h1>😭 MI PIÑA ESTÁ TRISTE</h1>
-    <p>Incluso Calamardo sentiría pena por mí ahora mismo...</p>
-    <div class="btn" onclick="restart()">Intentar de nuevo 🍍</div>
+    <h1>😭 MI PIÑA SE INUNDÓ</h1>
+    <p>Hasta Calamardo está llorando ahora mismo...</p>
+    <div class="btn" onclick="restart()">Intentar de nuevo (con amor) 🍍</div>
   </div>
 </section>
 
 <section class="screen" id="yes">
   <div class="card" style="border-color: #ff69b4; border-width: 8px;">
     <h1>¡ERES MI NOVIA! 🎉</h1>
-    <p>¡Hiciste de este un día legendario!</p>
-    <p>Prepárate para muchas aventuras, risas y mimos.</p>
-    <div class="btn gold" onclick="epicEnding()">PRESIONA PARA EL FINAL ÉPICO 🚀</div>
+    <p>¡Hiciste de este día el más legendario de mi vida!</p>
+    <p>Tengo una pequeña pista de lo que nos espera hoy...</p>
+    
+    <div class="btn gold" onclick="showClue()">VER PISTA SECRETA 🤫</div>
+    
+    <div id="clueText" class="clue-box">
+      <strong>Pista de nuestra cita:</strong> "No comeremos algas... será algo dulce, en un lugar lindo y con un regalo sorpresa. ✨🍦🎁"
+    </div>
+
+    <div class="btn special" style="margin-top:20px;" onclick="epicEnding()">¡NUESTRO FUTURO JUNTOS! 🚀</div>
   </div>
 </section>
 
 <script>
-// 1. GENERAR BURBUJAS DE FONDO AUTOMÁTICAMENTE
+// 1. GENERADOR DE BURBUJAS MEJORADO
 function createBackgroundBubbles() {
   const container = document.getElementById('bubblesContainer');
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 20; i++) {
     const b = document.createElement('div');
     b.className = 'bg-bubble';
-    const size = Math.random() * 40 + 10;
+    const size = Math.random() * 45 + 10;
     b.style.width = size + 'px';
     b.style.height = size + 'px';
     b.style.left = Math.random() * 100 + 'vw';
-    b.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    b.style.animationDuration = (Math.random() * 4 + 6) + 's';
     b.style.animationDelay = (Math.random() * 5) + 's';
     container.appendChild(b);
   }
@@ -205,7 +244,7 @@ const manejarIntento = (e) => {
     const y = (Math.random() * 200) - 100;
     btnNo.style.transform = `translate(${x}px, ${y}px)`;
     intentosNo++;
-    if(intentosNo === 4) btnNo.textContent = "¡Casi me das! 😜";
+    if(intentosNo === 4) btnNo.textContent = "¡Casi me tienes! 😜";
     if(intentosNo === 7) {
       btnNo.style.transform = `translate(0,0)`;
       btnNo.textContent = "Me rindo... 😭";
@@ -223,36 +262,40 @@ function next(n){
   document.getElementById('s'+(n+1)).classList.add('active');
 }
 
+function showClue(){ document.getElementById('clueText').style.display = 'block'; }
+
 function yes(){ 
   hideAll(); 
   document.getElementById('yes').classList.add('active');
-  setInterval(createHeart, 300); // Lluvia de corazones al ganar
+  setInterval(createHeart, 250); 
 }
 
 function createHeart() {
   const h = document.createElement('div');
   h.className = 'heart-pop';
-  h.textContent = ['❤️','💖','💝','✨','💕'][Math.floor(Math.random()*5)];
+  h.textContent = ['❤️','💖','💝','✨','💕','💕'][Math.floor(Math.random()*6)];
   h.style.left = Math.random() * 100 + 'vw';
-  h.style.bottom = '0';
+  h.style.bottom = '-50px';
   document.body.appendChild(h);
   setTimeout(() => h.remove(), 3000);
 }
 
 function epicEnding() {
   const card = document.querySelector('#yes .card');
+  card.animate([{transform: 'scale(1)'}, {transform: 'scale(1.1)'}, {transform: 'scale(1)'}], {duration: 500});
   card.innerHTML = `
     <h1 style="color:#ff1493">¡PROMESA DE NOVIOS! ⚓</h1>
+    <p>Desde hoy, este es nuestro contrato oficial:</p>
     <ul style="text-align:left; font-size:0.9rem; list-style:none; padding:0;">
-      <li>✅ Risas garantizadas 24/7</li>
-      <li>✅ Mimos ilimitados</li>
-      <li>✅ Cero días aburridos</li>
-      <li>✅ Te voy a querer cada día más</li>
+      <li>✨ Risas infinitas garantizadas</li>
+      <li>✨ Apoyo total en todo momento</li>
+      <li>✨ Muchos mimos y atención</li>
+      <li>✨ Amarnos cada día más</li>
     </ul>
-    <p><b>¡OFICIALMENTE SOMOS NOVIOS!</b></p>
-    <p style="font-size: 3rem;">😍🍍✨</p>
+    <p><b>¡TE QUIERO MUCHO, NOVIA!</b></p>
+    <p style="font-size: 3.5rem; margin:0;">😍🍍👫</p>
   `;
-  for(let i=0; i<50; i++) setTimeout(createHeart, i*100);
+  for(let i=0; i<100; i++) setTimeout(createHeart, i*50);
 }
 
 function startNo(){
@@ -270,18 +313,17 @@ function explode(){
   hideAll();
   const main = document.getElementById('mainBody');
   main.style.background = 'white';
-  main.classList.add('shake-it');
-  for(let i=0; i<200; i++){
+  for(let i=0; i<300; i++){
     const b = document.createElement('div');
     b.className = 'bg-bubble';
     b.style.left = Math.random()*100+'vw'; b.style.top = Math.random()*100+'vh';
     b.style.background = '#00d2ff';
     document.body.appendChild(b);
-    b.animate([{transform:'scale(0)', opacity:1}, {transform:'scale(10)', opacity:0}], 2000);
+    if(i%6===0) document.getElementById('boomSound').cloneNode().play();
+    b.animate([{transform:'scale(0)', opacity:1}, {transform:'scale(12)', opacity:0}], 2500);
   }
   setTimeout(() => { 
     main.style.background = 'linear-gradient(#4facfe, #00f2fe)';
-    main.classList.remove('shake-it'); 
     document.getElementById('no').classList.add('active'); 
   }, 3000);
 }
