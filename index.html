@@ -17,82 +17,80 @@
 body {
   margin: 0; padding: 0;
   font-family: 'Baloo 2', cursive;
-  background-color: #00d2ff;
-  background-image: 
-    radial-gradient(circle at 20% 30%, var(--flower-color) 20px, transparent 20px),
-    radial-gradient(circle at 80% 70%, var(--flower-color) 25px, transparent 25px),
-    linear-gradient(#4facfe, #00f2fe);
-  background-size: 200px 200px, 300px 300px, 100% 100%;
+  background: linear-gradient(#4facfe, #00f2fe);
   color: #1a4a5e;
   overflow: hidden;
   width: 100vw; height: 100vh;
+}
+
+/* BURBUJAS DE FONDO PERMANENTES */
+.bg-bubble {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  bottom: -100px;
+  pointer-events: none;
+  z-index: 1;
+  animation: rise 10s infinite ease-in;
+}
+
+@keyframes rise {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  20% { opacity: 0.5; }
+  100% { transform: translateY(-120vh) translateX(50px); opacity: 0; }
 }
 
 .screen {
   min-height: 100vh; width: 100vw;
   padding: 20px; box-sizing: border-box;
   display: none; align-items: center; justify-content: center;
-  position: absolute; top: 0; left: 0;
+  position: absolute; top: 0; left: 0; z-index: 10;
 }
 .screen.active { display: flex; animation: fadeIn 0.4s ease; }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .card {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.92);
   border: 6px solid var(--yellow-bob);
   border-radius: 30px 15px;
   padding: 25px;
-  box-shadow: 0 10px 0px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   text-align: center;
   width: 100%; max-width: 320px;
   animation: float 3s ease-in-out infinite;
-  z-index: 5;
+  position: relative;
 }
 
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-@keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-3px, -2px) rotate(-1deg); }
-  20% { transform: translate(-5px, 0px) rotate(1deg); }
-  100% { transform: translate(1px, 1px) rotate(0deg); }
-}
-.shake-it { animation: shake 0.2s infinite; }
-
-h1 { font-family: 'Patrick Hand', cursive; font-size: 1.8rem; color: #d4a017; margin: 0 0 10px; }
-p { font-size: 1.05rem; font-weight: 600; margin: 10px 0; }
-
-.btn-container { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 20px; }
+.btn-container { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 20px; }
 .btn {
-  width: 80%; padding: 12px; border-radius: 50px;
+  width: 85%; padding: 14px; border-radius: 50px;
   background: var(--yellow-bob); border: 4px solid #d4a017;
   color: #5d4a1e; font-weight: 700; text-transform: uppercase;
   cursor: pointer; box-shadow: 0 4px 0px #d4a017;
-  -webkit-tap-highlight-color: transparent;
+  transition: all 0.2s;
 }
+.btn:active { transform: scale(0.95); }
 
 .btn.special { background: #ff69b4; border-color: #c2185b; color: white; animation: pulse 1.5s infinite; }
-.btn.gold { background: var(--gold); border-color: #b8860b; color: #5d4a1e; margin-top: 15px; }
+.btn.gold { background: var(--gold); border-color: #b8860b; color: #5d4a1e; font-size: 1.1rem; }
 
-@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
 
-.explode-bubble, .heart {
-  position: fixed; border-radius: 50%;
-  pointer-events: none; z-index: 100;
+.heart-pop {
+  position: fixed; font-size: 25px; pointer-events: none; z-index: 100;
+  animation: heartFly 3s forwards;
 }
-.heart::after { content: '❤️'; font-size: 20px; }
 
-#countdown { font-size: 4rem; color: #ff4757; font-family: 'Patrick Hand'; }
-
-/* ESTILO PARA EL DETALLE ÉPICO */
-#adventureMode {
-  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: radial-gradient(circle, #ff91d7 0%, #00d2ff 100%);
-  z-index: 200; align-items: center; justify-content: center;
-  flex-direction: column; text-align: center; color: white;
+@keyframes heartFly {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-100vh) scale(2) rotate(45deg); opacity: 0; }
 }
-#adventureText { font-size: 1.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); padding: 20px; }
+
+#countdown { font-size: 5rem; color: #ff4757; font-family: 'Patrick Hand'; text-shadow: 2px 2px white; }
 </style>
 </head>
 <body id="mainBody">
@@ -101,107 +99,116 @@ p { font-size: 1.05rem; font-weight: 600; margin: 10px 0; }
   <source src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-bubble-pop-2895.mp3">
 </audio>
 
+<div id="bubblesContainer"></div>
+
 <section class="screen active" id="s1" onclick="next(1)">
   <div class="card">
-    <h1>¡Hola de nuevo, Merry! 🍍</h1>
-    <p>¿Ves? La tecnología no muerde (a menos que seas una medusa eléctrica).</p>
-    <p>La carta fue solo el aperitivo...</p>
-    <p style="font-size: 0.8rem; color: #008dc4; margin-top:15px;">Toca para continuar 🫧</p>
+    <h1>¡Merry! 🍍</h1>
+    <p>¿Ves estas burbujas? Son tecnología de punta, directamente de la piña.</p>
+    <p>Tengo algo que decirte que no cabía en la carta...</p>
+    <p style="font-size: 0.8rem; color: #008dc4; margin-top:15px;">Toca la pantalla 🫧</p>
   </div>
 </section>
 
 <section class="screen" id="s2" onclick="next(2)">
   <div class="card">
-    <p>Hoy es un día cualquiera en el mundo, pero aquí abajo, contigo, todo se siente diferente.</p>
-    <p>No necesito una fecha especial en el calendario para darme cuenta de que me encantas.</p>
+    <p>A veces parece que vivo en una burbuja cuando estoy contigo.</p>
+    <p>No me importa si es un lunes o un domingo, cualquier momento es perfecto si estás tú.</p>
   </div>
 </section>
 
 <section class="screen" id="s3" onclick="next(3)">
   <div class="card">
-    <p>Me gusta tu forma de ser, cómo me haces reír y lo bien que la pasamos.</p>
-    <p>Eres como esa pieza de tesoro que Bob Esponja siempre quiso encontrar.</p>
+    <p>Me gusta cómo eres, Merry. Eres la persona más increíble de todo el océano.</p>
+    <p>Y aunque esto parezca un juego de Patricio, lo que siento es muy real.</p>
   </div>
 </section>
 
 <section class="screen" id="s4" onclick="next(4)">
   <div class="card">
-    <h1>Merry... ✨</h1>
-    <p>He estado pensando mucho en "nosotros". Y quiero que este momento sea el inicio de algo más grande.</p>
-    <p>¿Estás lista para la pregunta de tu vida?</p>
+    <h1>¿Estás lista? 🐚</h1>
+    <p>He esperado el momento justo, y aunque hoy es un día normal, para mí será inolvidable.</p>
+    <p style="font-size: 1.5rem;">👇</p>
   </div>
 </section>
 
 <section class="screen" id="s5">
   <div class="card">
     <h1>¿Quieres ser mi novia? ❤️</h1>
-    <p>Prometo que no nos faltarán Cangreburgers ni aventuras.</p>
+    <p>Dime que sí y conquistemos el Crustáceo Cascarudo juntos.</p>
     <div class="btn-container">
-      <div class="btn special" onclick="yes()">¡SÍ, MIL VECES SÍ! 😍</div>
-      <div class="btn no" id="runNo">N-no... 💔</div>
+      <div class="btn special" onclick="yes()">¡SÍ, ACEPTO! 😍</div>
+      <div class="btn no" id="runNo">Mmm... No 💔</div>
     </div>
   </div>
 </section>
 
 <section class="screen" id="count">
   <div class="card">
-    <h1>¡CUIDADO!</h1>
-    <p>¡ESTO VA A EXPLOTAR!</p>
+    <h1 style="color: #ff4757;">¡ERROR FATAL!</h1>
+    <p>¡CORAZÓN EN AUTODESTRUCCIÓN!</p>
     <div id="countdown">3</div>
   </div>
 </section>
 
-<section class="screen" id="boom" style="background:rgba(255,255,255,0.9); z-index:99;"></section>
-
 <section class="screen" id="no">
   <div class="card">
-    <h1>¡POR MIS PANTALONES! 😭</h1>
-    <p>Esa explosión casi nos manda a la superficie.</p>
-    <p>¿De verdad vas a decirme que no después de tanto esfuerzo?</p>
-    <div class="btn special" onclick="yes()">Está bien, ¡SÍ! 🥰</div>
-    <div class="btn no" onclick="finalNo()">Sigo diciendo que no... 🦀</div>
+    <h1>¿CÓMO QUE NO? 😱</h1>
+    <p>¡Casi exploto de los nervios! Merry, ¿de verdad no quieres ser mi novia?</p>
+    <div class="btn special" onclick="yes()">¡Es broma, SÍ! 🥰</div>
+    <div class="btn no" onclick="finalNo()">No es broma... 🦀</div>
   </div>
 </section>
 
 <section class="screen" id="finalNo">
   <div class="card">
-    <h1>¡ERROR DE SISTEMA! ❌</h1>
-    <p>Mi corazón de esponja no aguanta esto. Reinicia y elige la felicidad. ❤️</p>
-    <div class="btn" onclick="restart()">Reiniciar 🍍</div>
+    <h1>😭 MI PIÑA ESTÁ TRISTE</h1>
+    <p>Incluso Calamardo sentiría pena por mí ahora mismo...</p>
+    <div class="btn" onclick="restart()">Intentar de nuevo 🍍</div>
   </div>
 </section>
 
 <section class="screen" id="yes">
-  <div class="card" style="border-color: #ff69b4;">
-    <h1>¡SÍIIIIIIII! 🎉</h1>
-    <p>¡No puedo esperar a todas las aventuras que nos esperan juntos!</p>
-    <p>¡Te quiero mucho, MI NOVIA! ❤️</p>
-    <div class="btn gold" onclick="startAdventure()">NUESTRO FUTURO 🚀</div>
-    <p style="font-size: 2rem; margin-top:10px;">🍍⭐👫</p>
+  <div class="card" style="border-color: #ff69b4; border-width: 8px;">
+    <h1>¡ERES MI NOVIA! 🎉</h1>
+    <p>¡Hiciste de este un día legendario!</p>
+    <p>Prepárate para muchas aventuras, risas y mimos.</p>
+    <div class="btn gold" onclick="epicEnding()">PRESIONA PARA EL FINAL ÉPICO 🚀</div>
   </div>
 </section>
 
-<div id="adventureMode">
-  <div id="adventureText">Cargando infinitas aventuras...</div>
-</div>
-
 <script>
+// 1. GENERAR BURBUJAS DE FONDO AUTOMÁTICAMENTE
+function createBackgroundBubbles() {
+  const container = document.getElementById('bubblesContainer');
+  for (let i = 0; i < 15; i++) {
+    const b = document.createElement('div');
+    b.className = 'bg-bubble';
+    const size = Math.random() * 40 + 10;
+    b.style.width = size + 'px';
+    b.style.height = size + 'px';
+    b.style.left = Math.random() * 100 + 'vw';
+    b.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    b.style.animationDelay = (Math.random() * 5) + 's';
+    container.appendChild(b);
+  }
+}
+createBackgroundBubbles();
+
 let intentosNo = 0;
 const btnNo = document.getElementById('runNo');
-const mainBody = document.getElementById('mainBody');
 
 const manejarIntento = (e) => {
   if (intentosNo < 7) {
     e.preventDefault();
-    const x = (Math.random() * 160) - 80;
-    const y = (Math.random() * 160) - 80;
+    const x = (Math.random() * 200) - 100;
+    const y = (Math.random() * 200) - 100;
     btnNo.style.transform = `translate(${x}px, ${y}px)`;
     intentosNo++;
-    if(intentosNo === 4) btnNo.textContent = "¡A que no me das! 😜";
+    if(intentosNo === 4) btnNo.textContent = "¡Casi me das! 😜";
     if(intentosNo === 7) {
       btnNo.style.transform = `translate(0,0)`;
       btnNo.textContent = "Me rindo... 😭";
-      btnNo.style.background = "#bdc3c7";
     }
   } else {
     startNo();
@@ -216,8 +223,37 @@ function next(n){
   document.getElementById('s'+(n+1)).classList.add('active');
 }
 
-function yes(){ hideAll(); document.getElementById('yes').classList.add('active'); }
-function finalNo(){ hideAll(); document.getElementById('finalNo').classList.add('active'); }
+function yes(){ 
+  hideAll(); 
+  document.getElementById('yes').classList.add('active');
+  setInterval(createHeart, 300); // Lluvia de corazones al ganar
+}
+
+function createHeart() {
+  const h = document.createElement('div');
+  h.className = 'heart-pop';
+  h.textContent = ['❤️','💖','💝','✨','💕'][Math.floor(Math.random()*5)];
+  h.style.left = Math.random() * 100 + 'vw';
+  h.style.bottom = '0';
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 3000);
+}
+
+function epicEnding() {
+  const card = document.querySelector('#yes .card');
+  card.innerHTML = `
+    <h1 style="color:#ff1493">¡PROMESA DE NOVIOS! ⚓</h1>
+    <ul style="text-align:left; font-size:0.9rem; list-style:none; padding:0;">
+      <li>✅ Risas garantizadas 24/7</li>
+      <li>✅ Mimos ilimitados</li>
+      <li>✅ Cero días aburridos</li>
+      <li>✅ Te voy a querer cada día más</li>
+    </ul>
+    <p><b>¡OFICIALMENTE SOMOS NOVIOS!</b></p>
+    <p style="font-size: 3rem;">😍🍍✨</p>
+  `;
+  for(let i=0; i<50; i++) setTimeout(createHeart, i*100);
+}
 
 function startNo(){
   hideAll();
@@ -232,52 +268,25 @@ function startNo(){
 
 function explode(){
   hideAll();
-  document.getElementById('boom').classList.add('active');
-  mainBody.classList.add('shake-it');
-  for(let i=0; i<300; i++){
-    setTimeout(() => {
-      const b = document.createElement('div');
-      b.className = 'explode-bubble';
-      b.style.width = '50px'; b.style.height = '50px'; b.style.background = 'white';
-      b.style.left = Math.random()*100 + '%'; b.style.top = Math.random()*100 + '%';
-      document.body.appendChild(b);
-      if(i%5===0) document.getElementById('boomSound').cloneNode().play();
-      b.animate([{transform:'scale(0)', opacity:1}, {transform:'scale(6)', opacity:0}], {duration:3000});
-      setTimeout(()=>b.remove(), 3000);
-    }, i*10);
+  const main = document.getElementById('mainBody');
+  main.style.background = 'white';
+  main.classList.add('shake-it');
+  for(let i=0; i<200; i++){
+    const b = document.createElement('div');
+    b.className = 'bg-bubble';
+    b.style.left = Math.random()*100+'vw'; b.style.top = Math.random()*100+'vh';
+    b.style.background = '#00d2ff';
+    document.body.appendChild(b);
+    b.animate([{transform:'scale(0)', opacity:1}, {transform:'scale(10)', opacity:0}], 2000);
   }
-  setTimeout(() => { mainBody.classList.remove('shake-it'); hideAll(); document.getElementById('no').classList.add('active'); }, 6000);
+  setTimeout(() => { 
+    main.style.background = 'linear-gradient(#4facfe, #00f2fe)';
+    main.classList.remove('shake-it'); 
+    document.getElementById('no').classList.add('active'); 
+  }, 3000);
 }
 
-// DETALLE ÉPICO
-function startAdventure() {
-  const adv = document.getElementById('adventureMode');
-  adv.style.display = 'flex';
-  const phrases = [
-    "Próxima parada: ¡Nuestra primera cita como novios! 🍦",
-    "Advertencia: Exceso de mimos detectado ⚠️",
-    "Merry + Yo = El mejor equipo de la historia ⚓",
-    "¿Sabías que me haces el chico más feliz? 😍",
-    "Vamos a conquistar Fondo de Bikini juntos... ¡y el mundo entero! 🌍"
-  ];
-  let i = 0;
-  setInterval(() => {
-    document.getElementById('adventureText').textContent = phrases[i];
-    i = (i + 1) % phrases.length;
-    createHeart();
-  }, 2000);
-}
-
-function createHeart() {
-  const h = document.createElement('div');
-  h.className = 'heart';
-  h.style.left = Math.random()*100 + 'vw';
-  h.style.top = '100vh';
-  document.body.appendChild(h);
-  h.animate([{top: '100vh', opacity: 1}, {top: '-10vh', opacity: 0}], {duration: 4000});
-  setTimeout(() => h.remove(), 4000);
-}
-
+function finalNo(){ hideAll(); document.getElementById('finalNo').classList.add('active'); }
 function hideAll(){ document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); }
 function restart(){ location.reload(); }
 </script>
