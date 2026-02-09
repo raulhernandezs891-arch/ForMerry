@@ -11,6 +11,7 @@
   --pink-patrick: #ff91d7;
   --blue-ocean: #00d2ff;
   --flower-color: rgba(255, 255, 255, 0.3);
+  --gold: #ffd700;
 }
 
 body {
@@ -55,7 +56,6 @@ body {
   0% { transform: translate(1px, 1px) rotate(0deg); }
   10% { transform: translate(-3px, -2px) rotate(-1deg); }
   20% { transform: translate(-5px, 0px) rotate(1deg); }
-  30% { transform: translate(5px, 2px) rotate(0deg); }
   100% { transform: translate(1px, 1px) rotate(0deg); }
 }
 .shake-it { animation: shake 0.2s infinite; }
@@ -69,26 +69,30 @@ p { font-size: 1.05rem; font-weight: 600; margin: 10px 0; }
   background: var(--yellow-bob); border: 4px solid #d4a017;
   color: #5d4a1e; font-weight: 700; text-transform: uppercase;
   cursor: pointer; box-shadow: 0 4px 0px #d4a017;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.btn.no { background: var(--pink-patrick); border-color: #d15fa5; color: #fff; box-shadow: 0 4px 0px #d15fa5; }
-
-.btn.special { 
-  background: #ff69b4; 
-  border-color: #c2185b;
-  color: white;
-  animation: pulse 1.5s infinite; 
-}
+.btn.special { background: #ff69b4; border-color: #c2185b; color: white; animation: pulse 1.5s infinite; }
+.btn.gold { background: var(--gold); border-color: #b8860b; color: #5d4a1e; margin-top: 15px; }
 
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-.explode-bubble {
+.explode-bubble, .heart {
   position: fixed; border-radius: 50%;
-  background: white; border: 2px solid var(--blue-ocean);
   pointer-events: none; z-index: 100;
 }
+.heart::after { content: '❤️'; font-size: 20px; }
 
 #countdown { font-size: 4rem; color: #ff4757; font-family: 'Patrick Hand'; }
+
+/* ESTILO PARA EL DETALLE ÉPICO */
+#adventureMode {
+  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(circle, #ff91d7 0%, #00d2ff 100%);
+  z-index: 200; align-items: center; justify-content: center;
+  flex-direction: column; text-align: center; color: white;
+}
+#adventureText { font-size: 1.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); padding: 20px; }
 </style>
 </head>
 <body id="mainBody">
@@ -100,49 +104,40 @@ p { font-size: 1.05rem; font-weight: 600; margin: 10px 0; }
 <section class="screen active" id="s1" onclick="next(1)">
   <div class="card">
     <h1>¡Hola de nuevo, Merry! 🍍</h1>
-    <p>¿Ves? Te dije que la tecnología era mejor que las cavernas.</p>
-    <p>La carta fue solo el inicio... esto es lo que no me atreví a escribir ahí.</p>
+    <p>¿Ves? La tecnología no muerde (a menos que seas una medusa eléctrica).</p>
+    <p>La carta fue solo el aperitivo...</p>
     <p style="font-size: 0.8rem; color: #008dc4; margin-top:15px;">Toca para continuar 🫧</p>
   </div>
 </section>
 
 <section class="screen" id="s2" onclick="next(2)">
   <div class="card">
-    <p>Hoy parece un día común y corriente, ¿verdad?</p>
-    <p>Pero para mí, cualquier día en el que pueda hablar contigo o verte se vuelve especial.</p>
-    <p>No necesito que sea San Valentín para decirte lo que siento. ✨</p>
+    <p>Hoy es un día cualquiera en el mundo, pero aquí abajo, contigo, todo se siente diferente.</p>
+    <p>No necesito una fecha especial en el calendario para darme cuenta de que me encantas.</p>
   </div>
 </section>
 
 <section class="screen" id="s3" onclick="next(3)">
   <div class="card">
-    <p>Me gusta mucho cómo eres, Merry. Tu risa, tus locuras y hasta tus silencios.</p>
-    <p>Siento que en este "Fondo de Bikini" que es el mundo, tú eres mi lugar favorito.</p>
+    <p>Me gusta tu forma de ser, cómo me haces reír y lo bien que la pasamos.</p>
+    <p>Eres como esa pieza de tesoro que Bob Esponja siempre quiso encontrar.</p>
   </div>
 </section>
 
 <section class="screen" id="s4" onclick="next(4)">
   <div class="card">
-    <p>He estado pensando mucho en nosotros... y en lo bien que la pasamos juntos.</p>
-    <p>No quiero que seamos solo "amigos que salen"... quiero algo más.</p>
+    <h1>Merry... ✨</h1>
+    <p>He estado pensando mucho en "nosotros". Y quiero que este momento sea el inicio de algo más grande.</p>
+    <p>¿Estás lista para la pregunta de tu vida?</p>
   </div>
 </section>
 
-<section class="screen" id="s5" onclick="next(5)">
-  <div class="card">
-    <h1>Merry...</h1>
-    <p>Llevo un tiempo queriendo hacerte una pregunta muy importante.</p>
-    <p>Y aunque hoy no es ninguna fecha del calendario, quiero que este día sea inolvidable.</p>
-    <p style="font-size: 1.5rem;">👇</p>
-  </div>
-</section>
-
-<section class="screen" id="s6">
+<section class="screen" id="s5">
   <div class="card">
     <h1>¿Quieres ser mi novia? ❤️</h1>
-    <p>¿Aceptarías ser la Arenita de este Bob Esponja? (O algo así, tú entiendes)</p>
+    <p>Prometo que no nos faltarán Cangreburgers ni aventuras.</p>
     <div class="btn-container">
-      <div class="btn special" onclick="yes()">¡SÍ, QUIERO! 😍</div>
+      <div class="btn special" onclick="yes()">¡SÍ, MIL VECES SÍ! 😍</div>
       <div class="btn no" id="runNo">N-no... 💔</div>
     </div>
   </div>
@@ -150,7 +145,8 @@ p { font-size: 1.05rem; font-weight: 600; margin: 10px 0; }
 
 <section class="screen" id="count">
   <div class="card">
-    <p>¡QUESO CANGREJO!<br>¡ENTRASTE EN MODO AUTODESTRUCCIÓN!</p>
+    <h1>¡CUIDADO!</h1>
+    <p>¡ESTO VA A EXPLOTAR!</p>
     <div id="countdown">3</div>
   </div>
 </section>
@@ -159,47 +155,49 @@ p { font-size: 1.05rem; font-weight: 600; margin: 10px 0; }
 
 <section class="screen" id="no">
   <div class="card">
-    <h1>¡POR TODOS LOS MOLUSCOS!</h1>
-    <p>Esa explosión casi me rompe el corazón... 💔</p>
-    <p>Merry, después de tanto drama... ¿Segura que no quieres cambiar de opinión?</p>
+    <h1>¡POR MIS PANTALONES! 😭</h1>
+    <p>Esa explosión casi nos manda a la superficie.</p>
+    <p>¿De verdad vas a decirme que no después de tanto esfuerzo?</p>
     <div class="btn special" onclick="yes()">Está bien, ¡SÍ! 🥰</div>
-    <div class="btn no" onclick="finalNo()">Sigo diciendo que no... 😭</div>
+    <div class="btn no" onclick="finalNo()">Sigo diciendo que no... 🦀</div>
   </div>
 </section>
 
 <section class="screen" id="finalNo">
   <div class="card">
-    <h1>¡NO PUEDO CREERLO! 😭</h1>
-    <p>Ni Calamardo es tan cruel...</p>
-    <p>Mi piña se ha quedado vacía. Por favor, reinicia y dame el sí. ❤️</p>
-    <div class="btn" onclick="restart()">Reiniciar y decir que SÍ 🍍</div>
+    <h1>¡ERROR DE SISTEMA! ❌</h1>
+    <p>Mi corazón de esponja no aguanta esto. Reinicia y elige la felicidad. ❤️</p>
+    <div class="btn" onclick="restart()">Reiniciar 🍍</div>
   </div>
 </section>
 
 <section class="screen" id="yes">
-  <div class="card" style="border-color: #ff69b4; border-width: 8px;">
+  <div class="card" style="border-color: #ff69b4;">
     <h1>¡SÍIIIIIIII! 🎉</h1>
-    <p>¡Hiciste que este día común sea el mejor de mi vida!</p>
-    <p>No puedo esperar a todas las aventuras que nos esperan juntos.</p>
+    <p>¡No puedo esperar a todas las aventuras que nos esperan juntos!</p>
     <p>¡Te quiero mucho, MI NOVIA! ❤️</p>
-    <p style="font-size: 2.5rem;">🍍⭐👫</p>
+    <div class="btn gold" onclick="startAdventure()">NUESTRO FUTURO 🚀</div>
+    <p style="font-size: 2rem; margin-top:10px;">🍍⭐👫</p>
   </div>
 </section>
 
+<div id="adventureMode">
+  <div id="adventureText">Cargando infinitas aventuras...</div>
+</div>
+
 <script>
 let intentosNo = 0;
-const limiteIntentos = 7;
 const btnNo = document.getElementById('runNo');
 const mainBody = document.getElementById('mainBody');
 
 const manejarIntento = (e) => {
-  if (intentosNo < limiteIntentos) {
+  if (intentosNo < 7) {
     e.preventDefault();
     const x = (Math.random() * 160) - 80;
     const y = (Math.random() * 160) - 80;
     btnNo.style.transform = `translate(${x}px, ${y}px)`;
     intentosNo++;
-    if(intentosNo === 4) btnNo.textContent = "¡Casi me atrapas! 💔";
+    if(intentosNo === 4) btnNo.textContent = "¡A que no me das! 😜";
     if(intentosNo === 7) {
       btnNo.style.transform = `translate(0,0)`;
       btnNo.textContent = "Me rindo... 😭";
@@ -211,7 +209,7 @@ const manejarIntento = (e) => {
 };
 
 btnNo.addEventListener('touchstart', manejarIntento);
-btnNo.addEventListener('click', (e) => { if(intentosNo < limiteIntentos) manejarIntento(e); });
+btnNo.addEventListener('click', (e) => { if(intentosNo < 7) manejarIntento(e); });
 
 function next(n){
   document.getElementById('s'+n).classList.remove('active');
@@ -234,36 +232,50 @@ function startNo(){
 
 function explode(){
   hideAll();
-  const boomScreen = document.getElementById('boom');
-  boomScreen.classList.add('active');
+  document.getElementById('boom').classList.add('active');
   mainBody.classList.add('shake-it');
-  
   for(let i=0; i<300; i++){
     setTimeout(() => {
       const b = document.createElement('div');
       b.className = 'explode-bubble';
-      const size = Math.random() * 100 + 30;
-      b.style.width = size + 'px'; b.style.height = size + 'px';
-      b.style.left = (Math.random() * 100) + '%';
-      b.style.top = (Math.random() * 100) + '%';
+      b.style.width = '50px'; b.style.height = '50px'; b.style.background = 'white';
+      b.style.left = Math.random()*100 + '%'; b.style.top = Math.random()*100 + '%';
       document.body.appendChild(b);
-      
-      if(i % 5 === 0) document.getElementById('boomSound').cloneNode().play();
-
-      b.animate([
-        { transform: 'scale(0) translateY(0)', opacity: 1 },
-        { transform: `scale(5) translateY(-${Math.random()*600}px)`, opacity: 0 }
-      ], { duration: 3500, fill: 'forwards' });
-
-      setTimeout(() => b.remove(), 3500);
-    }, i * 8);
+      if(i%5===0) document.getElementById('boomSound').cloneNode().play();
+      b.animate([{transform:'scale(0)', opacity:1}, {transform:'scale(6)', opacity:0}], {duration:3000});
+      setTimeout(()=>b.remove(), 3000);
+    }, i*10);
   }
+  setTimeout(() => { mainBody.classList.remove('shake-it'); hideAll(); document.getElementById('no').classList.add('active'); }, 6000);
+}
 
-  setTimeout(() => {
-    mainBody.classList.remove('shake-it');
-    hideAll();
-    document.getElementById('no').classList.add('active');
-  }, 6500); 
+// DETALLE ÉPICO
+function startAdventure() {
+  const adv = document.getElementById('adventureMode');
+  adv.style.display = 'flex';
+  const phrases = [
+    "Próxima parada: ¡Nuestra primera cita como novios! 🍦",
+    "Advertencia: Exceso de mimos detectado ⚠️",
+    "Merry + Yo = El mejor equipo de la historia ⚓",
+    "¿Sabías que me haces el chico más feliz? 😍",
+    "Vamos a conquistar Fondo de Bikini juntos... ¡y el mundo entero! 🌍"
+  ];
+  let i = 0;
+  setInterval(() => {
+    document.getElementById('adventureText').textContent = phrases[i];
+    i = (i + 1) % phrases.length;
+    createHeart();
+  }, 2000);
+}
+
+function createHeart() {
+  const h = document.createElement('div');
+  h.className = 'heart';
+  h.style.left = Math.random()*100 + 'vw';
+  h.style.top = '100vh';
+  document.body.appendChild(h);
+  h.animate([{top: '100vh', opacity: 1}, {top: '-10vh', opacity: 0}], {duration: 4000});
+  setTimeout(() => h.remove(), 4000);
 }
 
 function hideAll(){ document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); }
