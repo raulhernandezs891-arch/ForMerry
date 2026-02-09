@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Para Merry 🍍 (¡Muy Importante!)</title>
+<title>Para Merry 🍍</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -56,7 +56,6 @@ body {
   10% { transform: translate(-3px, -2px) rotate(-1deg); }
   20% { transform: translate(-5px, 0px) rotate(1deg); }
   30% { transform: translate(5px, 2px) rotate(0deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
   100% { transform: translate(1px, 1px) rotate(0deg); }
 }
 .shake-it { animation: shake 0.2s infinite; }
@@ -70,25 +69,18 @@ p { font-size: 1.05rem; font-weight: 600; margin: 10px 0; }
   background: var(--yellow-bob); border: 4px solid #d4a017;
   color: #5d4a1e; font-weight: 700; text-transform: uppercase;
   cursor: pointer; box-shadow: 0 4px 0px #d4a017;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .btn.no { background: var(--pink-patrick); border-color: #d15fa5; color: #fff; box-shadow: 0 4px 0px #d15fa5; }
 
 .btn.special { 
-  background: #ff69b4; /* Rosa más intenso para "Sí" */
+  background: #ff69b4; 
   border-color: #c2185b;
   color: white;
-  font-size: 1.2rem;
-  padding: 15px 12px;
-  animation: pulse 1.5s infinite; /* Nuevo: animación de pulso */
+  animation: pulse 1.5s infinite; 
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
 .explode-bubble {
   position: fixed; border-radius: 50%;
@@ -104,55 +96,51 @@ p { font-size: 1.05rem; font-weight: 600; margin: 10px 0; }
 <audio id="boomSound" preload="auto">
   <source src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-bubble-pop-2895.mp3">
 </audio>
-<audio id="romanticSound" preload="auto" loop>
-  <source src="https://assets.mixkit.co/sfx/preview/mixkit-slow-sweep-transition-852.mp3" type="audio/mpeg">
-</audio>
-
 
 <section class="screen active" id="s1" onclick="next(1)">
   <div class="card">
-    <h1>¡Hola, Merry! 🍍</h1>
-    <p>¿Ves? ¡Patricio tenía razón!</p>
-    <p>Las cartas a mano son bonitas, pero esto... esto es para una ocasión muy especial.</p>
+    <h1>¡Hola de nuevo, Merry! 🍍</h1>
+    <p>¿Ves? Te dije que la tecnología era mejor que las cavernas.</p>
+    <p>La carta fue solo el inicio... esto es lo que no me atreví a escribir ahí.</p>
     <p style="font-size: 0.8rem; color: #008dc4; margin-top:15px;">Toca para continuar 🫧</p>
   </div>
 </section>
 
 <section class="screen" id="s2" onclick="next(2)">
   <div class="card">
-    <p>En el papel no siempre caben todas las palabras que quiero decirte...</p>
-    <p>Pero aquí, entre burbujas, es más fácil expresar lo que siento.</p>
-    <p>Me gustas mucho, Merry. Más de lo que imaginas. ✨</p>
+    <p>Hoy parece un día común y corriente, ¿verdad?</p>
+    <p>Pero para mí, cualquier día en el que pueda hablar contigo o verte se vuelve especial.</p>
+    <p>No necesito que sea San Valentín para decirte lo que siento. ✨</p>
   </div>
 </section>
 
 <section class="screen" id="s3" onclick="next(3)">
   <div class="card">
-    <p>Desde que te conocí, siento que mi vida es un episodio de Bob Esponja: lleno de risas, aventuras y momentos inesperados.</p>
-    <p>Contigo, hasta ir al Krusty Krab a comer una Cangreburger se siente como una cita mágica.</p>
+    <p>Me gusta mucho cómo eres, Merry. Tu risa, tus locuras y hasta tus silencios.</p>
+    <p>Siento que en este "Fondo de Bikini" que es el mundo, tú eres mi lugar favorito.</p>
   </div>
 </section>
 
 <section class="screen" id="s4" onclick="next(4)">
   <div class="card">
-    <p>Este Día del Amor y la Amistad es la excusa perfecta para dar un paso más allá...</p>
-    <p>Quiero que sepas lo importante que eres para mí y lo feliz que me haces.</p>
+    <p>He estado pensando mucho en nosotros... y en lo bien que la pasamos juntos.</p>
+    <p>No quiero que seamos solo "amigos que salen"... quiero algo más.</p>
   </div>
 </section>
 
-<section class="screen" id="s5" onclick="playRomanticSound(); next(5);">
+<section class="screen" id="s5" onclick="next(5)">
   <div class="card">
     <h1>Merry...</h1>
-    <p>Llevo un tiempo queriendo hacerte esta pregunta, y hoy es el día perfecto.</p>
-    <p>No quiero que seamos solo "amigos" de fondo de bikini...</p>
-    <p style="font-size: 1.5rem; color: var(--pink-patrick);">¿Estás lista para la pregunta?</p>
+    <p>Llevo un tiempo queriendo hacerte una pregunta muy importante.</p>
+    <p>Y aunque hoy no es ninguna fecha del calendario, quiero que este día sea inolvidable.</p>
+    <p style="font-size: 1.5rem;">👇</p>
   </div>
 </section>
 
 <section class="screen" id="s6">
   <div class="card">
     <h1>¿Quieres ser mi novia? ❤️</h1>
-    <p>Quiero que seamos mi Bob Esponja y mi Arenita, mi Patricio y mi Gary... ¡pero en versión pareja!</p>
+    <p>¿Aceptarías ser la Arenita de este Bob Esponja? (O algo así, tú entiendes)</p>
     <div class="btn-container">
       <div class="btn special" onclick="yes()">¡SÍ, QUIERO! 😍</div>
       <div class="btn no" id="runNo">N-no... 💔</div>
@@ -172,8 +160,8 @@ p { font-size: 1.05rem; font-weight: 600; margin: 10px 0; }
 <section class="screen" id="no">
   <div class="card">
     <h1>¡POR TODOS LOS MOLUSCOS!</h1>
-    <p>Esa explosión casi me rompe el corazón... y me manda a Rock Bottom. 💔</p>
-    <p>Merry, ¿después de todo este drama... aún no cambias de opinión?</p>
+    <p>Esa explosión casi me rompe el corazón... 💔</p>
+    <p>Merry, después de tanto drama... ¿Segura que no quieres cambiar de opinión?</p>
     <div class="btn special" onclick="yes()">Está bien, ¡SÍ! 🥰</div>
     <div class="btn no" onclick="finalNo()">Sigo diciendo que no... 😭</div>
   </div>
@@ -182,18 +170,18 @@ p { font-size: 1.05rem; font-weight: 600; margin: 10px 0; }
 <section class="screen" id="finalNo">
   <div class="card">
     <h1>¡NO PUEDO CREERLO! 😭</h1>
-    <p>Ni Calamardo es tan cruel cuando me ignora...</p>
-    <p>Mi piña se ha puesto triste. Solo espero que reinicies y me digas que sí. </p>
-    <div class="btn" onclick="restart()">Reiniciar y dar el SÍ 🍍</div>
+    <p>Ni Calamardo es tan cruel...</p>
+    <p>Mi piña se ha quedado vacía. Por favor, reinicia y dame el sí. ❤️</p>
+    <div class="btn" onclick="restart()">Reiniciar y decir que SÍ 🍍</div>
   </div>
 </section>
 
 <section class="screen" id="yes">
   <div class="card" style="border-color: #ff69b4; border-width: 8px;">
-    <h1>¡SÍÍÍÍÍÍÍÍ! 🎉</h1>
-    <p>¡Estoy tan feliz que podría flotar como una medusa!</p>
-    <p>Esto es el inicio de nuestra propia aventura en Fondo de Bikini.</p>
-    <p>¡Feliz Día del Amor y la Amistad, MI NOVIA! Te quiero. ❤️</p>
+    <h1>¡SÍIIIIIIII! 🎉</h1>
+    <p>¡Hiciste que este día común sea el mejor de mi vida!</p>
+    <p>No puedo esperar a todas las aventuras que nos esperan juntos.</p>
+    <p>¡Te quiero mucho, MI NOVIA! ❤️</p>
     <p style="font-size: 2.5rem;">🍍⭐👫</p>
   </div>
 </section>
@@ -203,7 +191,6 @@ let intentosNo = 0;
 const limiteIntentos = 7;
 const btnNo = document.getElementById('runNo');
 const mainBody = document.getElementById('mainBody');
-const romanticSound = document.getElementById('romanticSound');
 
 const manejarIntento = (e) => {
   if (intentosNo < limiteIntentos) {
@@ -231,26 +218,12 @@ function next(n){
   document.getElementById('s'+(n+1)).classList.add('active');
 }
 
-function playRomanticSound() {
-  try {
-    romanticSound.volume = 0.5; // Ajusta el volumen si es muy alto
-    romanticSound.play();
-  } catch (e) { console.log("No se pudo reproducir el sonido romántico:", e); }
-}
-
-function yes(){ 
-  hideAll(); 
-  document.getElementById('yes').classList.add('active'); 
-  romanticSound.pause(); // Detiene el sonido romántico
-  romanticSound.currentTime = 0;
-}
-function finalNo(){ hideAll(); document.getElementById('finalNo').classList.add('active'); romanticSound.pause(); romanticSound.currentTime = 0;}
+function yes(){ hideAll(); document.getElementById('yes').classList.add('active'); }
+function finalNo(){ hideAll(); document.getElementById('finalNo').classList.add('active'); }
 
 function startNo(){
   hideAll();
   document.getElementById('count').classList.add('active');
-  romanticSound.pause(); // Detiene el sonido romántico
-  romanticSound.currentTime = 0;
   let c = 3;
   const timer = setInterval(() => {
     c--;
@@ -265,11 +238,11 @@ function explode(){
   boomScreen.classList.add('active');
   mainBody.classList.add('shake-it');
   
-  for(let i=0; i<250; i++){ // Aún más burbujas
+  for(let i=0; i<300; i++){
     setTimeout(() => {
       const b = document.createElement('div');
       b.className = 'explode-bubble';
-      const size = Math.random() * 100 + 30; // Burbujas más grandes
+      const size = Math.random() * 100 + 30;
       b.style.width = size + 'px'; b.style.height = size + 'px';
       b.style.left = (Math.random() * 100) + '%';
       b.style.top = (Math.random() * 100) + '%';
@@ -279,18 +252,18 @@ function explode(){
 
       b.animate([
         { transform: 'scale(0) translateY(0)', opacity: 1 },
-        { transform: `scale(5) translateY(-${Math.random()*600}px)`, opacity: 0 } // Más lejos
-      ], { duration: 3500, fill: 'forwards' }); // Duran más
+        { transform: `scale(5) translateY(-${Math.random()*600}px)`, opacity: 0 }
+      ], { duration: 3500, fill: 'forwards' });
 
       setTimeout(() => b.remove(), 3500);
-    }, i * 8); // Salen más rápido
+    }, i * 8);
   }
 
   setTimeout(() => {
     mainBody.classList.remove('shake-it');
     hideAll();
     document.getElementById('no').classList.add('active');
-  }, 6000); // Duración total de la explosión
+  }, 6500); 
 }
 
 function hideAll(){ document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); }
