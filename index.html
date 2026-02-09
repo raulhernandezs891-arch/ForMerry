@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Para mi Merry especial 🍍</title>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<title>Merry, ¿Estás lista? 🍍</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
 :root {
   --yellow-bob: #effd5f;
   --pink-patrick: #ff91d7;
   --blue-ocean: #00d2ff;
-  --flower-color: rgba(255, 255, 255, 0.3);
+  --flower-color: rgba(255, 255, 255, 0.4);
   --gold: #ffd700;
+  --brown-pants: #6d4c41;
 }
 
 body {
@@ -28,24 +29,33 @@ body {
   width: 100vw; height: 100vh;
 }
 
-/* BURBUJAS DE FONDO MEJORADAS */
+/* BURBUJAS DE FONDO CONSTANTES */
 .bg-bubble {
   position: absolute;
-  background: rgba(255, 255, 255, 0.4);
-  border: 2px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid white;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 1;
   bottom: -100px;
-  animation: floatUp 7s linear infinite;
+  animation: floatUp 6s linear infinite;
 }
 
 @keyframes floatUp {
-  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
-  10% { opacity: 0.8; }
-  50% { transform: translateY(-50vh) translateX(40px) scale(1.2); }
-  100% { transform: translateY(-110vh) translateX(-20px) scale(1); opacity: 0; }
+  0% { transform: translateY(0) scale(0.8); opacity: 0; }
+  20% { opacity: 0.6; }
+  100% { transform: translateY(-120vh) translateX(50px) scale(1.2); opacity: 0; }
 }
+
+/* BARRA DE CARGA INICIAL */
+#loading-screen {
+  position: fixed; inset: 0; background: var(--blue-ocean);
+  z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.loader-bar {
+  width: 70%; height: 25px; background: white; border: 4px solid var(--brown-pants);
+  border-radius: 15px; overflow: hidden; margin-top: 15px;
+}
+.loader-fill { width: 0%; height: 100%; background: var(--yellow-bob); transition: width 0.3s; }
 
 .screen {
   min-height: 100vh; width: 100vw;
@@ -53,66 +63,61 @@ body {
   display: none; align-items: center; justify-content: center;
   position: absolute; top: 0; left: 0; z-index: 10;
 }
-.screen.active { display: flex; animation: fadeIn 0.6s ease-out; }
+.screen.active { display: flex; animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
-@keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+@keyframes bounceIn { 
+  from { opacity: 0; transform: scale(0.5) translateY(100px); } 
+  to { opacity: 1; transform: scale(1) translateY(0); } 
+}
 
 .card {
-  background: rgba(255, 255, 255, 0.96);
-  border: 6px solid var(--yellow-bob);
+  background: rgba(255, 255, 255, 0.95);
+  border: 8px solid var(--yellow-bob);
   border-radius: 40px 20px;
   padding: 30px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  box-shadow: 0 15px 0px var(--brown-pants);
   text-align: center;
-  width: 100%; max-width: 340px;
-  animation: cardFloat 3.5s ease-in-out infinite;
-  z-index: 5;
-  position: relative;
+  width: 100%; max-width: 320px;
+  animation: cardFloat 3s ease-in-out infinite;
 }
 
-@keyframes cardFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+@keyframes cardFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-/* SACUDIDA ÉPICA */
-.shake-it { animation: shakeEffect 0.1s infinite; }
-@keyframes shakeEffect {
-  0% { transform: translate(2px, 2px); }
-  25% { transform: translate(-4px, -4px); }
-  50% { transform: translate(4px, 2px); }
-  75% { transform: translate(-2px, 4px); }
-  100% { transform: translate(2px, -2px); }
+.shake-it { animation: crazyShake 0.1s infinite; }
+@keyframes crazyShake {
+  0% { transform: translate(3px, 3px) rotate(0deg); }
+  50% { transform: translate(-3px, -3px) rotate(1deg); }
+  100% { transform: translate(3px, 2px) rotate(-1deg); }
 }
 
-h1 { font-family: 'Patrick Hand', cursive; font-size: 2rem; color: #d4a017; margin: 0 0 15px; line-height: 1.1; }
-p { font-size: 1.15rem; font-weight: 600; line-height: 1.5; margin: 12px 0; }
+h1 { font-family: 'Patrick Hand', cursive; font-size: 2.2rem; color: #d4a017; margin: 0; }
+p { font-size: 1.1rem; font-weight: 700; color: #333; }
 
-.btn-container { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 25px; }
+.btn-container { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 25px; }
 .btn {
-  width: 90%; padding: 16px; border-radius: 50px;
-  background: var(--yellow-bob); border: 4px solid #d4a017;
-  color: #5d4a1e; font-weight: 800; text-transform: uppercase;
-  cursor: pointer; box-shadow: 0 5px 0px #d4a017;
-  transition: 0.2s;
+  width: 90%; padding: 15px; border-radius: 20px;
+  background: var(--yellow-bob); border: 4px solid var(--brown-pants);
+  color: var(--brown-pants); font-weight: 800; font-size: 1rem;
+  cursor: pointer; box-shadow: 0 6px 0px var(--brown-pants);
+  transition: 0.1s;
 }
-.btn:active { transform: translateY(3px); box-shadow: 0 2px 0px #d4a017; }
+.btn:active { transform: translateY(4px); box-shadow: 0 2px 0px var(--brown-pants); }
 
-.btn.special { background: #ff69b4; border-color: #c2185b; color: white; animation: pulse 1s infinite; }
-@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+.btn.special { background: var(--pink-patrick); color: white; border-color: #ad1457; box-shadow: 0 6px 0px #ad1457; }
 
-/* MOTOR DE EXPLOSIÓN */
-.particle {
-  position: fixed; border-radius: 50%; pointer-events: none; z-index: 999;
-  background: white; border: 2px solid var(--blue-ocean);
+/* PARTICULAS DE EXPLOSIÓN ESTILO FLORES */
+.flower-particle {
+  position: fixed; pointer-events: none; z-index: 999;
+  font-size: 50px;
 }
 
 #adventureMode {
-  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: radial-gradient(circle, #ff91d7 0%, #00d2ff 100%);
-  z-index: 2000; align-items: center; justify-content: center; flex-direction: column; text-align: center; color: white;
+  display: none; position: fixed; inset: 0; background: radial-gradient(circle, #ff91d7 0%, #00d2ff 100%);
+  z-index: 2000; align-items: center; justify-content: center; flex-direction: column; text-align: center;
 }
-#adventureText { font-size: 1.8rem; text-shadow: 3px 3px 6px rgba(0,0,0,0.4); padding: 40px; font-weight: bold; font-family: 'Patrick Hand'; }
+#adventureText { font-size: 1.8rem; color: white; text-shadow: 3px 3px 0px var(--brown-pants); padding: 30px; font-weight: 800; }
 
-.heart-final { position: fixed; pointer-events: none; z-index: 2005; font-size: 40px; animation: heartRise 4s forwards linear; }
-@keyframes heartRise { 0% { transform: translateY(110vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; } }
+#countdown { font-size: 6rem; color: #ff1744; font-family: 'Patrick Hand'; text-shadow: 4px 4px 0px white; }
 </style>
 </head>
 <body id="mainBody">
@@ -121,233 +126,245 @@ p { font-size: 1.15rem; font-weight: 600; line-height: 1.5; margin: 12px 0; }
   <source src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-bubble-pop-2895.mp3">
 </audio>
 
+<div id="loading-screen">
+  <h1 style="color:white">¿Estás lista, Merry?</h1>
+  <div class="loader-bar"><div class="loader-fill" id="fill"></div></div>
+  <p style="color:white; margin-top:10px;" id="load-text">Preparando las Cangreburgers...</p>
+</div>
+
 <div id="bgBubblesContainer"></div>
 
-<section class="screen active" id="s1" onclick="next(1)">
+<section class="screen" id="s1">
   <div class="card">
-    <h1>¡Hola, mi Merry! 🍍</h1>
-    <p>¿Ves estas burbujas? Son tecnología de punta directamente desde mi piña...</p>
-    <p>He preparado esto porque una simple carta se quedaba pequeña para todo lo que quería decirte hoy. ✨</p>
-    <p style="font-size: 0.8rem; color: #008dc4; margin-top:20px;">Toca la pantalla para sumergirte 🫧</p>
+    <h1>¡MERRY! 🍍</h1>
+    <p>¡No oigo nadaaaaa!</p>
+    <p>He preparado una sorpresa directamente desde Fondo de Bikini...</p>
+    <div class="btn" onclick="next(1)">¡ESTOY LISTA, CAPITÁN! ⚓</div>
   </div>
 </section>
 
-<section class="screen" id="s2" onclick="next(2)">
+<section class="screen" id="s2">
   <div class="card">
-    <p>A veces parece que vivo en una burbuja cuando estoy contigo. No me importa si es lunes o domingo...</p>
-    <p>Cualquier momento se vuelve una aventura épica si estás tú para compartirla conmigo. ⚓</p>
+    <p>A veces siento que vivo en una burbuja de felicidad cuando estoy contigo.</p>
+    <p>No importa si somos una estrella de mar o una esponja, ¡hacemos el mejor equipo! ⭐️</p>
+    <div class="btn" onclick="next(2)">Siguiente 🫧</div>
   </div>
 </section>
 
-<section class="screen" id="s3" onclick="next(3)">
+<section class="screen" id="s3">
   <div class="card">
-    <p>Me gusta cómo eres, Merry. Sin filtros, auténtica, la persona más increíble de todo el océano.</p>
-    <p>Y aunque esto parezca un juego de Patricio, lo que siento por ti es lo más real que tengo. ❤️</p>
+    <p>Me encanta tu forma de ser, Merry. Eres más valiosa que la fórmula secreta (y más linda que una medusa brillante).</p>
+    <div class="btn" onclick="next(3)">Jeje, continúa... 😊</div>
   </div>
 </section>
 
-<section class="screen" id="s4" onclick="next(4)">
+<section class="screen" id="s4">
   <div class="card">
-    <p>Me encanta tu risa (esa que ilumina más que el sol de Fondo de Bikini) y cómo haces que hasta lo más normal se sienta especial.</p>
-    <p>Eres, sin duda, mi pieza de tesoro favorita. 💎</p>
+    <p>Contigo, un lunes cualquiera se siente como un día de campo en los Campos de Medusas.</p>
+    <p>Gracias por ser tan tú, tan real y tan increíble. ❤️</p>
+    <div class="btn" onclick="next(4)">Toca aquí 🐚</div>
   </div>
 </section>
 
-<section class="screen" id="s5" onclick="next(5)">
-  <div class="card">
-    <p>Hoy es 9 de febrero de 2026. Un día cualquiera para el mundo, pero yo quería que para nosotros fuera inolvidable.</p>
-    <p>Porque no necesito un San Valentín para saber que quiero estar a tu lado... ¡Te quiero hoy y todos los días! 😍</p>
-  </div>
-</section>
-
-<section class="screen" id="s6" onclick="next(6)">
+<section class="screen" id="s5">
   <div class="card">
     <h1>Merry... ✨</h1>
-    <p>He esperado el momento justo. Ya no quiero que solo "pasemos el tiempo".</p>
-    <p>Quiero que seamos el mejor equipo de la historia. ¿Estás lista para lo que viene? 👇</p>
+    <p>Hoy 9 de febrero de 2026, quiero decirte algo que no cabe en un correo ni en una carta...</p>
+    <p>¿Estás lista para la pregunta de tu vida?</p>
+    <div class="btn" onclick="next(5)">¡SÍ! 💖</div>
   </div>
 </section>
 
-<section class="screen" id="s7">
+<section class="screen" id="s6">
   <div class="card">
-    <h1>¿Quieres ser mi novia? ❤️</h1>
-    <p>Dime que sí y conquistemos el mundo (o al menos el Crustáceo Cascarudo) juntos.</p>
+    <h1 style="font-size: 2.5rem;">¿Quieres ser mi novia? ❤️</h1>
+    <p>Prometo que no nos faltará diversión, risas y muchos mimos.</p>
     <div class="btn-container">
-      <div class="btn special" onclick="yes()">¡SÍ, ACEPTO! 😍</div>
-      <div class="btn no" id="runNo">Mmm... No 💔</div>
+      <div class="btn special" onclick="yes()">¡SÍ, MIL VECES SÍ! 😍</div>
+      <div class="btn" id="runNo" style="background:#cfd8dc; border-color:#90a4ae; box-shadow: 0 6px 0px #90a4ae;">No 💔</div>
     </div>
   </div>
 </section>
 
 <section class="screen" id="count">
   <div class="card">
-    <h1 style="color:#ff4757">¡ERROR FATAL! ⚠️</h1>
-    <p>¡SISTEMA EN AUTODESTRUCCIÓN POR FALTA DE AMOR!</p>
-    <div id="countdown" style="font-size: 5rem; font-weight:bold; color:#ff4757">3</div>
+    <h1 style="color:#ff1744">¡BARCO A LA VISTA!</h1>
+    <p>¡ESTO VA A EXPLOTAR!</p>
+    <div id="countdown">3</div>
   </div>
 </section>
 
 <section class="screen" id="no">
   <div class="card">
-    <h1>¿CÓMO QUE NO? 😱</h1>
-    <p>¡Casi exploto de los nervios! Merry, ¿de verdad quieres romperle el corazón a esta esponja?</p>
-    <div class="btn special" onclick="yes()">¡Era broma, SÍ! 🥰</div>
-    <div class="btn no" onclick="finalNo()">No es broma... 🦀</div>
+    <h1>¡POR MIS PANTALONES! 😱</h1>
+    <p>Esa explosión casi nos manda a la Luna. Merry, ¿de verdad me vas a decir que no?</p>
+    <div class="btn special" onclick="yes()">¡Fue una broma, SÍ! 🥰</div>
+    <div class="btn" onclick="finalNo()">No es broma... 🦀</div>
   </div>
 </section>
 
 <section class="screen" id="finalNo">
   <div class="card">
-    <h1>😭 MI PIÑA ESTÁ TRISTE</h1>
-    <p>Incluso Calamardo sentiría pena por mí ahora... ¿Seguro que no quieres reintentar?</p>
-    <div class="btn" onclick="restart()">Intentar de nuevo 🍍</div>
+    <h1>😭 MI PIÑA SE QUEDÓ VACÍA</h1>
+    <p>Incluso Calamardo lloraría ahora. ¡Dale otra oportunidad al amor!</p>
+    <div class="btn" onclick="restart()">Reiniciar 🍍</div>
   </div>
 </section>
 
 <section class="screen" id="yes">
-  <div class="card" style="border-color: #ff69b4; border-width: 8px;">
+  <div class="card" style="border-color: var(--pink-patrick); border-width: 10px;">
     <h1>¡ERES MI NOVIA! 🎉</h1>
-    <p>¡Hiciste de este un día legendario!</p>
-    <p>Prepárate para muchas risas, mimos ilimitados y aventuras sin fin.</p>
-    <div class="btn gold" onclick="startAdventure()">PRESIONA PARA EL FINAL ÉPICO 🚀</div>
+    <p>¡Acabas de ganar el trofeo al mejor "SÍ" de la historia!</p>
+    <p>¡Te quiero muchísimo, Merry! ❤️</p>
+    <div class="btn gold" onclick="startAdventure()" style="background: var(--gold); border-color:#b8860b;">NUESTRO FUTURO 🚀</div>
   </div>
 </section>
 
 <div id="adventureMode">
-  <div id="adventureText">Iniciando nuestra historia de amor...</div>
+  <div id="adventureText">Iniciando nuestra aventura...</div>
 </div>
 
 <script>
-// 1. BURBUJAS DE FONDO CONSTANTES
-function initBgBubbles() {
+// 1. CARGA INICIAL
+window.onload = () => {
+  const fill = document.getElementById('fill');
+  const text = document.getElementById('load-text');
+  const messages = ["Cazando medusas...", "Limpiando la piña...", "Afandando espátulas...", "¡LISTO!"];
+  let p = 0;
+  const interval = setInterval(() => {
+    p += 10;
+    fill.style.width = p + '%';
+    if(p % 30 === 0) text.textContent = messages[p/30];
+    if(p >= 100) {
+      clearInterval(interval);
+      document.getElementById('loading-screen').style.display = 'none';
+      document.getElementById('s1').classList.add('active');
+      initBubbles();
+    }
+  }, 300);
+};
+
+function initBubbles() {
   const container = document.getElementById('bgBubblesContainer');
-  for(let i=0; i<30; i++) {
+  for(let i=0; i<25; i++) {
     const b = document.createElement('div');
     b.className = 'bg-bubble';
-    const size = Math.random() * 50 + 20;
+    const size = Math.random() * 45 + 15;
     b.style.width = size + 'px'; b.style.height = size + 'px';
     b.style.left = Math.random() * 100 + 'vw';
-    b.style.animationDuration = (Math.random() * 4 + 6) + 's';
+    b.style.animationDuration = (Math.random() * 4 + 5) + 's';
     b.style.animationDelay = (Math.random() * 5) + 's';
     container.appendChild(b);
   }
 }
-initBgBubbles();
 
-// 2. LÓGICA BOTÓN "NO"
+// 2. BOTÓN "NO" JUGUETÓN
 let intentos = 0;
 const btnNo = document.getElementById('runNo');
-const moverBoton = (e) => {
-  if (intentos < 7) {
+const mover = (e) => {
+  if (intentos < 8) {
     e.preventDefault();
-    const x = (Math.random() * 250) - 125;
-    const y = (Math.random() * 250) - 125;
+    const x = (Math.random() * 240) - 120;
+    const y = (Math.random() * 240) - 120;
     btnNo.style.transform = `translate(${x}px, ${y}px)`;
     intentos++;
-    if(intentos === 3) btnNo.textContent = "¡Casi me das! 😜";
-    if(intentos === 6) { btnNo.style.transform = "translate(0,0)"; btnNo.textContent = "Me rindo... 😭"; }
+    if(intentos === 4) btnNo.textContent = "¡Casi! 🤭";
+    if(intentos === 8) { btnNo.style.transform = "translate(0,0)"; btnNo.textContent = "Ouch 😭"; }
   } else { startNo(); }
 };
-btnNo.addEventListener('touchstart', moverBoton);
-btnNo.addEventListener('click', (e) => { if(intentos < 7) moverBoton(e); });
+btnNo.addEventListener('touchstart', mover);
+btnNo.addEventListener('click', (e) => { if(intentos < 8) mover(e); });
 
-// 3. NAVEGACIÓN
 function next(n){
   document.getElementById('s'+n).classList.remove('active');
   document.getElementById('s'+(n+1)).classList.add('active');
 }
 
 function yes(){ hideAll(); document.getElementById('yes').classList.add('active'); }
-function finalNo(){ hideAll(); document.getElementById('finalNo').classList.add('active'); }
 
-// 4. LA GRAN EXPLOSIÓN (CORREGIDA)
+// 3. EXPLOSIÓN ÉPICA MEJORADA
 function startNo(){
   hideAll();
   document.getElementById('count').classList.add('active');
   let c = 3;
-  const timer = setInterval(() => {
+  const t = setInterval(() => {
     c--;
     document.getElementById('countdown').textContent = c;
-    if(c === 0){ clearInterval(timer); triggerExplosion(); }
+    if(c === 0){ clearInterval(t); explode(); }
   }, 1000);
 }
 
-function triggerExplosion() {
+function explode(){
   hideAll();
-  const body = document.getElementById('mainBody');
-  body.classList.add('shake-it');
+  document.body.classList.add('shake-it');
+  const flowers = ['🌸', '🌼', '🌺', '💠', '🫧'];
   
-  // Generar 400 partículas de explosión
-  for(let i=0; i<400; i++) {
+  for(let i=0; i<450; i++) {
     setTimeout(() => {
       const p = document.createElement('div');
-      p.className = 'particle';
-      const size = Math.random() * 100 + 20;
-      p.style.width = size + 'px'; p.style.height = size + 'px';
-      // Salir desde el centro
+      p.className = 'flower-particle';
+      p.textContent = flowers[Math.floor(Math.random()*flowers.length)];
       p.style.left = '50vw'; p.style.top = '50vh';
-      
       document.body.appendChild(p);
       
-      // Sonido aleatorio
-      if(i % 6 === 0) {
+      if(i % 5 === 0) {
         const s = document.getElementById('popSound').cloneNode();
-        s.volume = 0.4;
+        s.volume = 0.3;
         s.play();
       }
 
-      // Animación de dispersión radial
       const angle = Math.random() * Math.PI * 2;
-      const velocity = Math.random() * 1000 + 500;
-      const tx = Math.cos(angle) * velocity;
-      const ty = Math.sin(angle) * velocity;
+      const dist = Math.random() * 1200 + 400;
+      const x = Math.cos(angle) * dist;
+      const y = Math.sin(angle) * dist;
 
       p.animate([
-        { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
-        { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(4)`, opacity: 0 }
-      ], { duration: 3000, fill: 'forwards', easing: 'ease-out' });
+        { transform: 'translate(-50%, -50%) scale(0) rotate(0deg)', opacity: 1 },
+        { transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(3) rotate(720deg)`, opacity: 0 }
+      ], { duration: 3500, easing: 'ease-out' });
 
-      setTimeout(() => p.remove(), 3000);
-    }, i * 5);
+      setTimeout(() => p.remove(), 3500);
+    }, i * 6);
   }
 
-  // Duración del caos antes de mostrar la pantalla de "No"
   setTimeout(() => {
-    body.classList.remove('shake-it');
+    document.body.classList.remove('shake-it');
     document.getElementById('no').classList.add('active');
-  }, 7000);
+  }, 7500);
 }
 
-// 5. FINAL ÉPICO
+// 4. MODO AVENTURA FINAL
 function startAdventure() {
-  const mode = document.getElementById('adventureMode');
-  mode.style.display = 'flex';
+  document.getElementById('adventureMode').style.display = 'flex';
   const phrases = [
-    "Próxima parada: ¡Nuestra primera cita como novios! 🍨",
-    "Promesa: Siempre habrá mimos para ti ⚠️",
-    "Merry + Yo = El equipo más imparable del océano ⚓",
-    "¿Sabías que me haces el chico más feliz del mundo? 😍",
-    "¡TE AMO, MI NOVIA HERMOSA! 💖",
-    "A partir de hoy, cada día será una aventura 🍍"
+    "¡Nuestra primera cita será legendaria! 🍨",
+    "Advertencia: Exceso de abrazos detectado ⚠️",
+    "Merry + Yo = El mejor equipo de Fondo de Bikini ⚓",
+    "¿Sabías que me haces el chico más feliz? 😍",
+    "¡TE AMO, MI NOVIA HERMOSA! 💖"
   ];
-  let i = 0;
+  let idx = 0;
   setInterval(() => {
-    document.getElementById('adventureText').textContent = phrases[i];
-    i = (i + 1) % phrases.length;
-    for(let j=0; j<5; j++) spawnHeart();
-  }, 2800);
+    document.getElementById('adventureText').textContent = phrases[idx];
+    idx = (idx + 1) % phrases.length;
+    for(let j=0; j<6; j++) spawnHeart();
+  }, 2500);
 }
 
 function spawnHeart() {
   const h = document.createElement('div');
   h.className = 'heart-final';
-  h.textContent = ['❤️','💖','💕','✨','🌸','🌹'][Math.floor(Math.random()*6)];
+  h.style.position = 'fixed';
+  h.textContent = ['❤️','💖','💕','✨','🌹','🍕'][Math.floor(Math.random()*6)];
   h.style.left = Math.random() * 100 + 'vw';
-  h.style.animationDelay = (Math.random() * 2) + 's';
+  h.style.bottom = '-50px';
+  h.style.fontSize = (Math.random()*20 + 30) + 'px';
   document.body.appendChild(h);
+  h.animate([{bottom: '-50px', opacity:1}, {bottom: '110vh', opacity:0}], {duration: 4000});
   setTimeout(() => h.remove(), 4000);
 }
 
+function finalNo(){ hideAll(); document.getElementById('finalNo').classList.add('active'); }
 function hideAll(){ document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); }
 function restart(){ location.reload(); }
 </script>
