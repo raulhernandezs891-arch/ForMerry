@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Para Merry 🍍</title>
+<title>Para Merry 🍍 (¡Algo MUY Importante!)</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -71,11 +71,36 @@ p { font-size: 1.05rem; font-weight: 600; margin: 10px 0; }
   color: #5d4a1e; font-weight: 700; text-transform: uppercase;
   cursor: pointer; box-shadow: 0 4px 0px #d4a017;
   -webkit-tap-highlight-color: transparent;
+  transition: transform 0.1s;
 }
 
-.btn.no { background: var(--pink-patrick); border-color: #d15fa5; color: #fff; box-shadow: 0 4px 0px #d15fa5; }
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0px #d4a017;
+}
 
-.btn.hint { background: #5ffda2; border-color: #2e8b57; color: #1e4d34; box-shadow: 0 4px 0px #2e8b57; margin-top: 15px; }
+.btn.no { 
+  background: var(--pink-patrick); 
+  border-color: #d15fa5; 
+  color: #fff; 
+  box-shadow: 0 4px 0px #d15fa5; 
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Soft bounce */
+}
+
+.btn.special { 
+  background: #ff69b4; /* Rosa intenso para la propuesta */
+  border-color: #c2185b;
+  color: white;
+  font-size: 1.2rem;
+  padding: 15px 12px;
+  animation: pulse 1.5s infinite; 
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
 
 .explode-bubble {
   position: fixed; border-radius: 50%;
@@ -84,195 +109,6 @@ p { font-size: 1.05rem; font-weight: 600; margin: 10px 0; }
 }
 
 #countdown { font-size: 4rem; color: #ff4757; font-family: 'Patrick Hand'; }
-
-.clue-box {
-  background: #e0f7ff;
-  border: 2px dashed var(--blue-ocean);
-  border-radius: 10px;
-  padding: 10px;
-  margin-top: 15px;
-  display: none;
-  font-size: 0.9rem;
-}
 </style>
 </head>
-<body id="mainBody">
-
-<audio id="boomSound" preload="auto">
-  <source src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-bubble-pop-2895.mp3">
-</audio>
-
-<section class="screen active" id="s1" onclick="next(1)">
-  <div class="card">
-    <h1>¡Eso es, Merry! 🍍</h1>
-    <p>¿Ves? Te dije que teníamos tecnología...</p>
-    <p>Patricio tenía razón: las cartas son lindas, pero esto es nivel "Crustáceo Cascarudo".</p>
-    <p style="font-size: 0.8rem; color: #008dc4; margin-top:15px;">Toca para seguir 🫧</p>
-  </div>
-</section>
-
-<section class="screen" id="s2" onclick="next(2)">
-  <div class="card">
-    <p>En la carta me quedé a medias porque hay cosas que el papel no aguanta...</p>
-    <p>Me gusta mucho cómo eres, Merry. Tu energía es como un día soleado en la superficie.</p>
-    <p>¡Y hoy es un día especial! ✨</p>
-  </div>
-</section>
-
-<section class="screen" id="s3" onclick="next(3)">
-  <div class="card">
-    <p>No somos Gary y Bob, pero creo que hacemos un equipo igual de genial.</p>
-    <p>Quería aprovechar el Día del Amor y la Amistad para decirte que eres mi persona favorita para "cazar medusas" (o sea, perder el tiempo bonito).</p>
-  </div>
-</section>
-
-<section class="screen" id="s4" onclick="next(4)">
-  <div class="card">
-    <p>Así que, aprovechando que ya dominas la tecnología...</p>
-    <p>Tengo una pregunta muy importante para ti. ¿Estás lista?</p>
-    <p style="font-size: 1.5rem;">👇</p>
-  </div>
-</section>
-
-<section class="screen" id="s5">
-  <div class="card">
-    <h1>¿Aceptas una sorpresa? ❤️</h1>
-    <p>Me encantaría que celebráramos esto juntos cuando regreses de tu viaje.</p>
-    <div class="btn-container">
-      <div class="btn" onclick="yes()">¡CLARO QUE SÍ! 🙂</div>
-      <div class="btn no" id="runNo">N-no... 🫶</div>
-    </div>
-  </div>
-</section>
-
-<section class="screen" id="count">
-  <div class="card">
-    <p>¡QUESO CANGREJO!<br>¡ENTRASTE EN MODO AUTODESTRUCCIÓN!</p>
-    <div id="countdown">3</div>
-  </div>
-</section>
-
-<section class="screen" id="boom" style="background:rgba(255,255,255,0.9); z-index:99;"></section>
-
-<section class="screen" id="no">
-  <div class="card">
-    <h1>¡POR TODOS LOS MOLUSCOS!</h1>
-    <p>Esa explosión casi nos manda a Rock Bottom... 🫧</p>
-    <p>Merry, ¿cambiaste de opinión después de semejante estruendo?</p>
-    <div class="btn" onclick="yes()">Está bien, ¡Sí! 🙂</div>
-    <div class="btn no" onclick="finalNo()">Sigo diciendo que no 🦀</div>
-  </div>
-</section>
-
-<section class="screen" id="finalNo">
-  <div class="card">
-    <h1>¿¡OTRA VEZ!? 😱</h1>
-    <p>Eres más terca que Calamardo queriendo silencio...</p>
-    <p>Pero no importa, ¡yo tengo paciencia de Bob Esponja! Reinicia y dime que sí. ❤️</p>
-    <div class="btn" onclick="restart()">Reiniciar sistema 🍍</div>
-  </div>
-</section>
-
-<section class="screen" id="yes">
-  <div class="card" style="border-color: var(--pink-patrick); border-width: 8px;">
-    <h1>¡ME HACES EL DÍA! ⚓❤️</h1>
-    <p>¡Por mis pantalones cuadrados! No puedo esperar a que vuelvas.</p>
-    <p>Como aceptaste, aquí tienes una pequeña pista de lo que te espera...</p>
-    
-    <div class="btn hint" onclick="showClue()">VER PISTA SECRETA 🤫</div>
-    
-    <div id="clueText" class="clue-box">
-      <strong>Pista:</strong> "No es una Cangreburger, pero tiene que ver con algo dulce, un lugar con vista bonita y muchas risas garantizadas... 🍦✨"
-    </div>
-
-    <p style="margin-top:20px; font-size: 0.9rem;">¡Feliz Día, Merry!</p>
-    <p style="font-size: 2rem;">🍍⭐🐿️</p>
-  </div>
-</section>
-
-<script>
-let intentosNo = 0;
-const limiteIntentos = 7;
-const btnNo = document.getElementById('runNo');
-const mainBody = document.getElementById('mainBody');
-
-const manejarIntento = (e) => {
-  if (intentosNo < limiteIntentos) {
-    e.preventDefault();
-    const x = (Math.random() * 160) - 80;
-    const y = (Math.random() * 160) - 80;
-    btnNo.style.transform = `translate(${x}px, ${y}px)`;
-    intentosNo++;
-    if(intentosNo === 4) btnNo.textContent = "¡Casi! 🫧";
-    if(intentosNo === 7) {
-      btnNo.style.transform = `translate(0,0)`;
-      btnNo.textContent = "Me rindo... 🦀";
-      btnNo.style.background = "#bdc3c7";
-    }
-  } else {
-    startNo();
-  }
-};
-
-btnNo.addEventListener('touchstart', manejarIntento);
-btnNo.addEventListener('click', (e) => { if(intentosNo < limiteIntentos) manejarIntento(e); });
-
-function next(n){
-  document.getElementById('s'+n).classList.remove('active');
-  document.getElementById('s'+(n+1)).classList.add('active');
-}
-
-function yes(){ hideAll(); document.getElementById('yes').classList.add('active'); }
-function finalNo(){ hideAll(); document.getElementById('finalNo').classList.add('active'); }
-function showClue(){ document.getElementById('clueText').style.display = 'block'; }
-
-function startNo(){
-  hideAll();
-  document.getElementById('count').classList.add('active');
-  let c = 3;
-  const timer = setInterval(() => {
-    c--;
-    document.getElementById('countdown').textContent = c;
-    if(c === 0){ clearInterval(timer); explode(); }
-  }, 1000);
-}
-
-function explode(){
-  hideAll();
-  const boomScreen = document.getElementById('boom');
-  boomScreen.classList.add('active');
-  mainBody.classList.add('shake-it');
-  
-  for(let i=0; i<200; i++){
-    setTimeout(() => {
-      const b = document.createElement('div');
-      b.className = 'explode-bubble';
-      const size = Math.random() * 90 + 20;
-      b.style.width = size + 'px'; b.style.height = size + 'px';
-      b.style.left = (Math.random() * 100) + '%';
-      b.style.top = (Math.random() * 100) + '%';
-      document.body.appendChild(b);
-      
-      if(i % 4 === 0) document.getElementById('boomSound').cloneNode().play();
-
-      b.animate([
-        { transform: 'scale(0) translateY(0)', opacity: 1 },
-        { transform: `scale(4) translateY(-${Math.random()*500}px)`, opacity: 0 }
-      ], { duration: 3000, fill: 'forwards' });
-
-      setTimeout(() => b.remove(), 3000);
-    }, i * 10);
-  }
-
-  setTimeout(() => {
-    mainBody.classList.remove('shake-it');
-    hideAll();
-    document.getElementById('no').classList.add('active');
-  }, 5500); 
-}
-
-function hideAll(){ document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); }
-function restart(){ location.reload(); }
-</script>
-</body>
-</html>
+<body id="main
