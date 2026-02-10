@@ -3,235 +3,292 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Merry: Mi Persona Especial 🕷️</title>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Open+Sans:wght@700;800&display=swap" rel="stylesheet">
+<title>Para Merry 🍍</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
 :root {
-  --spider-red: #e62429;
-  --spider-blue: #005a9c;
-  --spider-black: #202020;
+  --yellow-bob: #effd5f;
+  --pink-patrick: #ff91d7;
+  --blue-ocean: #00d2ff;
+  --flower-color: rgba(255, 255, 255, 0.3);
+  --gold: #ffd700;
 }
 
 body {
   margin: 0; padding: 0;
-  font-family: 'Open Sans', sans-serif;
-  background: var(--spider-black);
-  /* Fondo de red sutil */
-  background-image: 
-    radial-gradient(circle at 50% 50%, transparent 95%, rgba(255,255,255,0.05) 100%),
-    linear-gradient(0deg, var(--spider-blue) 0%, #002d4e 100%);
-  background-size: 40px 40px, 100% 100%;
-  overflow: hidden; width: 100vw; height: 100vh;
-  color: white;
+  font-family: 'Baloo 2', cursive;
+  background: linear-gradient(#4facfe, #00f2fe);
+  color: #1a4a5e;
+  overflow: hidden;
+  width: 100vw; height: 100vh;
 }
 
-/* CARGA 8 SEGUNDOS */
-#loading-screen {
-  position: fixed; inset: 0; background: var(--spider-black);
-  z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center;
+/* BURBUJAS DE FONDO PERMANENTES */
+.bg-bubble {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  bottom: -100px;
+  pointer-events: none;
+  z-index: 1;
+  animation: rise 10s infinite ease-in;
 }
-.loader-bar {
-  width: 80%; height: 25px; background: #333; border: 3px solid var(--spider-red);
-  border-radius: 5px; overflow: hidden; margin: 20px 0;
+
+@keyframes rise {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  20% { opacity: 0.5; }
+  100% { transform: translateY(-120vh) translateX(50px); opacity: 0; }
 }
-.loader-fill { width: 0%; height: 100%; background: var(--spider-red); transition: width 0.1s linear; }
 
 .screen {
-  min-height: 100vh; width: 100vw; padding: 20px; box-sizing: border-box;
+  min-height: 100vh; width: 100vw;
+  padding: 20px; box-sizing: border-box;
   display: none; align-items: center; justify-content: center;
   position: absolute; top: 0; left: 0; z-index: 10;
 }
-.screen.active { display: flex; animation: heroSlide 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.screen.active { display: flex; animation: fadeIn 0.4s ease; }
 
-@keyframes heroSlide { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 4px solid var(--spider-red);
-  border-radius: 15px; padding: 30px;
-  box-shadow: 0 0 20px rgba(230, 36, 41, 0.4);
-  text-align: center; width: 100%; max-width: 340px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 6px solid var(--yellow-bob);
+  border-radius: 30px 15px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  text-align: center;
+  width: 100%; max-width: 320px;
+  animation: float 3s ease-in-out infinite;
   position: relative;
 }
 
-h1 { font-family: 'Bangers', cursive; font-size: 2.8rem; color: var(--spider-red); margin: 0; letter-spacing: 2px; text-shadow: 2px 2px 0px #000; }
-p { font-size: 1.1rem; font-weight: 700; line-height: 1.4; color: #eee; }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
+.btn-container { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 20px; }
 .btn {
-  width: 100%; padding: 16px; border-radius: 5px; margin-top: 15px;
-  background: var(--spider-red); border: none;
-  color: white; font-weight: 800; cursor: pointer;
-  font-family: 'Bangers', cursive; font-size: 1.4rem;
-  box-shadow: 0 4px 0px #8b1518; transition: 0.2s;
+  width: 85%; padding: 14px; border-radius: 50px;
+  background: var(--yellow-bob); border: 4px solid #d4a017;
+  color: #5d4a1e; font-weight: 700; text-transform: uppercase;
+  cursor: pointer; box-shadow: 0 4px 0px #d4a017;
+  transition: all 0.2s;
 }
-.btn:active { transform: translateY(4px); box-shadow: none; }
+.btn:active { transform: scale(0.95); }
 
-/* TELARAÑAS (Partículas) */
-.web-particle {
-  position: fixed; background: white; width: 2px; height: 40px;
-  pointer-events: none; z-index: 999;
+.btn.special { background: #ff69b4; border-color: #c2185b; color: white; animation: pulse 1.5s infinite; }
+.btn.gold { background: var(--gold); border-color: #b8860b; color: #5d4a1e; font-size: 1.1rem; }
+
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+
+.heart-pop {
+  position: fixed; font-size: 25px; pointer-events: none; z-index: 100;
+  animation: heartFly 3s forwards;
 }
 
-#adventureMode {
-  display: none; position: fixed; inset: 0; background: linear-gradient(45deg, var(--spider-red), var(--spider-blue));
-  z-index: 2000; align-items: center; justify-content: center; flex-direction: column; text-align: center;
+@keyframes heartFly {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-100vh) scale(2) rotate(45deg); opacity: 0; }
 }
+
+#countdown { font-size: 5rem; color: #ff4757; font-family: 'Patrick Hand'; text-shadow: 2px 2px white; }
 </style>
 </head>
-<body>
+<body id="mainBody">
 
-<div id="loading-screen">
-  <span style="font-size: 60px;">🕷️</span>
-  <h1 style="color:white">SINTONIZANDO SENTIDO ARÁCNIDO</h1>
-  <div class="loader-bar"><div class="loader-fill" id="fill"></div></div>
-  <p id="load-text" style="color: var(--spider-red);">Escaneando la ciudad...</p>
-</div>
+<audio id="boomSound" preload="auto">
+  <source src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-bubble-pop-2895.mp3">
+</audio>
 
-<section class="screen" id="s1">
+<div id="bubblesContainer"></div>
+
+<section class="screen active" id="s1" onclick="next(1)">
   <div class="card">
-    <h1>¡HOLA MERRY!</h1>
-    <p>Mi sentido arácnido me dice que hoy es un día muy especial para nosotros dos.</p>
-    <div class="btn" onclick="next(1)">¡VAMOS ALLÁ! 🕸️</div>
+    <h1>¡Merry! 🍍</h1>
+    <p>¿Ves estas burbujas? Son tecnología de punta, directamente de la piña.</p>
+    <p>Tengo algo que decirte que no cabía en la carta...</p>
+    <p style="font-size: 0.8rem; color: #008dc4; margin-top:15px;">Toca la pantalla 🫧</p>
   </div>
 </section>
 
-<section class="screen" id="s2">
+<section class="screen" id="s2" onclick="next(2)">
   <div class="card">
-    <h1>¿SABÍAS QUÉ?</h1>
-    <p>Incluso sin superpoderes, tú eres la que me hace sentir que puedo volar por toda la ciudad.</p>
-    <div class="btn" onclick="next(2)">Siguiente ⚡</div>
+    <p>A veces parece que vivo en una burbuja cuando estoy contigo.</p>
+    <p>No me importa si es un lunes o un domingo, cualquier momento es perfecto si estás tú.</p>
   </div>
 </section>
 
-<section class="screen" id="s3">
+<section class="screen" id="s3" onclick="next(3)">
   <div class="card">
-    <h1>MERRY...</h1>
-    <p>Me tienes atrapado en tu red. Y la verdad, no quiero escapar nunca de ahí.</p>
-    <div class="btn" onclick="next(3)">Jeje, continúa... 😊</div>
+    <p>Me gusta cómo eres, Merry. Eres la persona más increíble de todo el océano.</p>
+    <p>Y aunque esto parezca un juego de Patricio, lo que siento es muy real.</p>
   </div>
 </section>
 
-<section class="screen" id="s4">
+<section class="screen" id="s4" onclick="next(4)">
   <div class="card">
-    <h1>LA PREGUNTA</h1>
-    <p>Hoy 9 de febrero, quiero que seas mi compañera oficial en todas las misiones de la vida.</p>
-    <p style="font-size: 1.5rem;">¿Quieres ser mi novia?</p>
-    <div class="btn" onclick="yes()">¡SÍ, UN MILLÓN DE VECES! ❤️</div>
-    <div class="btn" id="runNo" style="background: #555; box-shadow: 0 4px 0px #333;">Mmm... No 💔</div>
+    <h1>¿Estás lista? 🐚</h1>
+    <p>He esperado el momento justo, y aunque hoy es un día normal, para mí será inolvidable.</p>
+    <p style="font-size: 1.5rem;">👇</p>
+  </div>
+</section>
+
+<section class="screen" id="s5">
+  <div class="card">
+    <h1>¿Quieres ser mi novia? ❤️</h1>
+    <p>Dime que sí y conquistemos el Crustáceo Cascarudo juntos.</p>
+    <div class="btn-container">
+      <div class="btn special" onclick="yes()">¡SÍ, ACEPTO! 😍</div>
+      <div class="btn no" id="runNo">Mmm... No 💔</div>
+    </div>
   </div>
 </section>
 
 <section class="screen" id="count">
   <div class="card">
-    <h1 style="color:white">¡PELIGRO!</h1>
-    <p>¡SISTEMA EN CAOS!</p>
-    <div id="countdown" style="font-size: 5rem; font-weight: 800; color: var(--spider-red);">3</div>
+    <h1 style="color: #ff4757;">¡ERROR FATAL!</h1>
+    <p>¡CORAZÓN EN AUTODESTRUCCIÓN!</p>
+    <div id="countdown">3</div>
   </div>
 </section>
 
 <section class="screen" id="no">
   <div class="card">
-    <h1>¡POR POCO! 😱</h1>
-    <p>Casi se nos cae el edificio de los nervios. ¡Dime que sí, Mary Jane! (Bueno, Merry ❤️)</p>
-    <div class="btn" onclick="yes()">¡SÍ, ACEPTO! 🥰</div>
+    <h1>¿CÓMO QUE NO? 😱</h1>
+    <p>¡Casi exploto de los nervios! Merry, ¿de verdad no quieres ser mi novia?</p>
+    <div class="btn special" onclick="yes()">¡Es broma, SÍ! 🥰</div>
+    <div class="btn no" onclick="finalNo()">No es broma... 🦀</div>
+  </div>
+</section>
+
+<section class="screen" id="finalNo">
+  <div class="card">
+    <h1>😭 MI PIÑA ESTÁ TRISTE</h1>
+    <p>Incluso Calamardo sentiría pena por mí ahora mismo...</p>
+    <div class="btn" onclick="restart()">Intentar de nuevo 🍍</div>
   </div>
 </section>
 
 <section class="screen" id="yes">
-  <div class="card">
-    <h1>¡MISIÓN ÉXITO! 🥳</h1>
-    <p>¡Oficialmente eres mi chica! Prometo cuidarte mejor que Peter a su tía May.</p>
-    <div class="btn" onclick="startAdventure()" style="background: white; color: var(--spider-red); box-shadow: 0 4px 0px #ccc;">NUESTRO MULTIVERSO 🚀</div>
+  <div class="card" style="border-color: #ff69b4; border-width: 8px;">
+    <h1>¡ERES MI NOVIA! 🎉</h1>
+    <p>¡Hiciste de este un día legendario!</p>
+    <p>Prepárate para muchas aventuras, risas y mimos.</p>
+    <div class="btn gold" onclick="epicEnding()">PRESIONA PARA EL FINAL ÉPICO 🚀</div>
   </div>
 </section>
 
-<div id="adventureMode">
-  <div id="adventureText" style="color:white; font-family: 'Bangers'; font-size: 2.5rem; padding:30px;"></div>
-</div>
-
 <script>
-window.onload = () => {
-  const fill = document.getElementById('fill');
-  const loadText = document.getElementById('load-text');
-  const messages = ["Lanzando redes...", "Ajustando el traje...", "Buscando al Duende Verde...", "¡CIUDAD SEGURA!"];
-  let p = 0;
-  const interval = setInterval(() => {
-    p += 1;
-    fill.style.width = p + '%';
-    if(p < 30) loadText.textContent = messages[0];
-    else if(p < 60) loadText.textContent = messages[1];
-    else if(p < 90) loadText.textContent = messages[2];
-    else loadText.textContent = messages[3];
+// 1. GENERAR BURBUJAS DE FONDO AUTOMÁTICAMENTE
+function createBackgroundBubbles() {
+  const container = document.getElementById('bubblesContainer');
+  for (let i = 0; i < 15; i++) {
+    const b = document.createElement('div');
+    b.className = 'bg-bubble';
+    const size = Math.random() * 40 + 10;
+    b.style.width = size + 'px';
+    b.style.height = size + 'px';
+    b.style.left = Math.random() * 100 + 'vw';
+    b.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    b.style.animationDelay = (Math.random() * 5) + 's';
+    container.appendChild(b);
+  }
+}
+createBackgroundBubbles();
 
-    if(p >= 100) {
-      clearInterval(interval);
-      document.getElementById('loading-screen').style.display = 'none';
-      document.getElementById('s1').classList.add('active');
+let intentosNo = 0;
+const btnNo = document.getElementById('runNo');
+
+const manejarIntento = (e) => {
+  if (intentosNo < 7) {
+    e.preventDefault();
+    const x = (Math.random() * 200) - 100;
+    const y = (Math.random() * 200) - 100;
+    btnNo.style.transform = `translate(${x}px, ${y}px)`;
+    intentosNo++;
+    if(intentosNo === 4) btnNo.textContent = "¡Casi me das! 😜";
+    if(intentosNo === 7) {
+      btnNo.style.transform = `translate(0,0)`;
+      btnNo.textContent = "Me rindo... 😭";
     }
-  }, 80); // 8 segundos
+  } else {
+    startNo();
+  }
 };
+
+btnNo.addEventListener('touchstart', manejarIntento);
+btnNo.addEventListener('click', (e) => { if(intentosNo < 7) manejarIntento(e); });
 
 function next(n){
   document.getElementById('s'+n).classList.remove('active');
   document.getElementById('s'+(n+1)).classList.add('active');
 }
 
-function triggerExplosion() {
+function yes(){ 
+  hideAll(); 
+  document.getElementById('yes').classList.add('active');
+  setInterval(createHeart, 300); // Lluvia de corazones al ganar
+}
+
+function createHeart() {
+  const h = document.createElement('div');
+  h.className = 'heart-pop';
+  h.textContent = ['❤️','💖','💝','✨','💕'][Math.floor(Math.random()*5)];
+  h.style.left = Math.random() * 100 + 'vw';
+  h.style.bottom = '0';
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 3000);
+}
+
+function epicEnding() {
+  const card = document.querySelector('#yes .card');
+  card.innerHTML = `
+    <h1 style="color:#ff1493">¡PROMESA DE NOVIOS! ⚓</h1>
+    <ul style="text-align:left; font-size:0.9rem; list-style:none; padding:0;">
+      <li>✅ Risas garantizadas 24/7</li>
+      <li>✅ Mimos ilimitados</li>
+      <li>✅ Cero días aburridos</li>
+      <li>✅ Te voy a querer cada día más</li>
+    </ul>
+    <p><b>¡OFICIALMENTE SOMOS NOVIOS!</b></p>
+    <p style="font-size: 3rem;">😍🍍✨</p>
+  `;
+  for(let i=0; i<50; i++) setTimeout(createHeart, i*100);
+}
+
+function startNo(){
   hideAll();
-  document.body.style.animation = "extremeShake 0.1s infinite";
-  // Explosión de "telarañas" blancas
-  for(let i=0; i<300; i++) {
-    setTimeout(() => {
-      const b = document.createElement('div');
-      b.className = 'web-particle';
-      b.style.left = '50vw'; b.style.top = '50vh';
-      document.body.appendChild(b);
-      const angle = Math.random() * Math.PI * 2;
-      const dist = Math.random() * 1200 + 400;
-      b.animate([
-        { transform: 'translate(-50%, -50%) rotate(0deg) scale(0)', opacity: 1 },
-        { transform: `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) rotate(${Math.random()*360}deg) scale(2)`, opacity: 0 }
-      ], { duration: 2000, easing: 'ease-out' });
-      setTimeout(() => b.remove(), 2000);
-    }, i * 5);
-  }
-  setTimeout(() => {
-    document.body.style.animation = "";
-    document.getElementById('no').classList.add('active');
-  }, 6000);
+  document.getElementById('count').classList.add('active');
+  let c = 3;
+  const timer = setInterval(() => {
+    c--;
+    document.getElementById('countdown').textContent = c;
+    if(c === 0){ clearInterval(timer); explode(); }
+  }, 1000);
 }
 
-let intentos = 0;
-const btnNo = document.getElementById('runNo');
-btnNo.addEventListener('click', () => {
-  if(intentos < 4) {
-    btnNo.style.transform = `translate(${Math.random()*160-80}px, ${Math.random()*160-80}px)`;
-    intentos++;
-  } else {
-    hideAll();
-    document.getElementById('count').classList.add('active');
-    let c = 3;
-    const t = setInterval(() => {
-      c--; document.getElementById('countdown').textContent = c;
-      if(c===0){ clearInterval(t); triggerExplosion(); }
-    }, 1000);
+function explode(){
+  hideAll();
+  const main = document.getElementById('mainBody');
+  main.style.background = 'white';
+  main.classList.add('shake-it');
+  for(let i=0; i<200; i++){
+    const b = document.createElement('div');
+    b.className = 'bg-bubble';
+    b.style.left = Math.random()*100+'vw'; b.style.top = Math.random()*100+'vh';
+    b.style.background = '#00d2ff';
+    document.body.appendChild(b);
+    b.animate([{transform:'scale(0)', opacity:1}, {transform:'scale(10)', opacity:0}], 2000);
   }
-});
+  setTimeout(() => { 
+    main.style.background = 'linear-gradient(#4facfe, #00f2fe)';
+    main.classList.remove('shake-it'); 
+    document.getElementById('no').classList.add('active'); 
+  }, 3000);
+}
 
-function yes(){ hideAll(); document.getElementById('yes').classList.add('active'); }
+function finalNo(){ hideAll(); document.getElementById('finalNo').classList.add('active'); }
 function hideAll(){ document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); }
-
-function startAdventure() {
-  document.getElementById('adventureMode').style.display = 'flex';
-  const phrases = ["TE AMO MERRY ❤️", "ERES MI HEROÍNA 🕷️", "NUESTRA PROPIA HISTORIA ✨"];
-  let idx = 0;
-  setInterval(() => {
-    document.getElementById('adventureText').textContent = phrases[idx];
-    idx = (idx + 1) % phrases.length;
-  }, 2000);
-}
+function restart(){ location.reload(); }
 </script>
 </body>
 </html>
