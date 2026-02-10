@@ -10,6 +10,7 @@
   --yellow-bob: #effd5f;
   --pink-patrick: #ff91d7;
   --blue-ocean: #00d2ff;
+  --deep-ocean: #005a9c;
   --flower-color: rgba(255, 255, 255, 0.3);
   --gold: #ffd700;
   --brown-pants: #6d4c41;
@@ -29,28 +30,36 @@ body {
   width: 100vw; height: 100vh;
 }
 
-/* --- NUEVO: BARRA DE CARGA --- */
+/* --- ANIMACIÓN DE DESCENSO (CARGA) --- */
 #loading-screen {
-  position: fixed; inset: 0; background: var(--blue-ocean);
+  position: fixed; inset: 0; 
+  background: linear-gradient(to bottom, var(--blue-ocean), var(--deep-ocean));
   z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center;
+  text-align: center; overflow: hidden;
 }
+
+.descent-bubble {
+  position: absolute; background: rgba(255,255,255,0.6); border-radius: 50%;
+  pointer-events: none; animation: moveUp 1.5s linear infinite;
+}
+
+@keyframes moveUp {
+  0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+  50% { opacity: 0.8; }
+  100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+}
+
 .loader-bar {
   width: 80%; height: 25px; background: white; border: 4px solid var(--brown-pants);
-  border-radius: 20px; overflow: hidden; margin: 20px 0;
+  border-radius: 20px; overflow: hidden; margin: 20px 0; z-index: 2001;
 }
 .loader-fill { width: 0%; height: 100%; background: var(--yellow-bob); transition: width 0.1s linear; }
 
-/* BURBUJAS DE FONDO */
+/* BURBUJAS DE FONDO POST-CARGA */
 .bg-bubble {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.5);
-  border: 2px solid rgba(255, 255, 255, 0.7);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
-  bottom: -100px;
-  animation: floatUp 8s linear infinite;
+  position: absolute; background: rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.7); border-radius: 50%;
+  pointer-events: none; z-index: 1; bottom: -100px; animation: floatUp 8s linear infinite;
 }
 
 @keyframes floatUp {
@@ -60,9 +69,9 @@ body {
   100% { transform: translateY(-110vh) translateX(-20px); opacity: 0; }
 }
 
+/* PANELES Y TARJETAS */
 .screen {
-  min-height: 100vh; width: 100vw;
-  padding: 20px; box-sizing: border-box;
+  min-height: 100vh; width: 100vw; padding: 20px; box-sizing: border-box;
   display: none; align-items: center; justify-content: center;
   position: absolute; top: 0; left: 0; z-index: 10;
 }
@@ -71,36 +80,29 @@ body {
 @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 .card {
-  background: rgba(255, 255, 255, 0.95);
-  border: 6px solid var(--yellow-bob);
-  border-radius: 30px 15px;
-  padding: 25px;
-  box-shadow: 0 10px 0px rgba(0,0,0,0.1);
-  text-align: center;
-  width: 100%; max-width: 320px;
-  animation: cardFloat 3s ease-in-out infinite;
-  z-index: 5;
-  position: relative;
+  background: rgba(255, 255, 255, 0.95); border: 6px solid var(--yellow-bob);
+  border-radius: 30px 15px; padding: 25px; box-shadow: 0 10px 0px rgba(0,0,0,0.1);
+  text-align: center; width: 100%; max-width: 320px;
+  animation: cardFloat 3s ease-in-out infinite; z-index: 5; position: relative;
 }
 
 @keyframes cardFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
+.shake-it { animation: shake 0.15s infinite; }
 @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }
   10% { transform: translate(-3px, -2px) rotate(-1deg); }
   20% { transform: translate(-5px, 0px) rotate(1deg); }
   100% { transform: translate(1px, 1px) rotate(0deg); }
 }
-.shake-it { animation: shake 0.15s infinite; }
 
 h1 { font-family: 'Patrick Hand', cursive; font-size: 1.8rem; color: #d4a017; margin: 0 0 10px; }
 p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
 
 .btn-container { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 20px; }
 .btn {
-  width: 85%; padding: 14px; border-radius: 50px;
-  background: var(--yellow-bob); border: 4px solid #d4a017;
-  color: #5d4a1e; font-weight: 700; text-transform: uppercase;
+  width: 85%; padding: 14px; border-radius: 50px; background: var(--yellow-bob);
+  border: 4px solid #d4a017; color: #5d4a1e; font-weight: 700; text-transform: uppercase;
   cursor: pointer; box-shadow: 0 4px 0px #d4a017;
 }
 
@@ -109,7 +111,6 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
 
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-/* EXPLOSIÓN CORREGIDA */
 .explode-bubble { position: fixed; border-radius: 50%; background: white; border: 2px solid var(--blue-ocean); pointer-events: none; z-index: 100; }
 
 #adventureMode {
@@ -130,10 +131,11 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
 </audio>
 
 <div id="loading-screen">
-  <span style="font-size: 60px;">🍍</span>
-  <h1 style="color:white; font-family:'Patrick Hand';">BAJANDO A FONDO DE BIKINI...</h1>
+  <div id="descent-bubbles"></div>
+  <span style="font-size: 60px; z-index: 2001; animation: floatUp 2s infinite ease-in-out;">🍍</span>
+  <h1 style="color:white; font-family:'Patrick Hand'; z-index: 2001; text-shadow: 0 4px 10px rgba(0,0,0,0.3);">BAJANDO A FONDO DE BIKINI...</h1>
   <div class="loader-bar"><div class="loader-fill" id="fill"></div></div>
-  <p id="load-text" style="color:white; font-weight: bold;">Iniciando protocolo de amor...</p>
+  <p id="load-text" style="color:white; font-weight: bold; z-index: 2001;">Iniciando protocolo de amor...</p>
 </div>
 
 <div id="bgBubblesContainer"></div>
@@ -142,8 +144,8 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
   <div class="card">
     <h1>¡Aloo Merry! 🍍</h1>
     <p>Ahora estamos en un rincón especial de Fondo de Bikini....</p>
-    <p>Si todo salio deacuerdo a lo planeado despues de que patricio me convenciera de que use la tecnologia estaras leyendo esto.</p>
-    <p>Y sabes he preparado esto porque pense que una simple carta no era suficiente...</p>
+    <p>Si todo salió de acuerdo a lo planeado después de que Patricio me convenciera de que use la tecnología estarás leyendo esto.</p>
+    <p>He preparado esto porque una simple carta no era suficiente...</p>
     <p style="font-size: 0.8rem; color: #008dc4;">(Toca para continuar 🫧)</p>
   </div>
 </section>
@@ -171,7 +173,7 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
 
 <section class="screen" id="s5" onclick="next(5)">
   <div class="card">
-    <p>No necesito que sea una fecha en especial para demostrarte que realemte me importas...</p>
+    <p>No necesito que sea una fecha en especial para demostrarte que realmente me importas...</p>
     <p>Es 9 de febrero de 2026, y eso lo hace más real. Porque te quiero hoy, mañana y siempre.</p>
   </div>
 </section>
@@ -236,11 +238,25 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
 </div>
 
 <script>
-// CARGA DE 8 SEGUNDOS
+// CARGA Y DESCENSO
 window.onload = () => {
   const fill = document.getElementById('fill');
   const loadText = document.getElementById('load-text');
-  const msgs = ["Afilando espátulas...", "Cazando medusas...", "Limpiando la piña...", "¡LISTO!"];
+  const descentContainer = document.getElementById('descent-bubbles');
+  const msgs = ["Afilando espátulas...", "Cazando medusas...", "Limpiando la piña...", "¡LLEGAMOS!"];
+  
+  // Crear burbujas de descenso rápido
+  for(let i=0; i<40; i++) {
+    const b = document.createElement('div');
+    b.className = 'descent-bubble';
+    const size = Math.random() * 30 + 10;
+    b.style.width = size + 'px'; b.style.height = size + 'px';
+    b.style.left = Math.random() * 100 + 'vw';
+    b.style.animationDelay = Math.random() * 2 + 's';
+    b.style.animationDuration = (Math.random() * 0.5 + 0.8) + 's';
+    descentContainer.appendChild(b);
+  }
+
   let p = 0;
   const interval = setInterval(() => {
     p += 1;
@@ -252,11 +268,14 @@ window.onload = () => {
 
     if(p >= 100) {
       clearInterval(interval);
-      document.getElementById('loading-screen').style.display = 'none';
-      document.getElementById('s1').classList.add('active');
-      initBubbles();
+      document.getElementById('loading-screen').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('loading-screen').style.display = 'none';
+        document.getElementById('s1').classList.add('active');
+        initBubbles();
+      }, 500);
     }
-  }, 80); 
+  }, 80); // 8 segundos aprox
 };
 
 function initBubbles() {
@@ -268,11 +287,11 @@ function initBubbles() {
     b.style.width = size + 'px'; b.style.height = size + 'px';
     b.style.left = Math.random() * 100 + 'vw';
     b.style.animationDuration = (Math.random() * 4 + 6) + 's';
-    b.style.animationDelay = (Math.random() * 8) + 's';
     container.appendChild(b);
   }
 }
 
+// LÓGICA DE BOTONES Y EXPLOSIÓN
 let intentosNo = 0;
 const btnNo = document.getElementById('runNo');
 const mainBody = document.getElementById('mainBody');
@@ -285,7 +304,6 @@ const manejarIntento = (e) => {
     btnNo.style.transform = `translate(${x}px, ${y}px)`;
     intentosNo++;
     if(intentosNo === 3) btnNo.textContent = "¡Casi! 😜";
-    if(intentosNo === 6) { btnNo.style.transform = "translate(0,0)"; btnNo.textContent = "¡Ya dámelo! 😭"; }
   } else { startNo(); }
 };
 
@@ -311,7 +329,6 @@ function startNo(){
   }, 1000);
 }
 
-// EXPLOSIÓN BRUTAL: 500 BURBUJAS
 function explode(){
   hideAll();
   document.getElementById('boom').classList.add('active');
@@ -325,21 +342,16 @@ function explode(){
       b.style.width = size + 'px'; b.style.height = size + 'px';
       b.style.left = '50vw'; b.style.top = '50vh';
       document.body.appendChild(b);
-      
       if(i%8===0) document.getElementById('popSound').cloneNode().play();
-      
       const angle = Math.random() * Math.PI * 2;
       const dist = Math.random() * 1500 + 500;
-      
       b.animate([
         { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
         { transform: `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) scale(5)`, opacity: 0 }
       ], { duration: 3000, easing: 'ease-out' });
-      
       setTimeout(()=>b.remove(), 3000);
     }, i * 6);
   }
-
   setTimeout(() => {
     mainBody.classList.remove('shake-it');
     hideAll();
@@ -370,7 +382,6 @@ function createFinalHeart() {
   h.className = 'heart-final';
   h.textContent = ['❤️','💖','💕','✨','🌹'][Math.floor(Math.random()*5)];
   h.style.left = Math.random() * 100 + 'vw';
-  h.style.animationDelay = (Math.random() * 2) + 's';
   document.body.appendChild(h);
   setTimeout(() => h.remove(), 4000);
 }
