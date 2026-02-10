@@ -19,29 +19,31 @@ body {
   background: #00d2ff;
   background-image: linear-gradient(#4facfe, #00f2fe);
   overflow: hidden; width: 100vw; height: 100vh;
+  color: #1a4a5e;
 }
 
-/* CARGA 8 SEGUNDOS */
+/* CARGA 8 SEGUNDOS CON MENSAJES */
 #loading-screen {
   position: fixed; inset: 0; background: var(--blue-ocean);
   z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 20px;
 }
 .loader-bar {
-  width: 70%; height: 25px; background: white; border: 4px solid var(--brown-pants);
-  border-radius: 15px; overflow: hidden; margin-top: 20px;
+  width: 80%; height: 30px; background: white; border: 5px solid var(--brown-pants);
+  border-radius: 20px; overflow: hidden; margin: 20px 0;
 }
 .loader-fill { width: 0%; height: 100%; background: var(--yellow-bob); transition: width 0.1s linear; }
 
-/* BURBUJAS DE FONDO */
+/* BURBUJAS DE FONDO CONSTANTES */
 .bg-bubble {
-  position: absolute; background: rgba(255, 255, 255, 0.5); border: 2px solid white;
+  position: absolute; background: rgba(255, 255, 255, 0.4); border: 2px solid white;
   border-radius: 50%; pointer-events: none; bottom: -100px;
-  animation: floatUp 6s linear infinite;
+  animation: floatUp 7s linear infinite;
 }
 @keyframes floatUp {
-  0% { transform: translateY(0) scale(0.8); opacity: 0; }
+  0% { transform: translateY(0) scale(1); opacity: 0; }
   20% { opacity: 0.6; }
-  100% { transform: translateY(-120vh) translateX(50px) scale(1.2); opacity: 0; }
+  100% { transform: translateY(-120vh) translateX(40px); opacity: 0; }
 }
 
 .screen {
@@ -53,32 +55,33 @@ body {
 @keyframes bounce { 0% { transform: scale(0.8); } 100% { transform: scale(1); } }
 
 .card {
-  background: white; border: 8px solid var(--yellow-bob);
-  border-radius: 40px 20px; padding: 25px;
+  background: rgba(255, 255, 255, 0.95); border: 8px solid var(--yellow-bob);
+  border-radius: 40px 20px; padding: 30px;
   box-shadow: 0 12px 0px var(--brown-pants);
   text-align: center; width: 100%; max-width: 320px;
+  position: relative;
 }
 
-.character-img { width: 120px; margin-bottom: 10px; }
+.icon-big { font-size: 80px; display: block; margin-bottom: 10px; }
 
-h1 { font-family: 'Patrick Hand', cursive; font-size: 2rem; color: #d4a017; margin: 0; }
-p { font-size: 1.05rem; font-weight: 700; color: #333; }
+h1 { font-family: 'Patrick Hand', cursive; font-size: 2.2rem; color: #d4a017; margin: 0; }
+p { font-size: 1.1rem; font-weight: 700; color: #333; line-height: 1.4; }
 
 .btn {
-  width: 90%; padding: 14px; border-radius: 20px; margin-top: 15px;
+  width: 90%; padding: 16px; border-radius: 20px; margin-top: 15px;
   background: var(--yellow-bob); border: 4px solid var(--brown-pants);
   color: var(--brown-pants); font-weight: 800; cursor: pointer;
-  box-shadow: 0 5px 0px var(--brown-pants);
+  box-shadow: 0 6px 0px var(--brown-pants);
 }
-.btn.special { background: var(--pink-patrick); border-color: #ad1457; color: white; box-shadow: 0 5px 0px #ad1457; }
+.btn.special { background: var(--pink-patrick); border-color: #ad1457; color: white; box-shadow: 0 6px 0px #ad1457; }
 
 /* EXPLOSIÓN DE BURBUJAS */
 .bubble-particle {
   position: fixed; border-radius: 50%; background: white;
   border: 2px solid var(--blue-ocean); pointer-events: none; z-index: 999;
 }
-.shake-it { animation: shake 0.1s infinite; }
-@keyframes shake { 0%, 100% { transform: translate(2px, 2px); } 50% { transform: translate(-2px, -2px); } }
+.shake-it { animation: crazyShake 0.1s infinite; }
+@keyframes crazyShake { 0% { transform: translate(4px, 4px); } 50% { transform: translate(-4px, -4px); } 100% { transform: translate(4px, -2px); } }
 
 #adventureMode {
   display: none; position: fixed; inset: 0; background: radial-gradient(circle, #ff91d7 0%, #00d2ff 100%);
@@ -93,56 +96,58 @@ p { font-size: 1.05rem; font-weight: 700; color: #333; }
 </audio>
 
 <div id="loading-screen">
-  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/SpongeBob_SquarePants_character.svg/1200px-SpongeBob_SquarePants_character.svg.png" width="100">
-  <h1 style="color:white">Cargando Terna-tron 5000...</h1>
+  <span style="font-size: 100px;">🍍</span>
+  <h1 style="color:white">Cargando Terna-tron 5000</h1>
   <div class="loader-bar"><div class="loader-fill" id="fill"></div></div>
+  <p id="load-text" style="color:white; font-size: 1.2rem;">Preparando las Cangreburgers...</p>
 </div>
 
 <div id="bgBubblesContainer"></div>
 
 <section class="screen" id="s1">
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/SpongeBob_SquarePants_character.svg/1200px-SpongeBob_SquarePants_character.svg.png" class="character-img">
-    <h1>¡MERRY! 🍍</h1>
-    <p>¡No oigo nadaaaaa! ¿Estás lista para la mayor sorpresa de Fondo de Bikini?</p>
+    <span class="icon-big">🧽</span>
+    <h1>¡MERRY!</h1>
+    <p>¡No oigo nadaaaaa! <br> ¿Estás lista para la mayor sorpresa de Fondo de Bikini?</p>
     <div class="btn" onclick="next(1)">¡ESTOY LISTA, CAPITÁN! ⚓</div>
   </div>
 </section>
 
 <section class="screen" id="s2">
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/33/Patrick_Star.svg/1200px-Patrick_Star.svg.png" class="character-img">
+    <span class="icon-big">⭐</span>
     <p>A veces siento que mi cerebro es de coral cuando estoy contigo, ¡me dejas embobado!</p>
-    <p>Somos el mejor equipo, Merry. ❤️</p>
+    <p>Contigo la vida es más divertida. ❤️</p>
     <div class="btn" onclick="next(2)">Siguiente 🫧</div>
   </div>
 </section>
 
 <section class="screen" id="s3">
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Squidward_Tentacles.svg/1200px-Squidward_Tentacles.svg.png" class="character-img">
-    <p>Hasta Calamardo dejaría de tocar el clarinete solo para ver lo increíble que eres.</p>
-    <p>Eres mi fórmula secreta. ✨</p>
+    <span class="icon-big">🐙</span>
+    <p>Incluso Calamardo dejaría de quejarse si viera lo increíble que eres hoy.</p>
+    <p>Eres mi tesoro bajo el mar. ✨</p>
     <div class="btn" onclick="next(3)">Jeje, continúa... 😊</div>
   </div>
 </section>
 
 <section class="screen" id="s4">
   <div class="card">
-    <h1>Merry... 🐚</h1>
-    <p>Hoy 9 de febrero de 2026, quiero que este barco de amor llegue a su puerto favorito.</p>
-    <p>¿Lista para la pregunta legendaria?</p>
+    <span class="icon-big">🐚</span>
+    <h1>Merry...</h1>
+    <p>Hoy 9 de febrero de 2026, quiero que nuestro barco de amor tome un rumbo oficial.</p>
+    <p>¿Lista para la pregunta?</p>
     <div class="btn" onclick="next(4)">¡SÍ! 💖</div>
   </div>
 </section>
 
 <section class="screen" id="s5">
   <div class="card">
-    <img src="https://i.pinimg.com/originals/30/e0/77/30e0779774574944d67329589d81d587.png" class="character-img">
-    <h1>¿Quieres ser mi novia? ❤️</h1>
+    <span class="icon-big">💍</span>
+    <h1 style="font-size: 2.5rem;">¿Quieres ser mi novia? ❤️</h1>
     <div class="btn-container">
       <div class="btn special" onclick="yes()">¡SÍ, ACEPTO! 😍</div>
-      <div class="btn" id="runNo">No... 💔</div>
+      <div class="btn" id="runNo">Mmm... No 💔</div>
     </div>
   </div>
 </section>
@@ -150,59 +155,77 @@ p { font-size: 1.05rem; font-weight: 700; color: #333; }
 <section class="screen" id="count">
   <div class="card">
     <h1 style="color:red">¡QUESO CANGREJO!</h1>
-    <p>¡ESTO VA A EXPLOTAR!</p>
-    <div id="countdown" style="font-size: 5rem;">3</div>
+    <p>¡AUTODESTRUCCIÓN ACTIVADA!</p>
+    <div id="countdown" style="font-size: 5rem; font-weight: 800; color: red;">3</div>
   </div>
 </section>
 
 <section class="screen" id="no">
   <div class="card">
-    <h1>¡POR LOS PELOS! 😱</h1>
-    <p>Casi volamos por los aires. Merry, ¿segura que no quieres cambiar de opinión?</p>
-    <div class="btn special" onclick="yes()">¡SÍ QUIERO! 🥰</div>
+    <span class="icon-big">😱</span>
+    <h1>¡POR LOS PELOS!</h1>
+    <p>Esa explosión casi nos deja sin piña. ¿Segura que no quieres decir que SÍ?</p>
+    <div class="btn special" onclick="yes()">¡VALE, SÍ QUIERO! 🥰</div>
     <div class="btn" onclick="finalNo()">No... 🦀</div>
   </div>
 </section>
 
 <section class="screen" id="yes">
   <div class="card">
-    <img src="https://www.pngkit.com/png/full/253-2533082_spongebob-and-patrick-jumping-for-joy.png" style="width: 200px;">
+    <span class="icon-big">🥳</span>
     <h1>¡ERES MI NOVIA! 🎉</h1>
-    <p>¡Día legendario completado!</p>
-    <div class="btn" onclick="startAdventure()" style="background:gold">FUTURO ÉPICO 🚀</div>
+    <p>¡Acabas de hacer de este el mejor día de mi vida!</p>
+    <div class="btn" onclick="startAdventure()" style="background: gold;">NUESTRO FUTURO 🚀</div>
   </div>
 </section>
 
 <div id="adventureMode">
-  <div id="adventureText" style="color:white; font-size: 2rem; padding:20px; font-weight:800;"></div>
+  <div id="adventureText" style="color:white; font-size: 2rem; padding:30px; font-weight:800; font-family: 'Patrick Hand';"></div>
 </div>
 
 <script>
-// 1. CARGA 8 SEGUNDOS EXACTOS
+// 1. CARGA 8 SEGUNDOS CON MENSAJES DINÁMICOS
 window.onload = () => {
   const fill = document.getElementById('fill');
+  const loadText = document.getElementById('load-text');
+  const messages = [
+    "Afilando espátulas...",
+    "Cazando medusas...",
+    "Limpiando la piña...",
+    "Buscando a Gary...",
+    "¡TODO LISTO!"
+  ];
   let p = 0;
   const interval = setInterval(() => {
-    p += 1.25; // Para llegar a 100 en 8 segundos (100 / 80 pasos de 100ms)
+    p += 1;
     fill.style.width = p + '%';
+    
+    // Cambiar mensaje según progreso
+    if(p < 25) loadText.textContent = messages[0];
+    else if(p < 50) loadText.textContent = messages[1];
+    else if(p < 75) loadText.textContent = messages[2];
+    else if(p < 95) loadText.textContent = messages[3];
+    else loadText.textContent = messages[4];
+
     if(p >= 100) {
       clearInterval(interval);
       document.getElementById('loading-screen').style.display = 'none';
       document.getElementById('s1').classList.add('active');
       initBgBubbles();
     }
-  }, 100);
+  }, 80); // 80ms * 100 = 8000ms (8 segundos)
 };
 
 function initBgBubbles() {
+  const container = document.getElementById('bgBubblesContainer');
   for(let i=0; i<25; i++) {
     const b = document.createElement('div');
     b.className = 'bg-bubble';
-    b.style.width = (Math.random()*40 + 20) + 'px';
-    b.style.height = b.style.width;
+    const size = Math.random()*40 + 20;
+    b.style.width = size + 'px'; b.style.height = size + 'px';
     b.style.left = Math.random() * 100 + 'vw';
     b.style.animationDuration = (Math.random() * 4 + 5) + 's';
-    document.getElementById('bgBubblesContainer').appendChild(b);
+    container.appendChild(b);
   }
 }
 
@@ -212,10 +235,12 @@ function next(n){
   document.getElementById('s'+(n+1)).classList.add('active');
 }
 
-// 3. EXPLOSIÓN DE BURBUJAS V1 STYLE
-function explode() {
+// 3. EXPLOSIÓN DE BURBUJAS V1 (RECARGADA)
+function triggerExplosion() {
   hideAll();
   document.body.classList.add('shake-it');
+  
+  // 350 burbujas para efecto masivo
   for(let i=0; i<350; i++) {
     setTimeout(() => {
       const b = document.createElement('div');
@@ -225,52 +250,64 @@ function explode() {
       b.style.left = '50vw'; b.style.top = '50vh';
       document.body.appendChild(b);
       
-      if(i % 6 === 0) document.getElementById('popSound').cloneNode().play();
+      if(i % 6 === 0) {
+        const s = document.getElementById('popSound').cloneNode();
+        s.volume = 0.3;
+        s.play();
+      }
 
       const angle = Math.random() * Math.PI * 2;
-      const dist = Math.random() * 1000 + 400;
+      const dist = Math.random() * 1200 + 400;
       b.animate([
         { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
-        { transform: `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) scale(3)`, opacity: 0 }
+        { transform: `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) scale(4)`, opacity: 0 }
       ], { duration: 3000, easing: 'ease-out' });
       setTimeout(() => b.remove(), 3000);
     }, i * 6);
   }
+
   setTimeout(() => {
     document.body.classList.remove('shake-it');
     document.getElementById('no').classList.add('active');
   }, 7500);
 }
 
-// 4. LÓGICA BOTÓN NO
+// 4. BOTÓN NO
 let intentos = 0;
 const btnNo = document.getElementById('runNo');
 btnNo.addEventListener('click', () => {
   if(intentos < 6) {
     btnNo.style.transform = `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
     intentos++;
+    if(intentos === 3) btnNo.textContent = "¡Casi! 😜";
   } else {
     hideAll();
     document.getElementById('count').classList.add('active');
     let c = 3;
     const t = setInterval(() => {
       c--; document.getElementById('countdown').textContent = c;
-      if(c===0){ clearInterval(t); explode(); }
+      if(c===0){ clearInterval(t); triggerExplosion(); }
     }, 1000);
   }
 });
 
 function yes(){ hideAll(); document.getElementById('yes').classList.add('active'); }
 function hideAll(){ document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); }
-function finalNo(){ alert("¡Error! El amor no permite esta opción ❤️"); location.reload(); }
+function finalNo(){ alert("¡Error de sistema! El amor es obligatorio ❤️"); location.reload(); }
 
 function startAdventure() {
   document.getElementById('adventureMode').style.display = 'flex';
-  const phrases = ["Mimos infinitos...","Citas épicas...","Te amo Merry ❤️"];
+  const phrases = ["Mimos infinitos...","Muchas citas...","Te amo, mi Novia ❤️"];
   let idx = 0;
   setInterval(() => {
     document.getElementById('adventureText').textContent = phrases[idx];
     idx = (idx + 1) % phrases.length;
+    // Lluvia de corazones extra
+    const h = document.createElement('div');
+    h.style.position = 'fixed'; h.style.left = Math.random()*100+'vw'; h.style.bottom = '0';
+    h.textContent = '❤️'; h.style.fontSize = '40px';
+    document.body.appendChild(h);
+    h.animate([{bottom:'0', opacity:1}, {bottom:'100vh', opacity:0}], 4000);
   }, 2000);
 }
 </script>
