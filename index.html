@@ -31,9 +31,9 @@ body {
   transition: background 0.5s;
 }
 
-/* --- NUEVA ANIMACIÓN MODO FIESTA --- */
+/* --- ANIMACIÓN MODO FIESTA --- */
 .party-bg { 
-  animation: partyColors 0.8s infinite alternate !important; 
+  animation: partyColors 1.5s infinite alternate !important; 
   background-image: none !important;
 }
 
@@ -151,7 +151,6 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
 }
 #adventureText { font-size: 1.7rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.4); padding: 30px; font-weight: bold; font-family: 'Patrick Hand', cursive; }
 
-/* --- NUEVO SELLO CONTINUARÁ --- */
 #to-be-continued {
   position: fixed; bottom: 50px; right: -400px; background: #fff;
   border: 5px solid #000; padding: 10px 30px; font-family: 'Patrick Hand', cursive;
@@ -404,18 +403,15 @@ function nextYes(n){
   document.getElementById(next).classList.add('active');
 }
 
-// --- VICTORIA (SÍ) ---
+// --- VICTORIA (SÍ) - FLASH ELIMINADO ---
 function yes(){ 
   hideAll(); 
   document.getElementById('yes').classList.add('active');
   
-  // INICIAR MODO FIESTA
+  // Activar fondo animado suave
   mainBody.classList.add('party-bg');
 
-  flash.style.background = "#ffeb3b";
-  flash.style.opacity = "0.6";
-  setTimeout(() => flash.style.opacity = "0", 400);
-
+  // Explosión de elementos sin flashazo de pantalla
   for(let i=0; i<150; i++){
     setTimeout(() => {
       const b = document.createElement('div');
@@ -441,7 +437,6 @@ function yes(){
   }
 }
 
-// --- EXPLOSIÓN (NO) ---
 function startNo(){
   hideAll();
   const countScreen = document.getElementById('count');
@@ -472,11 +467,12 @@ function explode(){
   hideAll();
   document.getElementById('boom').classList.add('active');
   
-  const flashTimes = [0, 200, 500, 1000, 1500];
+  // Flash de explosión (Solo en el "NO" para dramatismo)
+  const flashTimes = [0, 200, 500];
   flashTimes.forEach(t => {
       setTimeout(() => {
-          flash.style.background = t % 2 === 0 ? "white" : "#ffeb3b";
-          flash.style.opacity = "1";
+          flash.style.background = "white";
+          flash.style.opacity = "0.8";
           setTimeout(() => flash.style.opacity = "0", 100);
       }, t);
   });
@@ -531,7 +527,6 @@ function explode(){
 
 function startAdventure() {
   document.getElementById('adventureMode').style.display = 'flex';
-  // APARECER EL "CONTINUARÁ..."
   setTimeout(() => {
     document.getElementById('to-be-continued').style.right = '40px';
   }, 2000);
