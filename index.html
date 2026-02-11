@@ -30,7 +30,7 @@ body {
   width: 100vw; height: 100vh;
 }
 
-/* --- ANIMACIÓN DE DESCENSO (CARGA) --- */
+/* --- ANIMACIÓN DE DESCENSO --- */
 #loading-screen {
   position: fixed; inset: 0; 
   background: linear-gradient(to bottom, var(--blue-ocean), var(--deep-ocean));
@@ -88,6 +88,12 @@ body {
 
 @keyframes cardFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
+/* ESTILO "UNA ETERNIDAD MÁS TARDE" */
+.eternity-card {
+  background: #fdf5e6; border: 8px double #8b4513; border-radius: 0;
+  font-family: 'Patrick Hand', cursive; color: #4e2c0e;
+}
+
 .shake-it { animation: shake 0.15s infinite; }
 @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }
@@ -133,7 +139,7 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
 <div id="loading-screen">
   <div id="descent-bubbles"></div>
   <span style="font-size: 60px; z-index: 2001; animation: floatUp 2s infinite ease-in-out;">🍍</span>
-  <h1 style="color:white; font-family:'Patrick Hand'; z-index: 2001; text-shadow: 0 4px 10px rgba(0,0,0,0.3);">BAJANDO A FONDO DE BIKINI.....</h1>
+  <h1 style="color:white; font-family:'Patrick Hand'; z-index: 2001; text-shadow: 0 4px 10px rgba(0,0,0,0.3);">BAJANDO A FONDO DE BIKINI...</h1>
   <div class="loader-bar"><div class="loader-fill" id="fill"></div></div>
   <p id="load-text" style="color:white; font-weight: bold; z-index: 2001;">Iniciando protocolo de amor...</p>
 </div>
@@ -142,66 +148,74 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
 
 <section class="screen" id="s1" onclick="next(1)">
   <div class="card">
-    <h1>¡Aloo Merry! 🍍</h1>
-    <p>Si todo salió de acuerdo a lo planeado, ahora mismo estaras sentada en el auto leyendo esto y todo gracias a patricio...</p>
-    <p>He preparado esto porque pense que una simple carta no era suficiente...</p>
+    <h1>¡Aloo, Merry! 🍍</h1>
+    <p>Si todo salió de acuerdo a lo planeado, ahora mismo estarás sentada en el auto leyendo esto... ¡Y todo gracias a Patricio!</p>
+    <p>He preparado esto porque pensé que una simple carta no era suficiente para todo lo que siento.</p>
     <p style="font-size: 0.8rem; color: #008dc4;">(Toca para continuar 🫧)</p>
   </div>
 </section>
 
 <section class="screen" id="s2" onclick="next(2)">
   <div class="card">
-    <p>Es cierto que a veces las mejores cosas de la vida llegan sin avisar.</p>
-    <p>Así llegaste tú a mi vida, sin previo aviso, sin imaginarlo, sin saber que apartir de ese dia algo cambiaria....</p>
-    <p>Y no se tal ves fue el destino o coinciendicia no sabria como llamarlo.</p>
+    <p>Es cierto que, a veces, las mejores cosas de la vida llegan sin avisar.</p>
+    <p>Así llegaste tú a mi vida: sin esperarlo, sin imaginarlo y sin saber que, a partir de ese día, algo cambiaría para siempre.</p>
+    <p>Tal vez fue el destino o una hermosa coincidencia; no sabría cómo llamarlo, pero me encanta que haya pasado.</p>
   </div>
 </section>
 
 <section class="screen" id="s3" onclick="next(3)">
   <div class="card">
-    <p>Pero se que sin importar que pase despues (por que no lo sabemos), ese dia lo recordare...</p>
-    <p>Conocerte sin duda ha sido algo increible y es que </p>
-    <p>Contigo no necesito ser nadie más, solo yo mismo. ❤️</p>
+    <p>Sé que, sin importar qué pase después (porque nadie conoce el futuro), ese día lo recordaré con una sonrisa.</p>
+    <p>Conocerte ha sido algo increíble. Contigo no necesito ser nadie más, solo yo mismo. ❤️</p>
   </div>
 </section>
 
 <section class="screen" id="s4" onclick="next(4)">
   <div class="card">
     <p>Dicen que en el mar hay muchos peces, pero yo sé que solo hay una persona como tú en todo el mundo.</p>
-    <p>Eres auténtica, divertida y simplemente... increíble.</p>
+    <p>Eres auténtica, divertida y simplemente... increíble. Además, tienes una sonrisa tan linda que me mata.</p>
   </div>
 </section>
 
 <section class="screen" id="s5" onclick="next(5)">
   <div class="card">
-    <p>No necesito que sea una fecha en especial para demostrarte que realmente me importas...</p>
-    <p>Es 9 de febrero de 2026, y eso lo hace más real. Porque te quiero hoy, mañana y siempre.</p>
+    <p>No necesito una fecha especial para demostrarte que realmente me importas.</p>
+    <p>Quiero seguir conociéndote, aprendiendo de ti y que tengamos muchas aventuras que se conviertan en recuerdos inolvidables.</p>
+    <p>Y como acordamos: ¡no quiero que nos limitemos en nada!</p>
   </div>
 </section>
 
 <section class="screen" id="s6" onclick="next(6)">
   <div class="card">
     <h1>Merry... ✨</h1>
-    <p>Ya no quiero que seamos "solo nosotros". Quiero que seamos algo oficial, algo para recordar siempre.</p>
-    <p>¿Estás lista para dar el gran paso? 👇</p>
+    <p>Ya no quiero decir que "solo estamos saliendo". Quiero que seamos algo oficial.</p>
+    <p>Pero antes de continuar, me gustaría hacer una pausa breve para charlar un momento, porque hay cosas que debes saber de mí...</p>
+    <p style="font-size: 0.8rem; color: #008dc4;">(Toca para la pausa dramática 🫧)</p>
   </div>
 </section>
 
-<section class="screen" id="s7">
+<section class="screen" id="s7" onclick="next(7)">
+  <div class="card eternity-card">
+    <h1 style="font-size: 2.5rem; color: #4e2c0e;">Una eternidad más tarde...</h1>
+    <p style="color: #4e2c0e;">(Después de charlar un ratito)</p>
+  </div>
+</section>
+
+<section class="screen" id="s8">
   <div class="card">
     <h1>¿Quieres ser mi novia? ❤️</h1>
-    <p>Prometo cuidarte, hacerte reír hasta que te duela la panza y ser tu mejor equipo siempre.</p>
+    <p>Piensa tu respuesta desde lo más frío y sereno de tu corazón...</p>
     <div class="btn-container">
       <div class="btn special" onclick="yes()">¡SÍ, ACEPTO! 😍</div>
-      <div class="btn no" id="runNo">Déjame pensar... 💔</div>
+      <div class="btn no" id="runNo">Ammmmm... ¿NO? 💔</div>
     </div>
   </div>
 </section>
 
 <section class="screen" id="count">
   <div class="card">
-    <h1 style="color:red">¡QUESO CANGREJO!</h1>
-    <p>¡ESTO VA A EXPLOTAR PORQUE NO DIJISTE SÍ!</p>
+    <h1 style="color:red">¡OH, NO!</h1>
+    <p>¡ESTE MENSAJE SE AUTODESTRUIRÁ EN 3... 2... 1...!</p>
     <div id="countdown" style="font-size: 4rem; font-weight:bold;">3</div>
   </div>
 </section>
@@ -210,27 +224,27 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
 
 <section class="screen" id="no">
   <div class="card">
-    <h1>¡MIS PANTALONES! 😭</h1>
+    <h1>¡YO ROMPÍ MIS PANTALONES! 😭</h1>
     <p>¡Casi volamos hasta la superficie! Merry, mi corazón no aguanta estos sustos...</p>
     <div class="btn special" onclick="yes()">¡VALE, SÍ QUIERO! 🥰</div>
-    <div class="btn no" onclick="finalNo()">No... 🦀</div>
+    <div class="btn no" onclick="finalNo()">Iugh... ¡No! 🦀</div>
   </div>
 </section>
 
 <section class="screen" id="finalNo">
   <div class="card">
-    <h1>😭 CORAZÓN ROTO</h1>
-    <p>Ni el Crustáceo Cascarudo está tan triste. Por favor, reinicia y elige el amor. ❤️</p>
+    <h1>OK, LO INTENTÉ</h1>
+    <p>Ni el Balde de Bocados está tan triste. Pero no pasa nada, se aprecia mucho tu honestidad. ❤️</p>
     <div class="btn" onclick="restart()">Reiniciar 🍍</div>
   </div>
 </section>
 
 <section class="screen" id="yes">
   <div class="card" style="border-color: #ff69b4; border-width: 8px;">
-    <h1>¡ERES MI NOVIA! 🎉</h1>
-    <p>¡Hiciste de este 9 de febrero de 2026 el día más feliz de mi vida!</p>
+    <h1>¡SWEET VICTORY! 🎉</h1>
+    <p>¡Ahora soy más feliz que hace 187 segundos!</p>
     <p>¡Te quiero muchísimo, Merry! ❤️</p>
-    <div class="btn gold" onclick="startAdventure()">NUESTRO ÁLBUM ÉPICO 🚀</div>
+    <div class="btn gold" onclick="startAdventure()">🚀</div>
   </div>
 </section>
 
@@ -239,14 +253,12 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
 </div>
 
 <script>
-// CARGA Y DESCENSO
 window.onload = () => {
   const fill = document.getElementById('fill');
   const loadText = document.getElementById('load-text');
   const descentContainer = document.getElementById('descent-bubbles');
   const msgs = ["Afilando espátulas...", "Cazando medusas...", "Limpiando la piña...", "¡LLEGAMOS!"];
   
-  // Crear burbujas de descenso rápido
   for(let i=0; i<40; i++) {
     const b = document.createElement('div');
     b.className = 'descent-bubble';
@@ -276,7 +288,7 @@ window.onload = () => {
         initBubbles();
       }, 500);
     }
-  }, 80); // 8 segundos aprox
+  }, 80); 
 };
 
 function initBubbles() {
@@ -292,7 +304,6 @@ function initBubbles() {
   }
 }
 
-// LÓGICA DE BOTONES Y EXPLOSIÓN
 let intentosNo = 0;
 const btnNo = document.getElementById('runNo');
 const mainBody = document.getElementById('mainBody');
@@ -334,7 +345,6 @@ function explode(){
   hideAll();
   document.getElementById('boom').classList.add('active');
   mainBody.classList.add('shake-it');
-  
   for(let i=0; i<500; i++){
     setTimeout(() => {
       const b = document.createElement('div');
@@ -365,9 +375,9 @@ function startAdventure() {
   const phrases = [
     "Próxima parada: ¡Nuestra primera cita oficial! 🍨",
     "Advertencia: Exceso de mimos en camino ⚠️",
-    "Merry + Yo = La mejor historia jamás contada ⚓",
+    "Merry + Yo = Muchas aventuras ⚓",
     "Gracias por decir que sí, me haces inmensamente feliz 😍",
-    "¡TE AMO, MI NOVIA HERMOSA! 💖",
+    "¡Me encantas! 💖",
     "Juntos contra el mundo (y contra Plankton) 🍍"
   ];
   let i = 0;
@@ -381,7 +391,7 @@ function startAdventure() {
 function createFinalHeart() {
   const h = document.createElement('div');
   h.className = 'heart-final';
-  h.textContent = ['❤️','💖','💕','✨','🌹'][Math.floor(Math.random()*5)];
+  h.textContent = ['❤️','💕','✨'][Math.floor(Math.random()*3)];
   h.style.left = Math.random() * 100 + 'vw';
   document.body.appendChild(h);
   setTimeout(() => h.remove(), 4000);
