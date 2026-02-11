@@ -13,424 +13,257 @@
   --deep-ocean: #005a9c;
   --flower-color: rgba(255, 255, 255, 0.3);
   --gold: #ffd700;
-  --brown-pants: #6d4c41;
+  --sunset-1: #ff5f6d;
+  --sunset-2: #ffc371;
 }
 
 body {
   margin: 0; padding: 0;
   font-family: 'Baloo 2', cursive;
   background: #00d2ff;
-  background-image: 
-    radial-gradient(circle at 20% 30%, var(--flower-color) 20px, transparent 20px),
-    radial-gradient(circle at 80% 70%, var(--flower-color) 25px, transparent 25px),
-    linear-gradient(#4facfe, #00f2fe);
-  background-size: 200px 200px, 300px 300px, 100% 100%;
+  background-image: radial-gradient(circle at 20% 30%, var(--flower-color) 20px, transparent 20px), linear-gradient(#4facfe, #00f2fe);
   color: #1a4a5e;
   overflow: hidden;
   width: 100vw; height: 100vh;
 }
 
-/* --- ANIMACIÓN DE DESCENSO --- */
+/* --- CARGA --- */
 #loading-screen {
-  position: fixed; inset: 0; 
-  background: linear-gradient(to bottom, var(--blue-ocean), var(--deep-ocean));
+  position: fixed; inset: 0; background: linear-gradient(to bottom, var(--blue-ocean), var(--deep-ocean));
   z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; overflow: hidden;
 }
 
-.descent-bubble {
-  position: absolute; background: rgba(255,255,255,0.6); border-radius: 50%;
-  pointer-events: none; animation: moveUp 1.5s linear infinite;
-}
-
-@keyframes moveUp {
-  0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
-  50% { opacity: 0.8; }
-  100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-}
-
-.loader-bar {
-  width: 80%; height: 25px; background: white; border: 4px solid var(--brown-pants);
-  border-radius: 20px; overflow: hidden; margin: 20px 0; z-index: 2001;
-}
+.loader-bar { width: 80%; height: 25px; background: white; border: 4px solid #6d4c41; border-radius: 20px; overflow: hidden; margin: 20px 0; }
 .loader-fill { width: 0%; height: 100%; background: var(--yellow-bob); transition: width 0.1s linear; }
 
-/* BURBUJAS DE FONDO */
-.bg-bubble {
-  position: absolute; background: rgba(255, 255, 255, 0.5);
-  border: 2px solid rgba(255, 255, 255, 0.7); border-radius: 50%;
-  pointer-events: none; z-index: 1; bottom: -100px; animation: floatUp 8s linear infinite;
-}
-
-@keyframes floatUp {
-  0% { transform: translateY(0) translateX(0); opacity: 0; }
-  20% { opacity: 0.7; }
-  50% { transform: translateY(-50vh) translateX(30px); }
-  100% { transform: translateY(-110vh) translateX(-20px); opacity: 0; }
-}
-
+/* --- PANTALLAS --- */
 .screen {
-  min-height: 100vh; width: 100vw; padding: 20px; box-sizing: border-box;
-  display: none; align-items: center; justify-content: center;
-  position: absolute; top: 0; left: 0; z-index: 10;
+  min-height: 100vh; width: 100vw; display: none; align-items: center; justify-content: center;
+  position: absolute; top: 0; left: 0; z-index: 10; padding: 20px; box-sizing: border-box;
 }
-.screen.active { display: flex; animation: fadeIn 0.5s ease; }
+.screen.active { display: flex; animation: fadeIn 0.6s ease; }
 
-@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
 .card {
-  background: rgba(255, 255, 255, 0.95); border: 6px solid var(--yellow-bob);
-  border-radius: 30px 15px; padding: 25px; box-shadow: 0 10px 0px rgba(0,0,0,0.1);
-  text-align: center; width: 100%; max-width: 320px;
-  animation: cardFloat 3s ease-in-out infinite; z-index: 5; position: relative;
+  background: rgba(255, 255, 255, 0.96); border: 6px solid var(--yellow-bob);
+  border-radius: 30px 15px; padding: 25px; text-align: center; width: 100%; max-width: 320px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2); position: relative;
 }
 
-@keyframes cardFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+.eternity-card { background: #fdf5e6; border: 8px double #8b4513; border-radius: 0; color: #4e2c0e; }
 
-.eternity-card {
-  background: #fdf5e6; border: 8px double #8b4513; border-radius: 0;
-  font-family: 'Patrick Hand', cursive; color: #4e2c0e;
+/* --- MODO AVENTURA ÉPICO --- */
+#adventureMode {
+  display: none; position: fixed; inset: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ff6e7f 100%);
+  z-index: 500; flex-direction: column; align-items: center; justify-content: center; text-align: center;
 }
 
-/* --- EFECTO BRILLO PARA VICTORIA --- */
-.card-victory {
-  border: 8px solid #ff69b4 !important;
-  box-shadow: 0 0 20px #ff69b4, 0 0 40px #ffd700 !important;
-  animation: victoryPulse 1s infinite ease-in-out !important;
+#adventureText { 
+    font-size: 2rem; color: white; text-shadow: 0 0 20px rgba(255,255,255,0.8);
+    padding: 40px; font-family: 'Patrick Hand'; line-height: 1.2;
 }
 
-@keyframes victoryPulse {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.05) rotate(2deg); }
-}
-
-h1 { font-family: 'Patrick Hand', cursive; font-size: 1.8rem; color: #d4a017; margin: 0 0 10px; }
-p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
-
-.btn-container { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 20px; }
+/* --- BOTONES --- */
+.btn-container { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
 .btn {
-  width: 85%; padding: 14px; border-radius: 50px; background: var(--yellow-bob);
-  border: 4px solid #d4a017; color: #5d4a1e; font-weight: 700; text-transform: uppercase;
-  cursor: pointer; box-shadow: 0 4px 0px #d4a017;
+  padding: 15px 30px; border-radius: 50px; background: var(--yellow-bob);
+  border: 4px solid #d4a017; color: #5d4a1e; font-weight: 700; cursor: pointer;
 }
-
 .btn.special { background: #ff69b4; border-color: #c2185b; color: white; animation: pulse 1s infinite; }
-.btn.gold { background: var(--gold); border-color: #b8860b; color: #5d4a1e; margin-top: 15px; }
 
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-.explode-bubble { position: fixed; border-radius: 50%; background: white; border: 2px solid var(--blue-ocean); pointer-events: none; z-index: 100; }
-
-#adventureMode {
-  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: radial-gradient(circle, #ff91d7 0%, #00d2ff 100%);
-  z-index: 200; align-items: center; justify-content: center; flex-direction: column; text-align: center; color: white;
-}
-#adventureText { font-size: 1.7rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.4); padding: 30px; font-weight: bold; }
-
-.heart-final { position: fixed; pointer-events: none; z-index: 205; font-size: 35px; animation: heartRise 4s forwards linear; }
-@keyframes heartRise { 0% { transform: translateY(110vh) scale(0.5); opacity: 1; } 100% { transform: translateY(-20vh) scale(1.5); opacity: 0; } }
+.heart-final { position: fixed; pointer-events: none; z-index: 600; animation: heartRise 4s forwards linear; }
+@keyframes heartRise { 0% { transform: translateY(110vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; } }
 </style>
 </head>
 <body id="mainBody">
 
+<audio id="bgMusic" loop>
+    <source src="https://www.soundboard.com/handler/Downloadaudio.ashx?id=615277" type="audio/mpeg">
+</audio>
 <audio id="popSound" preload="auto">
   <source src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-bubble-pop-2895.mp3">
 </audio>
 
 <div id="loading-screen">
-  <div id="descent-bubbles"></div>
-  <span style="font-size: 60px; z-index: 2001; animation: floatUp 2s infinite ease-in-out;">🍍</span>
-  <h1 style="color:white; font-family:'Patrick Hand'; z-index: 2001; text-shadow: 0 4px 10px rgba(0,0,0,0.3);">BAJANDO A FONDO DE BIKINI...</h1>
+  <h1 style="color:white; font-family:'Patrick Hand';">CARGANDO AMOR...</h1>
   <div class="loader-bar"><div class="loader-fill" id="fill"></div></div>
-  <p id="load-text" style="color:white; font-weight: bold; z-index: 2001;">Iniciando protocolo de amor...</p>
 </div>
 
-<div id="bgBubblesContainer"></div>
-
-<section class="screen" id="s1" onclick="next(1)">
+<section class="screen" id="s1" onclick="startExperience(1)">
   <div class="card">
     <h1>¡Aloo, Merry! 🍍</h1>
-    <p>Si todo salió de acuerdo a lo planeado, ahora mismo estarás sentada en el auto leyendo esto... ¡Y todo gracias a la sabiduría de Patricio!</p>
-    <p>He preparado esto porque pensé que una simple carta no era suficiente para todo lo que siento.</p>
-    <p style="font-size: 0.8rem; color: #008dc4;">(Toca para continuar 🫧)</p>
+    <p>Si estás leyendo esto, es porque Patricio entregó el mensaje a tiempo.</p>
+    <p>Toca para sumergirte en esta historia...</p>
   </div>
 </section>
 
 <section class="screen" id="s2" onclick="next(2)">
-  <div class="card">
-    <p>Dicen que las mejores cosas de la vida llegan sin avisar, como una ola gigante en un día soleado.</p>
-    <p>Así llegaste tú: sin avisar y sin que yo supiera que, a partir de ese día, mi mundo se pondría de la mejor manera.</p>
-    <p>Tal vez fue el destino o Neptuno, pero estoy muy feliz de que coincidiéramos.</p>
-  </div>
+    <div class="card">
+      <p>Llegaste a mi vida como una ola inesperada, despeinando mis planes y llenándolo todo de alegría.</p>
+    </div>
 </section>
 
 <section class="screen" id="s3" onclick="next(3)">
-  <div class="card">
-    <p>Conocerte ha sido toda una aventura. Lo más increíble es que contigo no necesito ser nadie más, puedo ser simplemente yo.</p>
-    <p>Incluso con mis chistes malos, tú siempre tienes una sonrisa lista. ❤️</p>
-  </div>
+    <div class="card">
+      <p>Contigo el tiempo vuela más rápido que Bob corriendo hacia el Crustáceo Cascarudo.</p>
+    </div>
 </section>
 
 <section class="screen" id="s4" onclick="next(4)">
-  <div class="card">
-    <p>En el mar hay millones de peces, pero estoy convencido de que no hay nadie en el océano que brille como tú.</p>
-    <p>Eres auténtica, divertida y tienes una sonrisa que me desarma por completo.</p>
-  </div>
+    <div class="card">
+      <p>Ya no quiero que seamos "solo amigos que salen". Quiero que el mundo sepa lo especial que eres para mí.</p>
+    </div>
 </section>
 
 <section class="screen" id="s5" onclick="next(5)">
-  <div class="card">
-    <p>No hace falta que sea una fecha especial para decirte que me importas muchísimo.</p>
-    <p>Quiero seguir compartiendo helados, risas y que tengamos muchísimas aventuras más.</p>
-    <p>¡Aquí no hay límites para el cariño!</p>
-  </div>
-</section>
-
-<section class="screen" id="s6" onclick="next(6)">
-  <div class="card">
-    <h1>Merry... ✨</h1>
-    <p>Ya no quiero decir que "solo estamos saliendo". Siento que lo nuestro merece ser oficial.</p>
-    <p>Pero antes del gran momento... hagamos una pausa dramática para charlar un poquito.</p>
-    <p style="font-size: 0.8rem; color: #008dc4;">(Toca para la pausa dramática 🫧)</p>
-  </div>
-</section>
-
-<section class="screen" id="s7" onclick="next(7)">
   <div class="card eternity-card">
-    <h1 style="font-size: 2.5rem; color: #4e2c0e;">Una eternidad más tarde...</h1>
-    <p style="color: #4e2c0e;">(Después de charlar un ratito)</p>
+    <h1 style="font-size: 2.5rem;">Una eternidad más tarde...</h1>
+    <p>(Después de nuestra charla)</p>
   </div>
 </section>
 
-<section class="screen" id="s8">
+<section class="screen" id="s6">
   <div class="card">
     <h1>¿Quieres ser mi novia? ❤️</h1>
-    <p>Prometo cuidarte más que Don Cangrejo a su primer dólar. Piensa tu respuesta con el corazón...</p>
     <div class="btn-container">
       <div class="btn special" onclick="yes()">¡SÍ, ACEPTO! 😍</div>
-      <div class="btn no" id="runNo">Ammmmm... ¿NO? 💔</div>
+      <div class="btn no" id="runNo">Ammmmm... NO 💔</div>
     </div>
   </div>
 </section>
 
-<section class="screen" id="count">
-  <div class="card">
-    <h1 style="color:red">¡OH, NO!</h1>
-    <p>¡ESTE MENSAJE SE AUTODESTRUIRÁ EN 3... 2... 1...!</p>
-    <div id="countdown" style="font-size: 4rem; font-weight:bold;">3</div>
-  </div>
+<section class="screen" id="post1" onclick="nextPost(1)">
+    <div class="card" style="border-color: #ff69b4;">
+        <h1>¡SABÍA QUE DIRÍAS QUE SÍ! 💖</h1>
+        <p>Prepárate, porque desde hoy oficialmente te voy a llenar de mimos y atención.</p>
+        <p style="font-size: 0.8rem; color: #ff69b4;">(Toca para ver lo que nos espera...)</p>
+    </div>
 </section>
 
-<section class="screen" id="boom" style="background:rgba(255,255,255,0.95); z-index:99;"></section>
-
-<section class="screen" id="no">
-  <div class="card">
-    <h1>¡YO ROMPÍ MIS PANTALONES! 😭</h1>
-    <p>¡Casi volamos hasta la superficie! Merry, mi corazón no aguanta estos sustos...</p>
-    <div class="btn special" onclick="yes()">¡VALE, SÍ QUIERO! 🥰</div>
-    <div class="btn no" onclick="finalNo()">Iugh... ¡No! 🤮</div>
-  </div>
+<section class="screen" id="post2" onclick="nextPost(2)">
+    <div class="card">
+        <h1>Un Nuevo Capítulo 📖</h1>
+        <p>No prometo que seremos perfectos, pero prometo que nunca nos faltarán risas ni aventuras locas.</p>
+    </div>
 </section>
 
-<section class="screen" id="finalNo">
-  <div class="card">
-    <h1>OK, LO INTENTÉ... ⚓</h1>
-    <p>Ni el Balde de Bocados está tan triste hoy. Se aprecia la honestidad. ❤️</p>
-    <div class="btn" onclick="restart()">Reiniciar 🍍</div>
-  </div>
-</section>
-
-<section class="screen" id="yes">
-  <div class="card card-victory">
-    <h1>¡SWEET VICTORY! 🎉</h1>
-    <p>¡Ahora soy oficialmente el chico más feliz de todo el océano!</p>
-    <p>¡Hiciste de este 9 de febrero de 2026 el día más épico de mi vida!</p>
-    <p>¡Te quiero muchísimo, Merry! ❤️</p>
-    <div class="btn gold" onclick="startAdventure()">NUESTRO ÁLBUM ÉPICO 🚀</div>
-  </div>
+<section class="screen" id="post3" onclick="showEpicAdventure()">
+    <div class="card" style="background: var(--gold); border-color: white;">
+        <h1 style="color: #5d4a1e;">¿LISTA PARA EL VIAJE?</h1>
+        <p>Haz clic para entrar a nuestra nueva realidad...</p>
+        <div class="btn" style="background: white;">¡VAMOS! 🚀</div>
+    </div>
 </section>
 
 <div id="adventureMode">
-  <div id="adventureText">Iniciando nuestra historia...</div>
+  <div id="adventureText">Cargando nuestra eternidad...</div>
 </div>
 
 <script>
-window.onload = () => {
-  const fill = document.getElementById('fill');
-  const loadText = document.getElementById('load-text');
-  const descentContainer = document.getElementById('descent-bubbles');
-  const msgs = ["Afilando espátulas...", "Cazando medusas...", "Limpiando la piña...", "¡LLEGAMOS!"];
-  
-  for(let i=0; i<40; i++) {
-    const b = document.createElement('div');
-    b.className = 'descent-bubble';
-    const size = Math.random() * 30 + 10;
-    b.style.width = size + 'px'; b.style.height = size + 'px';
-    b.style.left = Math.random() * 100 + 'vw';
-    b.style.animationDelay = Math.random() * 2 + 's';
-    b.style.animationDuration = (Math.random() * 0.5 + 0.8) + 's';
-    descentContainer.appendChild(b);
-  }
-
-  let p = 0;
-  const interval = setInterval(() => {
-    p += 1;
-    fill.style.width = p + '%';
-    if(p < 25) loadText.textContent = msgs[0];
-    else if(p < 50) loadText.textContent = msgs[1];
-    else if(p < 75) loadText.textContent = msgs[2];
-    else loadText.textContent = msgs[3];
-
-    if(p >= 100) {
-      clearInterval(interval);
-      document.getElementById('loading-screen').style.opacity = '0';
-      setTimeout(() => {
-        document.getElementById('loading-screen').style.display = 'none';
-        document.getElementById('s1').classList.add('active');
-        initBubbles();
-      }, 500);
-    }
-  }, 80); 
-};
-
-function initBubbles() {
-  const container = document.getElementById('bgBubblesContainer');
-  for(let i=0; i<30; i++) {
-    const b = document.createElement('div');
-    b.className = 'bg-bubble';
-    const size = Math.random() * 60 + 20;
-    b.style.width = size + 'px'; b.style.height = size + 'px';
-    b.style.left = Math.random() * 100 + 'vw';
-    b.style.animationDuration = (Math.random() * 4 + 6) + 's';
-    container.appendChild(b);
-  }
+// Manejo de música y carga
+function startExperience(n) {
+    const music = document.getElementById('bgMusic');
+    music.play().catch(() => console.log("Música esperando interacción"));
+    next(n);
 }
 
-let intentosNo = 0;
-const btnNo = document.getElementById('runNo');
-const mainBody = document.getElementById('mainBody');
-
-const manejarIntento = (e) => {
-  if (intentosNo < 6) {
-    e.preventDefault();
-    const x = (Math.random() * 200) - 100;
-    const y = (Math.random() * 200) - 100;
-    btnNo.style.transform = `translate(${x}px, ${y}px)`;
-    intentosNo++;
-    if(intentosNo === 3) btnNo.textContent = "¡QUÉ NO! 👈";
-  } else { startNo(); }
+window.onload = () => {
+  const fill = document.getElementById('fill');
+  let p = 0;
+  const interval = setInterval(() => {
+    p += 2;
+    fill.style.width = p + '%';
+    if(p >= 100) {
+      clearInterval(interval);
+      document.getElementById('loading-screen').style.display = 'none';
+      document.getElementById('s1').classList.add('active');
+    }
+  }, 50);
 };
 
-btnNo.addEventListener('touchstart', manejarIntento);
-btnNo.addEventListener('click', (e) => { if(intentosNo < 6) manejarIntento(e); });
-
+// Navegación
 function next(n){
   document.getElementById('s'+n).classList.remove('active');
   document.getElementById('s'+(n+1)).classList.add('active');
 }
 
-/* --- VICTORIA MEJORADA --- */
-function yes(){ 
-  hideAll(); 
-  document.getElementById('yes').classList.add('active');
-  
-  // Explosión de celebración (150 burbujas doradas y rosas)
-  for(let i=0; i<150; i++){
-    setTimeout(() => {
-      const b = document.createElement('div');
-      b.className = 'explode-bubble';
-      const size = Math.random() * 30 + 10;
-      b.style.width = size + 'px'; b.style.height = size + 'px';
-      b.style.left = '50vw'; b.style.top = '50vh';
-      b.style.background = i % 2 === 0 ? 'var(--yellow-bob)' : 'var(--pink-patrick)';
-      b.style.borderColor = 'white';
-      document.body.appendChild(b);
-      
-      const angle = Math.random() * Math.PI * 2;
-      const dist = Math.random() * 800 + 200;
-      
-      b.animate([
-        { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
-        { transform: `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) scale(2)`, opacity: 0 }
-      ], { duration: 2000, easing: 'ease-out' });
-      setTimeout(()=>b.remove(), 2000);
-    }, i * 5);
-  }
+function nextPost(n){
+  document.getElementById('post'+n).classList.remove('active');
+  document.getElementById('post'+(n+1)).classList.add('active');
 }
 
-function finalNo(){ hideAll(); document.getElementById('finalNo').classList.add('active'); }
-
-function startNo(){
-  hideAll();
-  document.getElementById('count').classList.add('active');
-  let c = 3;
-  const timer = setInterval(() => {
-    c--;
-    document.getElementById('countdown').textContent = c;
-    if(c === 0){ clearInterval(timer); explode(); }
-  }, 1000);
+function yes(){
+    document.getElementById('s6').classList.remove('active');
+    document.getElementById('post1').classList.add('active');
+    celebrate();
 }
 
-function explode(){
-  hideAll();
-  document.getElementById('boom').classList.add('active');
-  mainBody.classList.add('shake-it');
-  for(let i=0; i<500; i++){
-    setTimeout(() => {
-      const b = document.createElement('div');
-      b.className = 'explode-bubble';
-      const size = Math.random() * 70 + 20;
-      b.style.width = size + 'px'; b.style.height = size + 'px';
-      b.style.left = '50vw'; b.style.top = '50vh';
-      document.body.appendChild(b);
-      if(i%8===0) document.getElementById('popSound').cloneNode().play();
-      const angle = Math.random() * Math.PI * 2;
-      const dist = Math.random() * 1500 + 500;
-      b.animate([
-        { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
-        { transform: `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) scale(5)`, opacity: 0 }
-      ], { duration: 3000, easing: 'ease-out' });
-      setTimeout(()=>b.remove(), 3000);
-    }, i * 6);
-  }
-  setTimeout(() => {
-    mainBody.classList.remove('shake-it');
-    hideAll();
-    document.getElementById('no').classList.add('active');
-  }, 8500);
+function celebrate() {
+    for(let i=0; i<100; i++) {
+        setTimeout(createFinalHeart, i * 20);
+    }
 }
 
-function startAdventure() {
-  document.getElementById('adventureMode').style.display = 'flex';
-  const phrases = [
-    "Próxima parada: ¡Nuestra primera cita oficial! 🍨",
-    "Advertencia: Exceso de mimos en camino ⚠️",
-    "Merry + Yo = La mejor historia del mar ⚓",
-    "¡Me haces el chico más feliz del mundo! 😍",
-    "¡Me encantas! 💖",
-    "Juntos contra el mundo (y contra Plankton) 🍍"
-  ];
-  let i = 0;
-  setInterval(() => {
-    document.getElementById('adventureText').textContent = phrases[i];
-    i = (i + 1) % phrases.length;
-    for(let j=0; j<6; j++) createFinalHeart();
-  }, 2500);
+function showEpicAdventure() {
+    document.getElementById('post3').classList.remove('active');
+    const adv = document.getElementById('adventureMode');
+    adv.style.display = 'flex';
+    
+    const phrases = [
+        "Nuestra historia comienza hoy... ✨",
+        "Merry + Yo = El mejor equipo del mundo 🌎",
+        "Próxima parada: ¡Cualquier lugar si es contigo! ✈️",
+        "Gracias por hacerme el más feliz 😍",
+        "¡TE AMO! ❤️"
+    ];
+    
+    let i = 0;
+    setInterval(() => {
+        document.getElementById('adventureText').style.opacity = 0;
+        setTimeout(() => {
+            document.getElementById('adventureText').textContent = phrases[i];
+            document.getElementById('adventureText').style.opacity = 1;
+            i = (i + 1) % phrases.length;
+        }, 500);
+        for(let j=0; j<5; j++) createFinalHeart();
+    }, 3000);
 }
 
 function createFinalHeart() {
   const h = document.createElement('div');
   h.className = 'heart-final';
-  // Lluvia de flores y corazones
-  h.textContent = ['❤️','💕','✨','🌸','🌼','🍍'][Math.floor(Math.random()*6)];
+  h.textContent = ['❤️','💖','✨','🌸','🍍','💍'][Math.floor(Math.random()*6)];
   h.style.left = Math.random() * 100 + 'vw';
+  h.style.fontSize = (Math.random() * 20 + 20) + 'px';
   document.body.appendChild(h);
   setTimeout(() => h.remove(), 4000);
 }
 
-function hideAll(){ document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); }
-function restart(){ location.reload(); }
+// Lógica del botón NO (Huye)
+const btnNo = document.getElementById('runNo');
+btnNo.addEventListener('mouseover', () => {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    btnNo.style.position = 'fixed';
+    btnNo.style.left = x + 'px';
+    btnNo.style.top = y + 'px';
+    btnNo.textContent = "¡QUÉ NO! 👈";
+});
+
+// Para móviles también:
+btnNo.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    btnNo.style.position = 'fixed';
+    btnNo.style.left = x + 'px';
+    btnNo.style.top = y + 'px';
+});
+
 </script>
 </body>
 </html>
