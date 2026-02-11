@@ -28,25 +28,24 @@ body {
   color: #1a4a5e;
   overflow: hidden;
   width: 100vw; height: 100vh;
-  transition: background 0.5s;
+  transition: background 1s ease; /* Transición más suave */
 }
 
-/* --- ANIMACIÓN MODO FIESTA --- */
+/* --- MODO FIESTA CORREGIDO (Sin destellos rápidos) --- */
 .party-bg { 
-  animation: partyColors 1.5s infinite alternate !important; 
+  animation: partyColors 4s infinite alternate !important; 
   background-image: none !important;
 }
 
 @keyframes partyColors {
   0% { background-color: #ff91d7; }
-  33% { background-color: #effd5f; }
-  66% { background-color: #00d2ff; }
+  50% { background-color: #00d2ff; }
   100% { background-color: #ffd700; }
 }
 
+/* Eliminamos el flash-effect visualmente */
 #flash-effect {
-  position: fixed; inset: 0; background: white; opacity: 0; 
-  pointer-events: none; z-index: 5000;
+  display: none;
 }
 
 #loading-screen {
@@ -104,11 +103,6 @@ body {
 
 @keyframes cardFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-.eternity-card {
-  background: #fdf5e6; border: 8px double #8b4513; border-radius: 0;
-  font-family: 'Patrick Hand', cursive; color: #4e2c0e;
-}
-
 .card-victory {
   border: 8px solid #ff69b4 !important;
   box-shadow: 0 0 20px #ff69b4, 0 0 40px #ffd700 !important;
@@ -117,7 +111,7 @@ body {
 
 @keyframes victoryPulse {
   0% { transform: scale(1) rotate(-1deg); }
-  100% { transform: scale(1.1) rotate(1deg); }
+  100% { transform: scale(1.05) rotate(1deg); }
 }
 
 h1 { font-family: 'Patrick Hand', cursive; font-size: 1.8rem; color: #d4a017; margin: 0 0 10px; }
@@ -156,28 +150,14 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
   border: 5px solid #000; padding: 10px 30px; font-family: 'Patrick Hand', cursive;
   font-size: 2.2rem; color: #000; transform: rotate(-5deg); z-index: 300;
   transition: right 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 10px 10px 0px rgba(0,0,0,0.2);
 }
 
 .heart-final { position: fixed; pointer-events: none; z-index: 205; font-size: 35px; animation: heartRise 4s forwards linear; }
-@keyframes heartRise { 0% { transform: translateY(110vh) scale(0.5) rotate(0deg); opacity: 1; } 100% { transform: translateY(-20vh) scale(1.5) rotate(360deg); opacity: 0; } }
+@keyframes heartRise { 0% { transform: translateY(110vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; } }
 
-.shake-it { animation: shake 0.1s infinite !important; }
-.shake-light { animation: shake 0.3s infinite; }
-@keyframes shake {
-  0% { transform: translate(8px, 8px); }
-  25% { transform: translate(-8px, -8px); }
-  50% { transform: translate(8px, -8px); }
-  75% { transform: translate(-8px, 8px); }
-  100% { transform: translate(0, 0); }
-}
-
-#countdown { transition: transform 0.2s; color: #ff4747; text-shadow: 0 0 10px white; }
 </style>
 </head>
 <body id="mainBody">
-
-<div id="flash-effect"></div>
 
 <audio id="popSound" preload="auto">
   <source src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-bubble-pop-2895.mp3">
@@ -185,8 +165,8 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
 
 <div id="loading-screen">
   <div id="descent-bubbles"></div>
-  <span style="font-size: 60px; z-index: 2001; animation: floatUp 2s infinite ease-in-out;">🍍</span>
-  <h1 style="color:white; font-family:'Patrick Hand'; z-index: 2001; text-shadow: 0 4px 10px rgba(0,0,0,0.3);">BAJANDO A FONDO DE BIKINI...</h1>
+  <span style="font-size: 60px; z-index: 2001;">🍍</span>
+  <h1 style="color:white; font-family:'Patrick Hand'; z-index: 2001;">BAJANDO A FONDO DE BIKINI...</h1>
   <div class="loader-bar"><div class="loader-fill" id="fill"></div></div>
   <p id="load-text" style="color:white; font-weight: bold; z-index: 2001;">Iniciando protocolo de amor...</p>
 </div>
@@ -197,91 +177,30 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
   <div class="card">
     <h1>¡Aloo, Merry! 🍍</h1>
     <p>¡Por mis pantalones cuadrados! Si lees esto, es que el plan funcionó perfectamente.</p>
-    <p>He preparado esto porque una carta normal es para gente normal... ¡y nosotros somos más épicos que una Cangreburger doble!</p>
-    <p style="font-size: 0.8rem; color: #008dc4;">(Toca la pantalla, ¡estoy listo! 🫧)</p>
+    <p style="font-size: 0.8rem; color: #008dc4;">(Toca la pantalla para seguir 🫧)</p>
   </div>
 </section>
 
 <section class="screen" id="s2" onclick="next(2)">
   <div class="card">
     <p>Llegaste a mi vida como una medusa a la red: ¡sin previo aviso y llenándolo todo de luz!</p>
-    <p>Tal vez fue el destino o un deseo a una estrella de mar, pero coincidir contigo es lo mejor que me ha pasado.</p>
   </div>
 </section>
 
 <section class="screen" id="s3" onclick="next(3)">
   <div class="card">
-    <p>Contigo puedo ser una "linda personita" o un completo loco, y siempre me acompañas con una sonrisa.</p>
-    <p>Gracias por aguantar mis chistes de Patricio y por ser mi burbuja favorita. ❤️</p>
+    <p>Contigo puedo ser yo mismo, y siempre me acompañas con una sonrisa. ¡Eres mi burbuja favorita! ❤️</p>
   </div>
 </section>
 
-<section class="screen" id="s4" onclick="next(4)">
-  <div class="card">
-    <p>Hay millones de peces en el mar, pero tú eres la única que tiene esa chispa especial que me hace flotar.</p>
-    <p>Eres auténtica, divertida y... ¡vaya! Me tienes más distraído que Bob con un campo de medusas.</p>
-  </div>
-</section>
-
-<section class="screen" id="s5" onclick="next(5)">
-  <div class="card">
-    <p>No necesito que sea el "Día del Amigo" ni nada de eso para decirte que te quiero en mi equipo para siempre.</p>
-    <p>¡Quiero que compartamos más helados de Cacahuate y mil risas más!</p>
-  </div>
-</section>
-
-<section class="screen" id="s6" onclick="next(6)">
-  <div class="card">
-    <h1>Merry... ✨</h1>
-    <p>Ya no quiero que esto sea "ver qué pasa". Quiero que el mundo sepa que eres mi persona favorita.</p>
-    <p>Pero antes... ¡PAUSA DRAMÁTICA!</p>
-    <p style="font-size: 0.8rem; color: #008dc4;">(Toca para que pase el tiempo... 🫧)</p>
-  </div>
-</section>
-
-<section class="screen" id="s7" onclick="next(7)">
-  <div class="card eternity-card">
-    <h1 style="font-size: 2.5rem; color: #4e2c0e;">Una eternidad más tarde...</h1>
-    <p style="color: #4e2c0e;">(Narrador: "Tan tarde que el narrador se cansó de esperar")</p>
-  </div>
-</section>
-
-<section class="screen" id="s8">
+<section class="screen" id="s4">
   <div class="card" id="questionCard">
     <h1>¿Quieres ser mi novia? ❤️</h1>
-    <p>Prometo cuidarte más que Don Cangrejo a su primer centavo. ¿Qué dices?</p>
+    <p>Prometo cuidarte más que Don Cangrejo a su primer centavo.</p>
     <div class="btn-container">
       <div class="btn special" onclick="yes()">¡SÍ, ACEPTO! 😍</div>
-      <div class="btn no" id="runNo">Ammmmm... ¿NO? 💔</div>
+      <div class="btn" style="opacity: 0.5;" onclick="alert('¡Esa opción está desactivada por el Capitán! ⚓')">Amm... ¿no?</div>
     </div>
-  </div>
-</section>
-
-<section class="screen" id="count">
-  <div class="card">
-    <h1 style="color:red; font-size: 2rem;">¡ALERTA ROJA! 🚨</h1>
-    <p>¡SABOTAJE EN LA COCINA! ¡VA A ESTALLAR!</p>
-    <div id="countdown" style="font-size: 6rem; font-weight:bold;">3</div>
-  </div>
-</section>
-
-<section class="screen" id="boom" style="background:rgba(255,255,255,0.95); z-index:99;"></section>
-
-<section class="screen" id="no">
-  <div class="card">
-    <h1>¡SANTA SARTÉN! 😭</h1>
-    <p>¡Eso fue más intenso que un lunes en el Crustáceo Cascarudo!</p>
-    <p>Merry, por Neptuno, ¡casi me convierto en sushi! ¿Lo intentamos de nuevo?</p>
-    <div class="btn special" onclick="yes()">¡VALE, SÍ QUIERO! 🥰</div>
-    <div class="btn no" onclick="finalNo()">No... me gusta el caos 😈</div>
-  </div>
-</section>
-
-<section class="screen" id="finalNo">
-  <div class="card">
-    <h1>OK, EL MAR ESTÁ TRISTE... ⚓</h1>
-    <p>Me iré a vivir bajo una roca con Patricio. ❤️</p>
-    <div class="btn" onclick="restart()">Reiniciar 🍍</div>
   </div>
 </section>
 
@@ -289,28 +208,15 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
   <div class="card card-victory" onclick="nextYes(1)">
     <h1>¡SWEET VICTORY! 🎉</h1>
     <p>¡SOY EL CHICO MÁS FELIZ DEL OCÉANO!</p>
-    <p>¡Hiciste de este 9 de febrero el mejor día de la historia!</p>
-    <p style="font-size: 0.8rem; color: #ff69b4;">(Toca para celebrar 🫧)</p>
+    <p style="font-size: 0.8rem; color: #ff69b4;">(Toca para continuar 🫧)</p>
   </div>
 </section>
 
-<section class="screen" id="y1" onclick="nextYes(2)">
+<section class="screen" id="y1">
   <div class="card">
     <h1>¡Oficialmente juntos! ✨</h1>
-    <p>Mi corazón late más rápido que Bob haciendo 100 Cangreburgers por minuto.</p>
-  </div>
-</section>
-
-<section class="screen" id="y2" onclick="nextYes(3)">
-  <div class="card">
-    <p>¡Te quiero muchisisisisimo, Merry! Eres mi tesoro favorito. ❤️</p>
-  </div>
-</section>
-
-<section class="screen" id="y3">
-  <div class="card">
-    <h1>¿Lista para nuestra historia?</h1>
-    <div class="btn gold" onclick="startAdventure()">NUESTRO ÁLBUM ÉPICO 🚀</div>
+    <p>Te quiero muchisisisisimo, Merry. ❤️</p>
+    <div class="btn gold" onclick="startAdventure()">NUESTRO ÁLBUM 🚀</div>
   </div>
 </section>
 
@@ -320,76 +226,33 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
 </div>
 
 <script>
+// Manejo de carga
 window.onload = () => {
   const fill = document.getElementById('fill');
-  const loadText = document.getElementById('load-text');
-  const descentContainer = document.getElementById('descent-bubbles');
-  const msgs = ["Afilando espátulas...", "Cazando medusas...", "Limpiando la piña...", "¡LLEGAMOS!"];
-  
-  for(let i=0; i<40; i++) {
-    const b = document.createElement('div');
-    b.className = 'descent-bubble';
-    const size = Math.random() * 30 + 10;
-    b.style.width = size + 'px'; b.style.height = size + 'px';
-    b.style.left = Math.random() * 100 + 'vw';
-    b.style.animationDelay = Math.random() * 2 + 's';
-    b.style.animationDuration = (Math.random() * 0.5 + 0.8) + 's';
-    descentContainer.appendChild(b);
-  }
-
   let p = 0;
   const interval = setInterval(() => {
-    p += 1;
+    p += 2;
     fill.style.width = p + '%';
-    if(p < 25) loadText.textContent = msgs[0];
-    else if(p < 50) loadText.textContent = msgs[1];
-    else if(p < 75) loadText.textContent = msgs[2];
-    else loadText.textContent = msgs[3];
-
     if(p >= 100) {
       clearInterval(interval);
-      document.getElementById('loading-screen').style.opacity = '0';
-      setTimeout(() => {
-        document.getElementById('loading-screen').style.display = 'none';
-        document.getElementById('s1').classList.add('active');
-        initBubbles();
-      }, 500);
+      document.getElementById('loading-screen').style.display = 'none';
+      document.getElementById('s1').classList.add('active');
+      initBubbles();
     }
-  }, 50); 
+  }, 30);
 };
 
 function initBubbles() {
   const container = document.getElementById('bgBubblesContainer');
-  for(let i=0; i<30; i++) {
+  for(let i=0; i<20; i++) {
     const b = document.createElement('div');
     b.className = 'bg-bubble';
-    const size = Math.random() * 60 + 20;
-    b.style.width = size + 'px'; b.style.height = size + 'px';
+    b.style.width = b.style.height = (Math.random() * 50 + 20) + 'px';
     b.style.left = Math.random() * 100 + 'vw';
     b.style.animationDuration = (Math.random() * 4 + 6) + 's';
     container.appendChild(b);
   }
 }
-
-let intentosNo = 0;
-const btnNo = document.getElementById('runNo');
-const mainBody = document.getElementById('mainBody');
-const flash = document.getElementById('flash-effect');
-
-const manejarIntento = (e) => {
-  if (intentosNo < 6) { 
-    e.preventDefault();
-    const x = (Math.random() * 250) - 125;
-    const y = (Math.random() * 250) - 125;
-    btnNo.style.transform = `translate(${x}px, ${y}px)`;
-    intentosNo++;
-    if(intentosNo === 2) btnNo.textContent = "¿Segura? 👀";
-    if(intentosNo === 4) btnNo.textContent = "¡Rayos! 😰";
-  } else { startNo(); }
-};
-
-btnNo.addEventListener('touchstart', manejarIntento);
-btnNo.addEventListener('click', (e) => { if(intentosNo < 6) manejarIntento(e); });
 
 function next(n){
   document.getElementById('s'+n).classList.remove('active');
@@ -397,167 +260,53 @@ function next(n){
 }
 
 function nextYes(n){
-  const current = n === 1 ? 'yes' : 'y'+(n-1);
-  const next = 'y'+n;
-  document.getElementById(current).classList.remove('active');
-  document.getElementById(next).classList.add('active');
+  document.getElementById('yes').classList.remove('active');
+  document.getElementById('y1').classList.add('active');
 }
 
-// --- VICTORIA (SÍ) - FLASH ELIMINADO ---
 function yes(){ 
   hideAll(); 
   document.getElementById('yes').classList.add('active');
-  
-  // Activar fondo animado suave
-  mainBody.classList.add('party-bg');
+  document.body.classList.add('party-bg');
 
-  // Explosión de elementos sin flashazo de pantalla
-  for(let i=0; i<150; i++){
+  // Lanzar partículas suaves
+  for(let i=0; i<100; i++){
     setTimeout(() => {
       const b = document.createElement('div');
       b.className = 'explode-bubble';
-      const size = Math.random() * 40 + 15;
-      b.style.width = size + 'px'; b.style.height = size + 'px';
-      b.style.left = '50vw'; b.style.top = '50vh';
-      
-      const items = ['🌸', '✨', '💖', '🌼', '🫧', '🍍'];
+      const items = ['🌸', '✨', '💖', '🫧', '🍍'];
       b.innerHTML = items[Math.floor(Math.random()*items.length)];
-      b.style.fontSize = size + 'px';
-      
-      document.body.appendChild(b);
-      const angle = Math.random() * Math.PI * 2;
-      const dist = Math.random() * 1000 + 200;
-      
-      b.animate([
-        { transform: 'translate(-50%, -50%) scale(0) rotate(0deg)', opacity: 1 },
-        { transform: `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) scale(2) rotate(720deg)`, opacity: 0 }
-      ], { duration: 2000, easing: 'ease-out' });
-      setTimeout(()=>b.remove(), 2000);
-    }, i * 6);
-  }
-}
-
-function startNo(){
-  hideAll();
-  const countScreen = document.getElementById('count');
-  countScreen.classList.add('active');
-  let c = 3;
-  const countEl = document.getElementById('countdown');
-  
-  const timer = setInterval(() => {
-    c--;
-    countEl.textContent = c;
-    countEl.style.transform = "scale(1.5)";
-    setTimeout(() => countEl.style.transform = "scale(1)", 200);
-    
-    if(c === 2) mainBody.classList.add('shake-light');
-    if(c === 1) {
-        mainBody.classList.remove('shake-light');
-        mainBody.classList.add('shake-it');
-    }
-
-    if(c === 0){ 
-      clearInterval(timer); 
-      explode(); 
-    }
-  }, 1000);
-}
-
-function explode(){
-  hideAll();
-  document.getElementById('boom').classList.add('active');
-  
-  // Flash de explosión (Solo en el "NO" para dramatismo)
-  const flashTimes = [0, 200, 500];
-  flashTimes.forEach(t => {
-      setTimeout(() => {
-          flash.style.background = "white";
-          flash.style.opacity = "0.8";
-          setTimeout(() => flash.style.opacity = "0", 100);
-      }, t);
-  });
-
-  for(let i=0; i<350; i++){
-    setTimeout(() => {
-      const b = document.createElement('div');
-      b.className = 'explode-bubble';
-      const size = Math.random() * 60 + 20;
-      b.style.width = size + 'px'; 
-      b.style.height = size + 'px';
-      b.style.left = '50vw'; 
-      b.style.top = '50vh';
-      
-      const particles = ['🍔', '🍴', '🪨', '🫧', '🔥', '👟'];
-      const colors = ['#effd5f', '#ff91d7', '#00f2fe', '#6d4c41', '#ffffff'];
-      
-      if(i % 3 === 0) {
-          b.innerHTML = particles[Math.floor(Math.random()*particles.length)];
-          b.style.fontSize = (size * 0.8) + 'px';
-      } else {
-          b.style.background = colors[Math.floor(Math.random()*colors.length)];
-          b.style.border = "2px solid white";
-      }
-      
+      b.style.left = '50vw'; b.style.top = '50vh';
       document.body.appendChild(b);
       
-      if(i % 15 === 0) {
-        const s = document.getElementById('popSound').cloneNode();
-        s.volume = 0.3;
-        s.play();
-      }
-      
       const angle = Math.random() * Math.PI * 2;
-      const dist = Math.random() * 1500 + 500;
+      const dist = Math.random() * 800 + 200;
       
       b.animate([
-        { transform: 'translate(-50%, -50%) scale(0.1) rotate(0deg)', opacity: 1 },
-        { transform: `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) scale(4) rotate(1000deg)`, opacity: 0 }
-      ], { duration: 3000, easing: 'ease-out' });
-      
-      setTimeout(() => b.remove(), 3000);
+        { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
+        { transform: `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) scale(2)`, opacity: 0 }
+      ], { duration: 2500, easing: 'ease-out' });
+      setTimeout(()=>b.remove(), 2500);
     }, i * 10);
   }
-  
-  setTimeout(() => {
-    mainBody.classList.remove('shake-it');
-    hideAll();
-    document.getElementById('no').classList.add('active');
-  }, 5000); 
 }
 
 function startAdventure() {
   document.getElementById('adventureMode').style.display = 'flex';
-  setTimeout(() => {
-    document.getElementById('to-be-continued').style.right = '40px';
-  }, 2000);
-
-  const phrases = [
-    "Próxima parada: ¡Nuestra primera cita! 🍨",
-    "Advertencia: Exceso de mimos ⚠️",
-    "Merry + Yo = El mejor equipo ⚓",
-    "¡Eres mi tesoro! 😍",
-    "¡Me encantas! 💖"
-  ];
-  let i = 0;
-  setInterval(() => {
-    document.getElementById('adventureText').textContent = phrases[i];
-    i = (i + 1) % phrases.length;
-    for(let j=0; j<8; j++) createFinalHeart();
-  }, 2500);
+  setTimeout(() => { document.getElementById('to-be-continued').style.right = '40px'; }, 1500);
+  setInterval(createFinalHeart, 500);
 }
 
 function createFinalHeart() {
   const h = document.createElement('div');
   h.className = 'heart-final';
-  h.textContent = ['❤️','💕','✨','🌸','🍍','🍔'][Math.floor(Math.random()*6)];
+  h.textContent = '❤️';
   h.style.left = Math.random() * 100 + 'vw';
   document.body.appendChild(h);
   setTimeout(() => h.remove(), 4000);
 }
 
 function hideAll(){ document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); }
-function restart(){ location.reload(); }
-function finalNo(){ hideAll(); document.getElementById('finalNo').classList.add('active'); }
 </script>
 </body>
 </html>
