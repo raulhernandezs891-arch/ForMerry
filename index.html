@@ -20,97 +20,45 @@ body {
   margin: 0; padding: 0;
   font-family: 'Baloo 2', cursive;
   background: #00d2ff;
-  background-image: 
-    radial-gradient(circle at 20% 30%, var(--flower-color) 20px, transparent 20px),
-    radial-gradient(circle at 80% 70%, var(--flower-color) 25px, transparent 25px),
-    linear-gradient(#4facfe, #00f2fe);
-  background-size: 200px 200px, 300px 300px, 100% 100%;
+  background-image: radial-gradient(circle at 20% 30%, var(--flower-color) 20px, transparent 20px), linear-gradient(#4facfe, #00f2fe);
   color: #1a4a5e;
   overflow: hidden;
   width: 100vw; height: 100vh;
-  transition: background 0.5s;
 }
 
-/* --- 1. EFECTO DE TRANSICIÓN DE FLOR --- */
-#flower-transition {
-  position: fixed; inset: 0; z-index: 1000;
-  display: flex; align-items: center; justify-content: center;
-  pointer-events: none; opacity: 0;
-}
-.transition-flower {
-  font-size: 150vw; color: #ff91d7; transform: scale(0) rotate(0deg);
-  text-shadow: 0 0 50px rgba(0,0,0,0.2);
-}
-@keyframes flowerSwipe {
-  0% { transform: scale(0) rotate(0deg); opacity: 0; }
-  50% { transform: scale(1.5) rotate(180deg); opacity: 1; }
-  100% { transform: scale(3) rotate(360deg); opacity: 0; }
-}
+/* --- EFECTOS ESPECIALES --- */
+#flower-transition { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; pointer-events: none; opacity: 0; }
+.transition-flower { font-size: 150vw; color: #ff91d7; transform: scale(0); }
+@keyframes flowerSwipe { 0% { transform: scale(0) rotate(0deg); opacity: 0; } 50% { transform: scale(1.5) rotate(180deg); opacity: 1; } 100% { transform: scale(3) rotate(360deg); opacity: 0; } }
 
-/* --- 2. EFECTO DE ESTÁTICA --- */
-#static-effect {
-  position: fixed; inset: 0; background: url('https://media.giphy.com/media/oEI9uWUqnW3CeUoL9T/giphy.gif');
-  background-size: cover; z-index: 4000; opacity: 0; pointer-events: none;
-}
+#static-effect { position: fixed; inset: 0; background: url('https://media.giphy.com/media/oEI9uWUqnW3CeUoL9T/giphy.gif'); background-size: cover; z-index: 4000; opacity: 0; pointer-events: none; }
+#flash-effect { position: fixed; inset: 0; background: white; opacity: 0; pointer-events: none; z-index: 5000; transition: opacity 0.1s; }
 
-#flash-effect { position: fixed; inset: 0; background: white; opacity: 0; pointer-events: none; z-index: 5000; }
-
-#loading-screen {
-  position: fixed; inset: 0; 
-  background: linear-gradient(to bottom, var(--blue-ocean), var(--deep-ocean));
-  z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center;
-}
-
-.loader-bar {
-  width: 80%; height: 25px; background: white; border: 4px solid var(--brown-pants);
-  border-radius: 20px; overflow: hidden; margin: 20px 0;
-}
+/* --- PANTALLA CARGA --- */
+#loading-screen { position: fixed; inset: 0; background: linear-gradient(to bottom, var(--blue-ocean), var(--deep-ocean)); z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.loader-bar { width: 80%; height: 20px; background: white; border: 3px solid var(--brown-pants); border-radius: 20px; overflow: hidden; margin: 20px 0; }
 .loader-fill { width: 0%; height: 100%; background: var(--yellow-bob); transition: width 0.1s linear; }
 
-.screen {
-  min-height: 100vh; width: 100vw; padding: 20px; box-sizing: border-box;
-  display: none; align-items: center; justify-content: center;
-  position: absolute; top: 0; left: 0; z-index: 10;
-}
+/* --- PANTALLAS --- */
+.screen { min-height: 100vh; width: 100vw; padding: 20px; box-sizing: border-box; display: none; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; z-index: 10; }
 .screen.active { display: flex; animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-.card {
-  background: rgba(255, 255, 255, 0.95); border: 6px solid var(--yellow-bob);
-  border-radius: 30px 15px; padding: 25px; box-shadow: 0 10px 0px rgba(0,0,0,0.1);
-  text-align: center; width: 100%; max-width: 320px;
-  animation: cardFloat 3s ease-in-out infinite;
-}
-
+.card { background: rgba(255, 255, 255, 0.95); border: 6px solid var(--yellow-bob); border-radius: 30px 15px; padding: 25px; box-shadow: 0 10px 0px rgba(0,0,0,0.1); text-align: center; width: 100%; max-width: 320px; animation: cardFloat 3s ease-in-out infinite; }
 @keyframes cardFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-.btn-container { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 20px; }
-.btn {
-  width: 85%; padding: 14px; border-radius: 50px; background: var(--yellow-bob);
-  border: 4px solid #d4a017; color: #5d4a1e; font-weight: 700; cursor: pointer;
-}
+.eternity-card { background: #fdf5e6; border: 8px double #8b4513; font-family: 'Patrick Hand', cursive; }
 
-/* --- 3. MODO FIESTA Y CONTINUARÁ --- */
-.party-bg { animation: partyColors 1s infinite alternate; }
-@keyframes partyColors {
-  0% { background-color: #ff91d7; }
-  33% { background-color: #effd5f; }
-  66% { background-color: #00d2ff; }
-  100% { background-color: #ffd700; }
-}
+.btn { width: 85%; padding: 14px; border-radius: 50px; background: var(--yellow-bob); border: 4px solid #d4a017; color: #5d4a1e; font-weight: 700; cursor: pointer; margin: 5px; }
+.btn-special { background: #ff69b4; border-color: #c2185b; color: white; }
 
-#to-be-continued {
-  position: fixed; bottom: 50px; right: -300px; background: #fff;
-  border: 5px solid #000; padding: 10px 30px; font-family: 'Patrick Hand';
-  font-size: 2rem; transform: rotate(-5deg); z-index: 300;
-  transition: right 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
+/* --- EXPLOSIÓN Y FINAL --- */
+.explode-bubble { position: fixed; pointer-events: none; z-index: 3000; display: flex; align-items: center; justify-content: center; }
 .shake-it { animation: shake 0.1s infinite !important; }
-@keyframes shake { 0% { transform: translate(8px, 8px); } 100% { transform: translate(-8px, -8px); } }
-
-.explode-bubble { position: fixed; border-radius: 50%; pointer-events: none; z-index: 3000; }
+@keyframes shake { 0% { transform: translate(5px, 5px); } 100% { transform: translate(-5px, -5px); } }
+.party-bg { animation: party 0.5s infinite alternate; }
+@keyframes party { 0% { background-color: #ff91d7; } 100% { background-color: #00d2ff; } }
+#to-be-continued { position: fixed; bottom: 40px; right: -300px; background: white; border: 4px solid black; padding: 10px 20px; font-family: 'Patrick Hand'; font-size: 1.8rem; transition: 1s; z-index: 500; }
 </style>
 </head>
 <body id="mainBody">
@@ -124,97 +72,101 @@ body {
 </audio>
 
 <div id="loading-screen">
-  <span style="font-size: 60px; animation: floatUp 2s infinite ease-in-out;">🍍</span>
-  <h1 style="color:white; font-family:'Patrick Hand'; text-shadow: 0 4px 10px rgba(0,0,0,0.3);">CARGANDO EL CRUSTÁCEO...</h1>
+  <span style="font-size: 50px;">🍍</span>
+  <h1 style="color:white; font-family:'Patrick Hand';">CARGANDO...</h1>
   <div class="loader-bar"><div class="loader-fill" id="fill"></div></div>
-  <p id="load-text" style="color:white; font-weight: bold;">Preparando las espátulas...</p>
+  <p id="load-text" style="color:white;">Preparando espátulas...</p>
 </div>
 
-<section class="screen" id="s1" onclick="nextWithFlower(1)">
+<section class="screen" id="s1" onclick="nextF(1)">
   <div class="card">
     <h1>¡Aloo, Merry! 🍍</h1>
-    <p>¡Por mis pantalones cuadrados! Coincidir contigo es lo mejor que me ha pasado.</p>
-    <p style="font-size: 0.8rem; color: #008dc4;">(Toca la pantalla para continuar 🫧)</p>
+    <p>¡Por mis pantalones cuadrados! Si lees esto, es que el plan funcionó perfectamente.</p>
+    <p style="font-size: 0.8rem; color: #008dc4;">(Toca para continuar 🫧)</p>
   </div>
 </section>
 
-<section class="screen" id="s2" onclick="nextWithFlower(2)">
+<section class="screen" id="s2" onclick="nextF(2)">
   <div class="card">
-    <p>Tal vez fue el destino o un deseo a una estrella de mar, pero eres mi persona favorita en todo el océano.</p>
+    <p>Llegaste a mi vida como una medusa a la red: ¡sin previo aviso y llenándolo todo de luz!</p>
   </div>
 </section>
 
-<section class="screen" id="s3" onclick="nextWithFlower(3)">
+<section class="screen" id="s3" onclick="nextF(3)">
   <div class="card">
-    <p>Gracias por aguantar mis locuras y por ser mi burbuja favorita. ❤️</p>
+    <p>Tal vez fue el destino o un deseo a una estrella de mar, pero coincidir contigo es lo mejor que me ha pasado.</p>
   </div>
 </section>
 
-<section class="screen" id="s4" onclick="nextWithFlower(4)">
+<section class="screen" id="s4" onclick="nextF(4)">
+  <div class="card">
+    <p>Gracias por aguantar mis chistes de Patricio y por ser mi burbuja favorita. ❤️</p>
+  </div>
+</section>
+
+<section class="screen" id="s5" onclick="nextF(5)">
+  <div class="card">
+    <p>Hay millones de peces en el mar, pero tú eres la única que me hace flotar.</p>
+  </div>
+</section>
+
+<section class="screen" id="s6" onclick="nextF(6)">
   <div class="card">
     <h1>Merry... ✨</h1>
-    <p>Ya no quiero que esto sea "ver qué pasa".</p>
+    <p>Ya no quiero que esto sea "ver qué pasa". Quiero que seas mi persona favorita.</p>
     <p>Pero antes... ¡PAUSA DRAMÁTICA!</p>
   </div>
 </section>
 
-<section class="screen" id="s5" onclick="nextWithFlower(5)">
-  <div class="card" style="font-family:'Patrick Hand';">
+<section class="screen" id="s7" onclick="nextF(7)">
+  <div class="card eternity-card">
     <h1 style="font-size: 2.5rem;">Una eternidad más tarde...</h1>
-    <p>(Narrador: "Me cansé de esperar y contraté a otro")</p>
+    <p>(Narrador: "Se acabó el presupuesto para el tiempo")</p>
   </div>
 </section>
 
-<section class="screen" id="s6">
+<section class="screen" id="s8">
   <div class="card">
     <h1>¿Quieres ser mi novia? ❤️</h1>
-    <p>Prometo cuidarte más que Don Cangrejo a su primer centavo.</p>
-    <div class="btn-container">
-      <div class="btn" style="background:#ff69b4; color:white;" onclick="yes()">¡SÍ, ACEPTO! 😍</div>
-      <div class="btn no" id="runNo">Ammmmm... ¿NO? 💔</div>
+    <p>¿Qué dices, Merry?</p>
+    <div style="display:flex; flex-direction:column; align-items:center;">
+      <div class="btn btn-special" onclick="yes()">¡SÍ, ACEPTO! 😍</div>
+      <div class="btn" id="runNo">Ammmmm... ¿NO? 💔</div>
     </div>
   </div>
 </section>
 
 <section class="screen" id="count">
   <div class="card">
-    <h1 style="color:red; font-size: 2rem;">¡CUIDADO! 🚨</h1>
-    <div id="countdown" style="font-size: 6rem; font-weight:bold;">3</div>
+    <h1 style="color:red">¡PELIGRO! 💣</h1>
+    <div id="countdown" style="font-size: 5rem; font-weight:bold;">3</div>
   </div>
 </section>
 
-<section class="screen" id="boom" style="background:white; z-index:99;"></section>
+<section class="screen" id="boom"></section>
 
 <section class="screen" id="no">
   <div class="card">
-    <h1>¡SANTA SARTÉN! 😭</h1>
-    <p>¡Casi nos quedamos calvos como el Rey Neptuno!</p>
-    <div class="btn" style="background:#ff69b4; color:white;" onclick="yes()">¡VALE, SÍ QUIERO! 🥰</div>
+    <h1>¡RAYOS! 😭</h1>
+    <p>¡Casi pierdo mis pantalones con esa explosión!</p>
+    <div class="btn btn-special" onclick="yes()">¡VALE, SÍ QUIERO! 🥰</div>
   </div>
 </section>
 
 <section class="screen" id="yes">
-  <div class="card" onclick="nextWithFlower('yes', 'y1')">
+  <div class="card" onclick="nextF('yes', 'final')">
     <h1>¡SWEET VICTORY! 🎉</h1>
-    <p>¡SOY EL CHICO MÁS FELIZ DEL OCÉANO!</p>
-    <p style="font-size: 0.8rem; color: #ff69b4;">(Toca para celebrar 🫧)</p>
+    <p>¡Soy el chico más feliz del océano! ❤️</p>
+    <div class="btn" style="background:var(--gold);" onclick="startAdventure()">NUESTRO ÁLBUM 🚀</div>
   </div>
 </section>
 
-<section class="screen" id="y1">
-  <div class="card">
-    <h1>¡Te quiero mucho! ❤️</h1>
-    <div class="btn" style="background:var(--gold);" onclick="startAdventure()">NUESTRO ÁLBUM ÉPICO 🚀</div>
-  </div>
-</section>
-
-<div id="adventureMode">
-  <div id="adventureText">Nuestra historia comienza ahora...</div>
+<div id="adventureMode" style="display:none; position:fixed; inset:0; z-index:600; background:var(--blue-ocean); align-items:center; justify-content:center; flex-direction:column;">
+  <h1 id="advText" style="color:white; text-align:center; padding:20px;">¡Nuestra historia comienza!</h1>
   <div id="to-be-continued">CONTINUARÁ...</div>
 </div>
 
 <script>
-// --- CARGA ---
 window.onload = () => {
   let p = 0;
   const interval = setInterval(() => {
@@ -225,44 +177,31 @@ window.onload = () => {
       document.getElementById('loading-screen').style.display = 'none';
       document.getElementById('s1').classList.add('active');
     }
-  }, 40);
+  }, 30);
 };
 
-// --- TRANSICIÓN DE FLOR ---
-function nextWithFlower(currentId, nextId = null) {
-  const flower = document.querySelector('.transition-flower');
+function nextF(curr, nextId = null) {
   const container = document.getElementById('flower-transition');
-  
+  const flower = document.querySelector('.transition-flower');
   container.style.opacity = "1";
-  flower.style.animation = "flowerSwipe 1s forwards";
-
+  flower.style.animation = "flowerSwipe 0.8s forwards";
   setTimeout(() => {
-    const current = typeof currentId === 'number' ? 's'+currentId : currentId;
-    const next = nextId || 's'+(currentId + 1);
-    document.getElementById(current).classList.remove('active');
-    document.getElementById(next).classList.add('active');
-  }, 500);
-
-  setTimeout(() => {
-    container.style.opacity = "0";
-    flower.style.animation = "";
-  }, 1000);
+    document.getElementById(typeof curr === 'number' ? 's'+curr : curr).classList.remove('active');
+    document.getElementById(nextId || 's'+(curr+1)).classList.add('active');
+  }, 400);
+  setTimeout(() => { container.style.opacity = "0"; flower.style.animation = ""; }, 800);
 }
 
-// --- BOTÓN NO ---
-let intentosNo = 0;
 const btnNo = document.getElementById('runNo');
-btnNo.addEventListener('click', (e) => {
-  if (intentosNo < 5) {
-    intentosNo++;
+let clicks = 0;
+btnNo.addEventListener('click', () => {
+  if(clicks < 5) {
     btnNo.style.transform = `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
-  } else {
-    startNo();
-  }
+    clicks++;
+  } else { startExplosion(); }
 });
 
-// --- EXPLOSIÓN CON ESTÁTICA ---
-function startNo() {
+function startExplosion() {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('count').classList.add('active');
   let c = 3;
@@ -272,61 +211,49 @@ function startNo() {
     if(c === 1) document.getElementById('mainBody').classList.add('shake-it');
     if(c === 0) {
       clearInterval(timer);
-      document.getElementById('static-effect').style.opacity = "0.8"; // ESTÁTICA
-      setTimeout(explode, 600);
+      document.getElementById('static-effect').style.opacity = "0.7";
+      setTimeout(realBoom, 600);
     }
   }, 1000);
 }
 
-function explode() {
+function realBoom() {
   document.getElementById('static-effect').style.opacity = "0";
   document.getElementById('count').classList.remove('active');
   document.getElementById('boom').classList.add('active');
-  
-  // Flash
   document.getElementById('flash-effect').style.opacity = "1";
-  setTimeout(() => document.getElementById('flash-effect').style.opacity = "0", 300);
+  setTimeout(() => document.getElementById('flash-effect').style.opacity = "0", 200);
 
   for(let i=0; i<300; i++) {
     setTimeout(() => {
       const b = document.createElement('div');
       b.className = 'explode-bubble';
-      const size = Math.random() * 50 + 20;
+      const size = Math.random() * 60 + 20;
       b.style.width = b.style.height = size + 'px';
       b.style.left = '50vw'; b.style.top = '50vh';
-      b.innerHTML = ['🍔', '🫧', '🍴', '🪨', '🔥'][Math.floor(Math.random()*5)];
-      b.style.fontSize = (size*0.8)+'px';
+      b.innerHTML = ['🍔', '🫧', '🍴', '🪨', '🌸'][Math.floor(Math.random()*5)];
+      b.style.fontSize = (size*0.7)+'px';
       document.body.appendChild(b);
-      
-      const angle = Math.random() * Math.PI * 2;
-      const dist = Math.random() * 1200 + 400;
-      b.animate([
-        { transform: 'translate(-50%, -50%) scale(0) rotate(0deg)', opacity: 1 },
-        { transform: `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) scale(3) rotate(720deg)`, opacity: 0 }
-      ], { duration: 2500, easing: 'ease-out' });
-      setTimeout(() => b.remove(), 2500);
-    }, i * 8);
+      const angle = Math.random() * Math.PI * 2, dist = Math.random() * 1200 + 400;
+      b.animate([{transform:'translate(-50%,-50%) scale(0)', opacity:1}, {transform:`translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) scale(3)`, opacity:0}], {duration:3000, easing:'ease-out'});
+      setTimeout(() => b.remove(), 3000);
+    }, i * 10);
   }
-
   setTimeout(() => {
     document.getElementById('mainBody').classList.remove('shake-it');
-    document.getElementById('boom').classList.remove('active');
     document.getElementById('no').classList.add('active');
-  }, 4000);
+  }, 5000);
 }
 
-// --- VICTORIA Y MODO FIESTA ---
 function yes() {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('yes').classList.add('active');
-  document.getElementById('mainBody').classList.add('party-bg'); // MODO FIESTA
+  document.getElementById('mainBody').classList.add('party-bg');
 }
 
 function startAdventure() {
   document.getElementById('adventureMode').style.display = 'flex';
-  setTimeout(() => {
-    document.getElementById('to-be-continued').style.right = '30px'; // CONTINUARÁ...
-  }, 2000);
+  setTimeout(() => { document.getElementById('to-be-continued').style.right = '20px'; }, 1500);
 }
 </script>
 </body>
