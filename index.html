@@ -123,10 +123,11 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
 
 #adventureMode {
   display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: radial-gradient(circle, #ff91d7 0%, #00d2ff 100%);
+  background: #00d2ff;
+  background-image: linear-gradient(#4facfe, #00f2fe);
   z-index: 200; align-items: center; justify-content: center; flex-direction: column; text-align: center; color: white;
 }
-#adventureText { font-size: 1.7rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.4); padding: 30px; font-weight: bold; }
+#adventureText { font-size: 1.7rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.4); padding: 30px; font-weight: bold; font-family: 'Patrick Hand', cursive; }
 
 .heart-final { position: fixed; pointer-events: none; z-index: 205; font-size: 35px; animation: heartRise 4s forwards linear; }
 @keyframes heartRise { 0% { transform: translateY(110vh) scale(0.5); opacity: 1; } 100% { transform: translateY(-20vh) scale(1.5); opacity: 0; } }
@@ -242,7 +243,7 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
 </section>
 
 <section class="screen" id="yes">
-  <div class="card card-victory" onclick="nextAfterYes('yes2')">
+  <div class="card card-victory" onclick="nextYes(1)">
     <h1>¡SWEET VICTORY! 🎉</h1>
     <p>¡Ahora soy oficialmente el chico más feliz de todo el océano!</p>
     <p>¡Hiciste de este 9 de febrero de 2026 el día más épico de mi vida!</p>
@@ -250,19 +251,25 @@ p { font-size: 1.1rem; font-weight: 600; line-height: 1.4; }
   </div>
 </section>
 
-<section class="screen" id="yes2" onclick="nextAfterYes('yes3')">
-  <div class="card card-victory">
-    <h1>¡Es oficial! 💍</h1>
-    <p>Prepárate para un exceso de mimos, risas y aventuras que ni Bob Esponja se imagina.</p>
-    <p>Prometo hacerte sonreír todos los días.</p>
+<section class="screen" id="y1" onclick="nextYes(2)">
+  <div class="card">
+    <h1>¡Al fin juntos! ✨</h1>
+    <p>No te imaginas lo nervioso que estaba, pero tu "Sí" lo arregló todo.</p>
   </div>
 </section>
 
-<section class="screen" id="yes3" onclick="startAdventure()">
-  <div class="card card-victory">
-    <h1>Te quiero mucho ❤️</h1>
-    <p>Gracias por decir que sí y por ser parte de mi mundo submarino.</p>
-    <div class="btn gold">VER NUESTRO ÁLBUM ÉPICO 🚀</div>
+<section class="screen" id="y2" onclick="nextYes(3)">
+  <div class="card">
+    <p>Eres mi persona favorita en todo Fondo de Bikini (y en la superficie también).</p>
+    <p>¡Te quiero muchísimo, Merry! ❤️</p>
+  </div>
+</section>
+
+<section class="screen" id="y3">
+  <div class="card">
+    <h1>¿Lista para lo que sigue?</h1>
+    <p>Nuestro viaje apenas comienza...</p>
+    <div class="btn gold" onclick="startAdventure()">NUESTRO ÁLBUM ÉPICO 🚀</div>
   </div>
 </section>
 
@@ -327,7 +334,7 @@ const btnNo = document.getElementById('runNo');
 const mainBody = document.getElementById('mainBody');
 
 const manejarIntento = (e) => {
-  if (intentosNo < 9) { // CAMBIADO DE 6 A 9
+  if (intentosNo < 9) { // ACTUALIZADO A 9
     e.preventDefault();
     const x = (Math.random() * 200) - 100;
     const y = (Math.random() * 200) - 100;
@@ -338,25 +345,25 @@ const manejarIntento = (e) => {
 };
 
 btnNo.addEventListener('touchstart', manejarIntento);
-btnNo.addEventListener('click', (e) => { if(intentosNo < 9) manejarIntento(e); }); // CAMBIADO A 9
+btnNo.addEventListener('click', (e) => { if(intentosNo < 9) manejarIntento(e); });
 
 function next(n){
   document.getElementById('s'+n).classList.remove('active');
   document.getElementById('s'+(n+1)).classList.add('active');
 }
 
-// NUEVA FUNCIÓN PARA PANTALLAS EXTRA
-function nextAfterYes(nextId){
-  hideAll();
-  document.getElementById(nextId).classList.add('active');
+function nextYes(n){
+  const current = n === 1 ? 'yes' : 'y'+(n-1);
+  const next = 'y'+n;
+  document.getElementById(current).classList.remove('active');
+  document.getElementById(next).classList.add('active');
 }
 
-/* --- VICTORIA MEJORADA --- */
+/* --- VICTORIA ORIGINAL --- */
 function yes(){ 
   hideAll(); 
   document.getElementById('yes').classList.add('active');
   
-  // Explosión de celebración (150 burbujas doradas y rosas)
   for(let i=0; i<150; i++){
     setTimeout(() => {
       const b = document.createElement('div');
@@ -423,7 +430,6 @@ function explode(){
 }
 
 function startAdventure() {
-  hideAll(); // Asegurar que cerramos las pantallas extra
   document.getElementById('adventureMode').style.display = 'flex';
   const phrases = [
     "Próxima parada: ¡Nuestra primera cita oficial! 🍨",
